@@ -28,6 +28,12 @@ public class MMenuEntity implements Serializable {
     private Long id;
 
     /**
+     * 默认菜单（0默认 1非默认）
+     */
+    @TableField("is_default")
+    private Boolean is_default;
+
+    /**
      * 编码
      */
     @TableField("code")

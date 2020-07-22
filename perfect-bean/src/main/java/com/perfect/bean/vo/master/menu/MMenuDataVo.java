@@ -1,5 +1,6 @@
 package com.perfect.bean.vo.master.menu;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.perfect.bean.vo.common.component.TreeNode;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
@@ -27,6 +28,11 @@ public class MMenuDataVo extends TreeNode implements Serializable {
     private static final long serialVersionUID = 2600003769017036105L;
 
     private Long id;
+
+    /**
+     * 默认菜单（0默认 1非默认）
+     */
+    private Boolean is_default;
 
     /**
      * 为页面上的顶部导航栏服务，取值为id需要转化为string
