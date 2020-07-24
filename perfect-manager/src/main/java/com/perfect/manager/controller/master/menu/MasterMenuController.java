@@ -78,9 +78,6 @@ public class MasterMenuController extends BaseController {
     @ResponseBody
     @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<MMenuDataVo>> addMenuGroup(@RequestBody(required = false) MMenuDataVo bean) {
-        bean.setIs_default(false);
-        System.out.println("bean.getIs_default()");
-        System.out.println(bean.getIs_default());
         bean.setTenant_id(super.getUserSessionTenantId());
         InsertResult<MMenuDataVo> rtn = service.addMenuGroup(bean);
         if(rtn.isSuccess()){

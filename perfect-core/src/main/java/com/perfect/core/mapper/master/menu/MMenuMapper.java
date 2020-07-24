@@ -55,6 +55,7 @@ public interface MMenuMapper extends BaseMapper<MMenuEntity> {
         + "             t1.depth_id,                                                                   "
         + "             t4.depth_id as parent_depth_id,                                                "
         + "             t2.code,                                                                       "
+        + "             t2.is_default,                                                                 "
         + "             t2.type,                                                                       "
         + "             t3.label as type_name,                                                         "
         + "             t2.visible,                                                                    "
