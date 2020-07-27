@@ -44,7 +44,7 @@ public class SDictDataVo extends UploadFileResultPojo implements Serializable {
     private String dict_value;
 
     /**
-     * 描述
+     * 说明
      */
     private String descr;
 
@@ -91,7 +91,7 @@ public class SDictDataVo extends UploadFileResultPojo implements Serializable {
     private String dictTypeCode;
 
     /**
-     * 字典类型描述
+     * 字典类型说明
      */
     private String dictTypeDescr;
 

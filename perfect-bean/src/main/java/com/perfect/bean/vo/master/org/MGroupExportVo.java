@@ -48,9 +48,9 @@ public class MGroupExportVo extends BaseVo implements Serializable {
     private String simple_name;
 
     /**
-     * 描述
+     * 说明
      */
-    @ExcelAnnotion(name = "描述")
+    @ExcelAnnotion(name = "说明")
     private String descr;
 
     /**

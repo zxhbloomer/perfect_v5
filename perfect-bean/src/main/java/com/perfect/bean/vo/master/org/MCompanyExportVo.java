@@ -80,9 +80,9 @@ public class MCompanyExportVo extends BaseVo implements Serializable {
     private LocalDate end_date;
 
     /**
-     * 描述
+     * 说明
      */
-    @ExcelAnnotion(name = "描述")
+    @ExcelAnnotion(name = "说明")
     private String descr;
 
     /**

@@ -18,7 +18,7 @@ public @interface LogByIdAnnotion {
 	String name();
 	/** 操作类型 */
 	OperationEnum type();
-	/** 业务操作描述 */
+	/** 业务操作说明 */
 	String oper_info();
 	/** 表名 */
 	String table_name();

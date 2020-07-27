@@ -31,7 +31,7 @@ public class SDictTypeExportVo extends BaseVo implements Serializable {
     @ExcelAnnotion(name = "字典名称")
     private String name;
 
-    @ExcelAnnotion(name = "描述")
+    @ExcelAnnotion(name = "说明")
     private String descr;
 
     @ExcelAnnotion(name = "是否删除")

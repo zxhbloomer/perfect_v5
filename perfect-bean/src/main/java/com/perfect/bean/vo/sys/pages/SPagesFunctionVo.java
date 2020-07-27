@@ -59,7 +59,7 @@ public class SPagesFunctionVo implements Serializable {
     private String perms;
 
     /**
-     * 描述
+     * 说明
      */
     private String descr;
 

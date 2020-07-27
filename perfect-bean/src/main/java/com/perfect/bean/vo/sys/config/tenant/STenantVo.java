@@ -84,7 +84,7 @@ public class STenantVo extends BaseVo implements Serializable {
     private Integer level;
 
     /**
-     * 描述
+     * 说明
      */
     private String descr;
 

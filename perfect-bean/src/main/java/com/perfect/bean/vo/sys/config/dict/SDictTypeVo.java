@@ -37,7 +37,7 @@ public class SDictTypeVo extends UploadFileResultPojo implements Serializable {
     private String code;
 
     /**
-     * 描述
+     * 说明
      */
     private String descr;
 

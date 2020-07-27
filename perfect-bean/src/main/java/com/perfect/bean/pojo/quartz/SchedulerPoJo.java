@@ -46,7 +46,7 @@ public class SchedulerPoJo implements Serializable {
     private String job_serial_id;
 
     /**
-     * 任务描述
+     * 任务说明
      */
     private String job_desc;
 

@@ -46,7 +46,7 @@ public class SFunctionEntity implements Serializable {
     private Integer sort;
 
     /**
-     * 描述
+     * 说明
      */
     @TableField("descr")
     private String descr;

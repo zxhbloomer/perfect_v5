@@ -51,7 +51,7 @@ public class SLogOperDetailEntity implements Serializable {
     private String type;
 
     /**
-     * 操作描述
+     * 操作说明
      */
     @TableField("oper_info")
     private String oper_info;

@@ -52,7 +52,7 @@ public class SDictDataEntity extends BaseEntity<SDictDataEntity> implements Seri
     private String dict_value;
 
     /**
-     * 描述
+     * 说明
      */
     @TableField("descr")
     private String descr;

@@ -70,7 +70,7 @@ public class MDeptEntity implements Serializable {
     private Long response_leader_id;
 
     /**
-     * 描述
+     * 说明
      */
     @TableField("descr")
     private String descr;

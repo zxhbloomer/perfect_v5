@@ -48,7 +48,7 @@ public class SModuleExportVo extends BaseVo implements Serializable {
     private String name;
 
     /**
-     * 描述
+     * 说明
      */
     @ExcelAnnotion(name = "模块类型")
     private String descr;

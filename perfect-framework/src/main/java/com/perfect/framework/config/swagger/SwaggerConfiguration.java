@@ -32,8 +32,8 @@ public class SwaggerConfiguration {
                 .contact(new Contact("xxxxxxxxxxx","15648260",""))
                 //版本号
                 .version("1.0")
-                //描述
-                .description("API 描述")
+                //说明
+                .description("API 说明")
                 .build();
     }
 }

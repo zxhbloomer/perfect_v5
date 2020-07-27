@@ -218,11 +218,11 @@ public final class CommonUtil {
      */
     public static Object copy(Object source, Object target) throws Exception {
 
-        // 获取对象的描述信息
+        // 获取对象的说明信息
         BeanInfo sf = Introspector.getBeanInfo(source.getClass());
         BeanInfo tf = Introspector.getBeanInfo(target.getClass());
 
-        // 获取属性描述信息，其中包括 属性名称，类型，属性的读写方法
+        // 获取属性说明信息，其中包括 属性名称，类型，属性的读写方法
         PropertyDescriptor[] desSf = sf.getPropertyDescriptors();
         PropertyDescriptor[] desTf = tf.getPropertyDescriptors();
 

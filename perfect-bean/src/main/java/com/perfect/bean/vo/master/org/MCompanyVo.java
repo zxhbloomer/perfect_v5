@@ -78,7 +78,7 @@ public class MCompanyVo extends BaseVo implements Serializable {
     private Boolean long_term;
 
     /**
-     * 描述
+     * 说明
      */
     private String descr;
 

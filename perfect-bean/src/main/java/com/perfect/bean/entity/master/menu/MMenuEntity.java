@@ -148,7 +148,7 @@ public class MMenuEntity implements Serializable {
     private Boolean affix;
 
     /**
-     * 描述
+     * 说明
      */
     @TableField("descr")
     private String descr;

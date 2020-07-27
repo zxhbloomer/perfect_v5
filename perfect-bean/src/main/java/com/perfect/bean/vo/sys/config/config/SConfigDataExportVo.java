@@ -48,9 +48,9 @@ public class SConfigDataExportVo extends BaseVo implements Serializable {
     private Boolean is_enable;
 
     /**
-     * 描述
+     * 说明
      */
-    @ExcelAnnotion(name = "描述")
+    @ExcelAnnotion(name = "说明")
     private String descr;
 
     private Long c_id;

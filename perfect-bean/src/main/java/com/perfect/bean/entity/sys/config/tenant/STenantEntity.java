@@ -95,7 +95,7 @@ public class STenantEntity implements Serializable {
 
 
     /**
-     * 描述
+     * 说明
      */
     @TableField("descr")
     private String descr;

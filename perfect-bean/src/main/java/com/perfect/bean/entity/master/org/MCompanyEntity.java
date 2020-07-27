@@ -90,7 +90,7 @@ public class MCompanyEntity implements Serializable {
     private Boolean long_term;
 
     /**
-     * 描述
+     * 说明
      */
     @TableField("descr")
     private String descr;

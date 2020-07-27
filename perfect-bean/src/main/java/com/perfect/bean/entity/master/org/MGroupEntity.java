@@ -46,7 +46,7 @@ public class MGroupEntity implements Serializable {
     private String simple_name;
 
     /**
-     * 描述
+     * 说明
      */
     @TableField("descr")
     private String descr;

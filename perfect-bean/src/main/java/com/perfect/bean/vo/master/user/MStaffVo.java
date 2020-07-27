@@ -151,7 +151,7 @@ public class MStaffVo extends BaseVo implements Serializable {
     private String dept_simple_name;
 
     /**
-     * 描述
+     * 说明
      */
     private String descr;
 

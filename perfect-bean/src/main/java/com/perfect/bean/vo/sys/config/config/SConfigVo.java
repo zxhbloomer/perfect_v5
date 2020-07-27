@@ -44,7 +44,7 @@ public class SConfigVo extends UploadFileResultPojo implements Serializable {
     private Boolean is_enable;
 
     /**
-     * 描述
+     * 说明
      */
     private String descr;
 

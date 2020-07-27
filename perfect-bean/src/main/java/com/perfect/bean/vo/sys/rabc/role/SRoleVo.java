@@ -38,7 +38,7 @@ public class SRoleVo extends UploadFileResultPojo implements Serializable {
     private String name;
 
     /**
-     * 描述
+     * 说明
      */
     private String descr;
 

@@ -57,9 +57,9 @@ public class SResourceExportVo extends BaseVo implements Serializable {
     private String extension;
 
     /**
-     * 描述
+     * 说明
      */
-    @ExcelAnnotion(name = "描述")
+    @ExcelAnnotion(name = "说明")
     private String descr;
 
 }

@@ -69,7 +69,7 @@ public class MDeptVo extends BaseVo implements Serializable {
     private String response_leader_id_name;
 
     /**
-     * 描述
+     * 说明
      */
     private String descr;
 

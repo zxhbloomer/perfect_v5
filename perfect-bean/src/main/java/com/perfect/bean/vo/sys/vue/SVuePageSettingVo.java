@@ -52,7 +52,7 @@ public class SVuePageSettingVo implements Serializable {
     private String meta_icon;
 
     /**
-     * 描述
+     * 说明
      */
     private String descr;
 

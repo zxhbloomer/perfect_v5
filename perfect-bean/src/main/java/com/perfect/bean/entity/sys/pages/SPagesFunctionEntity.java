@@ -58,7 +58,7 @@ public class SPagesFunctionEntity implements Serializable {
     private String perms;
 
     /**
-     * 描述
+     * 说明
      */
     @TableField("descr")
     private String descr;

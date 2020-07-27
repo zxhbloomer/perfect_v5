@@ -30,7 +30,7 @@ public class BeanSetting {
         TitleCol titleCol1 = new TitleCol("角色类型");
         TitleCol titleCol2 = new TitleCol("角色编码");
         TitleCol titleCol3 = new TitleCol("角色名称");
-        TitleCol titleCol4 = new TitleCol("描述");
+        TitleCol titleCol4 = new TitleCol("说明");
         TitleCol titleCol5 = new TitleCol("简称");
 
         cols.add(titleCol1);

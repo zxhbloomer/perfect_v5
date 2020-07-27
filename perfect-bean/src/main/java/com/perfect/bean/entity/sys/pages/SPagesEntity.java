@@ -64,7 +64,7 @@ public class SPagesEntity implements Serializable {
     private String meta_icon;
 
     /**
-     * 描述
+     * 说明
      */
     @TableField("descr")
     private String descr;

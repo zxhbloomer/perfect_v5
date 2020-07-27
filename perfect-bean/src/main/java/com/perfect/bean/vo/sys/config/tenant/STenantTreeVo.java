@@ -49,7 +49,7 @@ public class STenantTreeVo extends TreeNode implements Serializable {
     private Boolean is_leaf;
 
     /**
-     * 描述
+     * 说明
      */
     private String descr;
 

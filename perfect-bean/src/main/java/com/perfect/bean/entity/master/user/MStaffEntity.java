@@ -160,7 +160,7 @@ public class MStaffEntity extends BaseEntity<MStaffEntity> implements Serializab
     private Long dept_id;
 
     /**
-     * 描述
+     * 说明
      */
     @TableField("descr")
     private String descr;

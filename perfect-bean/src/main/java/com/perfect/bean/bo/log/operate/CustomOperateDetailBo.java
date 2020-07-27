@@ -22,7 +22,7 @@ public class CustomOperateDetailBo<T> {
     /** 业务名 */
     private OperationEnum type;
 
-    /** 业务操作描述 */
+    /** 业务操作说明 */
     private String oper_info;
 
     /** 表名 */

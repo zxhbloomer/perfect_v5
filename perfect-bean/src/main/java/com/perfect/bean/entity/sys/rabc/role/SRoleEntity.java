@@ -45,7 +45,7 @@ public class SRoleEntity extends BaseEntity<SRoleEntity> implements Serializable
     private String name;
 
     /**
-     * 描述
+     * 说明
      */
     @TableField("descr")
     private String descr;

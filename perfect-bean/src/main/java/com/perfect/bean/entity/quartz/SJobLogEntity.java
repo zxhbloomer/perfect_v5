@@ -70,7 +70,7 @@ public class SJobLogEntity implements Serializable {
     private String job_serial_type;
 
     /**
-     * 任务描述
+     * 任务说明
      */
     @TableField("job_desc")
     private String job_desc;

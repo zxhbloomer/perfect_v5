@@ -46,7 +46,7 @@ public class MUserEntity extends BaseEntity<MUserEntity> implements Serializable
     private String type;
 
     /**
-     * 描述
+     * 说明
      */
     @TableField("introduction")
     private String introduction;

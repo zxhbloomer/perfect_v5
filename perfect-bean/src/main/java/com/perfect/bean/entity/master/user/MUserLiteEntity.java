@@ -44,7 +44,7 @@ public class MUserLiteEntity extends BaseEntity<MUserLiteEntity> implements Seri
     private String type;
 
     /**
-     * 描述
+     * 说明
      */
     @TableField("descr")
     private String descr;

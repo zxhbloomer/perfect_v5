@@ -38,7 +38,7 @@ public class SLogSysEntity extends BaseEntity<SLogSysEntity> implements Serializ
     private String user_name;
 
     /**
-     * 操作描述
+     * 操作说明
      */
     @TableField("operation")
     private String operation;

@@ -46,7 +46,7 @@ public class MGroupVo extends BaseVo implements Serializable {
     private String simple_name;
 
     /**
-     * 描述
+     * 说明
      */
     private String descr;
 

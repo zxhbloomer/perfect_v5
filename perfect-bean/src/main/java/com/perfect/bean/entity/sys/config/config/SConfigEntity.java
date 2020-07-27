@@ -52,7 +52,7 @@ public class SConfigEntity implements Serializable {
     private Boolean is_enable;
 
     /**
-     * 描述
+     * 说明
      */
     @TableField("descr")
     private String descr;

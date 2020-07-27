@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
 public @interface LimitAnnotion {
 
     /**
-     * 资源名称，用于描述接口功能
+     * 资源名称，用于说明接口功能
      */
     String name() default "";
 

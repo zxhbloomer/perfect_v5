@@ -92,7 +92,7 @@ public class SModuleVo extends BaseVo implements Serializable {
     private Boolean affix;
 
     /**
-     * 描述
+     * 说明
      */
     private String descr;
 
@@ -112,7 +112,7 @@ public class SModuleVo extends BaseVo implements Serializable {
     private String templateName;
 
     /**
-     * 资源描述
+     * 资源说明
      */
     private String templateDescr;
 

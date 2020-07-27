@@ -74,9 +74,9 @@ public class MDeptExportVo implements Serializable {
     private String response_leader_id_name;
 
     /**
-     * 描述
+     * 说明
      */
-    @ExcelAnnotion(name = "描述")
+    @ExcelAnnotion(name = "说明")
     private String descr;
 
     /**

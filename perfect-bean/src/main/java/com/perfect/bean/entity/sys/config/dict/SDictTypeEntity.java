@@ -43,7 +43,7 @@ public class SDictTypeEntity extends BaseEntity<SDictTypeEntity> implements Seri
     private String code;
 
     /**
-     * 描述
+     * 说明
      */
     @TableField("descr")
     private String descr;

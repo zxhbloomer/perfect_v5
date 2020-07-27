@@ -152,7 +152,7 @@ public class MMenuDataVo extends TreeNode implements Serializable {
     private Boolean affix;
 
     /**
-     * 描述
+     * 说明
      */
     private String descr;
 

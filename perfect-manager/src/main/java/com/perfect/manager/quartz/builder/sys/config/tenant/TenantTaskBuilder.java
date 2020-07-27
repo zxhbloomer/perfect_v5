@@ -121,7 +121,7 @@ public class TenantTaskBuilder {
 //                                        .job_serial_id(null)
                                         // 关联表名字：待赋值
 //                                        .job_serial_type(null)
-                                        // 任务描述
+                                        // 任务说明
                                         .job_desc("系统自动生产该项任务")
                                         // 任务简称
                                         .job_simple_name("租户定时")

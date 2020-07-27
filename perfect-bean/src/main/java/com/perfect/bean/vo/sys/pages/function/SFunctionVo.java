@@ -48,7 +48,7 @@ public class SFunctionVo implements Serializable {
     private int min_sort;
 
     /**
-     * 描述
+     * 说明
      */
     private String descr;
 

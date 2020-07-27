@@ -65,7 +65,7 @@ public class SResourceEntity extends BaseEntity<SResourceEntity> implements Seri
     private String extension;
 
     /**
-     * 描述
+     * 说明
      */
     @TableField("descr")
     private String descr;
