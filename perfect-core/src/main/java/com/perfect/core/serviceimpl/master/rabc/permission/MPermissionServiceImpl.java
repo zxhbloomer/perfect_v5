@@ -97,7 +97,7 @@ public class MPermissionServiceImpl extends BaseServiceImpl<MPermissionMapper, M
                 bean.setIs_del(!bean.getIs_del());
             }
         );
-        saveOrUpdateBatch(list, 500);
+//        saveOrUpdateBatch(list, 500);
     }
 
     /**
