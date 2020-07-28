@@ -1,16 +1,14 @@
 package com.perfect.manager.controller.master.rabc.permission.dept;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.perfect.bean.entity.master.org.MDeptEntity;
 import com.perfect.bean.pojo.result.JsonResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;
 import com.perfect.bean.vo.master.org.MDeptExportVo;
-import com.perfect.bean.vo.master.org.MDeptVo;
+import com.perfect.bean.vo.master.rabc.permission.MPermissionVo;
 import com.perfect.common.annotations.SysLogAnnotion;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
 import com.perfect.common.utils.bean.BeanUtilsSupport;
-import com.perfect.core.service.master.org.IMDeptService;
 import com.perfect.core.service.master.rabc.permission.IMPermissionService;
 import com.perfect.excel.export.ExcelUtil;
 import com.perfect.framework.base.controller.v1.BaseController;
@@ -45,9 +43,9 @@ public class PermissionDeptController extends BaseController {
     @ApiOperation("根据参数id，获取部门主表信息")
     @PostMapping("/list")
     @ResponseBody
-    public ResponseEntity<JsonResult<IPage<MDeptVo>>> list(@RequestBody(required = false)
-        MDeptVo searchCondition)  {
-        IPage<MDeptVo> entity = permissionService.selectPage(searchCondition);
+    public ResponseEntity<JsonResult<IPage<MPermissionVo>>> list(@RequestBody(required = false)
+        MPermissionVo searchCondition)  {
+        IPage<MPermissionVo> entity = permissionService.selectPage(searchCondition);
         return ResponseEntity.ok().body(ResultUtil.OK(entity));
     }
 
@@ -55,7 +53,7 @@ public class PermissionDeptController extends BaseController {
     @ApiOperation("根据参数id，获取部门主表信息")
     @PostMapping("/save")
     @ResponseBody
-    public ResponseEntity<JsonResult<MDeptVo>> save(@RequestBody(required = false) MDeptEntity bean) {
+    public ResponseEntity<JsonResult<MPermissionVo>> save(@RequestBody(required = false) MPermissionVo bean) {
 
         if(permissionService.update(bean).isSuccess()){
             return ResponseEntity.ok().body(ResultUtil.OK(permissionService.selectByid(bean.getId()),"更新成功"));
@@ -68,7 +66,7 @@ public class PermissionDeptController extends BaseController {
     @ApiOperation("根据参数id，获取部门主表信息")
     @PostMapping("/insert")
     @ResponseBody
-    public ResponseEntity<JsonResult<MDeptVo>> insert(@RequestBody(required = false) MDeptEntity bean) {
+    public ResponseEntity<JsonResult<MPermissionVo>> insert(@RequestBody(required = false) MPermissionVo bean) {
         if(permissionService.insert(bean).isSuccess()){
             return ResponseEntity.ok().body(ResultUtil.OK(permissionService.selectByid(bean.getId()),"插入成功"));
         } else {
@@ -79,9 +77,9 @@ public class PermissionDeptController extends BaseController {
     @SysLogAnnotion("部门主表数据导出")
     @ApiOperation("根据选择的数据，部门主表数据导出")
     @PostMapping("/export_selection")
-    public void exportSelection(@RequestBody(required = false) List<MDeptVo> searchConditionList, HttpServletResponse response) throws
+    public void exportSelection(@RequestBody(required = false) List<MPermissionVo> searchConditionList, HttpServletResponse response) throws
         IOException {
-        List<MDeptVo> searchResult = permissionService.selectIdsInForExport(searchConditionList);
+        List<MPermissionVo> searchResult = permissionService.selectIdsInForExport(searchConditionList);
         List<MDeptExportVo> rtnList = BeanUtilsSupport.copyProperties(searchResult, MDeptExportVo.class);
         ExcelUtil<MDeptExportVo> util = new ExcelUtil<>(MDeptExportVo.class);
         util.exportExcel("部门主表数据导出", "部门主表数据", rtnList, response);
@@ -91,7 +89,7 @@ public class PermissionDeptController extends BaseController {
     @ApiOperation("根据参数id，逻辑删除复原数据")
     @PostMapping("/delete")
     @ResponseBody
-    public ResponseEntity<JsonResult<String>> delete(@RequestBody(required = false) List<MDeptVo> searchConditionList) {
+    public ResponseEntity<JsonResult<String>> delete(@RequestBody(required = false) List<MPermissionVo> searchConditionList) {
         permissionService.deleteByIdsIn(searchConditionList);
         return ResponseEntity.ok().body(ResultUtil.OK("OK"));
     }
