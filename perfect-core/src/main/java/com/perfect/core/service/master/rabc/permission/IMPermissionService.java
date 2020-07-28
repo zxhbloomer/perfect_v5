@@ -2,7 +2,6 @@ package com.perfect.core.service.master.rabc.permission;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.perfect.bean.entity.master.org.MDeptEntity;
 import com.perfect.bean.entity.master.rabc.permission.MPermissionEntity;
 import com.perfect.bean.pojo.result.InsertResult;
 import com.perfect.bean.pojo.result.UpdateResult;
@@ -33,7 +32,7 @@ public interface IMPermissionService extends IService<MPermissionEntity> {
     /**
      * 获取所选id的数据
      */
-    List<MDeptEntity> selectIdsIn(List<MPermissionVo> searchCondition) ;
+    List<MPermissionVo> selectIdsIn(List<MPermissionVo> searchCondition) ;
 
 
     /**
@@ -47,13 +46,13 @@ public interface IMPermissionService extends IService<MPermissionEntity> {
      * 插入一条记录（选择字段，策略插入）
      * @return
      */
-    InsertResult<Integer> insert(MPermissionVo vo);
+    InsertResult<MPermissionVo> insert(MPermissionVo vo);
 
     /**
      * 更新一条记录（选择字段，策略更新）
      * @return
      */
-    UpdateResult<Integer> update(MPermissionVo vo);
+    UpdateResult<MPermissionVo> update(MPermissionVo vo);
 
     /**
      * 获取数据byid

@@ -2,7 +2,6 @@ package com.perfect.core.serviceimpl.master.rabc.permission;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.perfect.bean.entity.master.org.MDeptEntity;
 import com.perfect.bean.entity.master.rabc.permission.MPermissionEntity;
 import com.perfect.bean.pojo.result.CheckResult;
 import com.perfect.bean.pojo.result.InsertResult;
@@ -12,12 +11,12 @@ import com.perfect.bean.result.utils.v1.InsertResultUtil;
 import com.perfect.bean.result.utils.v1.UpdateResultUtil;
 import com.perfect.bean.vo.master.rabc.permission.MPermissionVo;
 import com.perfect.common.exception.BusinessException;
-import com.perfect.common.utils.string.StringUtil;
-import com.perfect.core.mapper.master.org.MDeptMapper;
+import com.perfect.common.exception.InsertErrorException;
+import com.perfect.common.exception.UpdateErrorException;
+import com.perfect.common.utils.bean.BeanUtilsSupport;
 import com.perfect.core.mapper.master.rabc.permission.MPermissionMapper;
 import com.perfect.core.service.base.v1.BaseServiceImpl;
 import com.perfect.core.service.master.rabc.permission.IMPermissionService;
-import com.perfect.core.serviceimpl.common.autocode.MDeptAutoCodeImpl;
 import com.perfect.core.utils.mybatis.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,8 +38,6 @@ public class MPermissionServiceImpl extends BaseServiceImpl<MPermissionMapper, M
 
     @Autowired
     private MPermissionMapper mapper;
-    @Autowired
-    private MDeptAutoCodeImpl autoCode;
 
     /**
      * 获取列表，页面查询
@@ -52,7 +49,7 @@ public class MPermissionServiceImpl extends BaseServiceImpl<MPermissionMapper, M
     public IPage<MPermissionVo> selectPage(MPermissionVo searchCondition) {
         searchCondition.setTenant_id(getUserSessionTenantId());
         // 分页条件
-        Page<MDeptEntity> pageCondition =
+        Page<MPermissionVo> pageCondition =
             new Page(searchCondition.getPageCondition().getCurrent(), searchCondition.getPageCondition().getSize());
         // 通过page进行排序
         PageUtil.setSort(pageCondition, searchCondition.getPageCondition().getSort());
@@ -80,22 +77,9 @@ public class MPermissionServiceImpl extends BaseServiceImpl<MPermissionMapper, M
      * @return
      */
     @Override
-    public List<MDeptEntity> selectIdsIn(List<MPermissionVo> searchCondition) {
+    public List<MPermissionVo> selectIdsIn(List<MPermissionVo> searchCondition) {
         // 查询 数据
-        List<MDeptEntity> list = mapper.selectIdsIn(searchCondition, getUserSessionTenantId());
-        return list;
-    }
-
-    /**
-     * 获取列表，根据id查询所有数据,导出用
-     *
-     * @param searchCondition
-     * @return
-     */
-    @Override
-    public List<MPermissionVo> selectIdsInForExport(List<MPermissionVo> searchCondition) {
-        // 查询 数据
-        List<MPermissionVo> list = mapper.selectIdsInForExport(searchCondition);
+        List<MPermissionVo> list = mapper.selectIdsIn(searchCondition, getUserSessionTenantId());
         return list;
     }
 
@@ -107,7 +91,7 @@ public class MPermissionServiceImpl extends BaseServiceImpl<MPermissionMapper, M
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteByIdsIn(List<MPermissionVo> searchCondition) {
-        List<MDeptEntity> list = mapper.selectIdsIn(searchCondition, getUserSessionTenantId());
+        List<MPermissionVo> list = mapper.selectIdsIn(searchCondition, getUserSessionTenantId());
         list.forEach(
             bean -> {
                 bean.setIs_del(!bean.getIs_del());
@@ -118,45 +102,52 @@ public class MPermissionServiceImpl extends BaseServiceImpl<MPermissionMapper, M
 
     /**
      * 插入一条记录（选择字段，策略插入）
-     * @param entity 实体对象
+     * @param vo
      * @return
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public InsertResult<Integer> insert(MPermissionVo vo) {
-        // 编码如果为空，自动生成编码
-        if(StringUtil.isEmpty(vo.getCode())){
-            vo.setCode(autoCode.autoCode().getCode());
-        }
+    public InsertResult<MPermissionVo> insert(MPermissionVo vo) {
+
         // 插入前check
         CheckResult cr = checkLogic(vo, CheckResult.INSERT_CHECK_TYPE);
         if (cr.isSuccess() == false) {
             throw new BusinessException(cr.getMessage());
         }
         // 插入逻辑保存
+        MPermissionEntity entity = (MPermissionEntity)BeanUtilsSupport.copyProperties(vo, MPermissionEntity.class);
         vo.setIs_del(false);
         vo.setTenant_id(getUserSessionTenantId());
-        return InsertResultUtil.OK(mapper.insert(entity));
+        int count = mapper.insert(entity);
+        if(count == 0){
+            throw new InsertErrorException("保存失败，请查询后重新再试。");
+        }
+        return InsertResultUtil.OK(selectByid(entity.getId()));
     }
 
     /**
      * 更新一条记录（选择字段，策略更新）
-     * @param entity 实体对象
+     * @param vo
      * @return
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public UpdateResult<Integer> update(MPermissionVo vo) {
+    public UpdateResult<MPermissionVo> update(MPermissionVo vo) {
         // 更新前check
         CheckResult cr = checkLogic(vo, CheckResult.UPDATE_CHECK_TYPE);
         if (cr.isSuccess() == false) {
             throw new BusinessException(cr.getMessage());
         }
         // 更新逻辑保存
+        MPermissionEntity entity = (MPermissionEntity) BeanUtilsSupport.copyProperties(vo, MPermissionEntity.class);
         vo.setC_id(null);
         vo.setC_time(null);
         vo.setTenant_id(getUserSessionTenantId());
-        return UpdateResultUtil.OK(mapper.updateById(vo));
+        int count = mapper.updateById(entity);
+        if(count == 0){
+            throw new UpdateErrorException("保存的数据已经被修改，请查询后重新编辑更新。");
+        }
+        return UpdateResultUtil.OK(selectByid(entity.getId()));
     }
 
     /**
@@ -175,9 +166,9 @@ public class MPermissionServiceImpl extends BaseServiceImpl<MPermissionMapper, M
      * @param code
      * @return
      */
-    public List<MDeptEntity> selectByCode(String code, Long equal_id, Long not_equal_id) {
+    public List<MPermissionVo> selectByCode(String code, Long equal_id, Long not_equal_id) {
         // 查询 数据
-        List<MDeptEntity> list = mapper.selectByCode(code, equal_id, not_equal_id, getUserSessionTenantId());
+        List<MPermissionVo> list = mapper.selectByCode(code, equal_id, not_equal_id, getUserSessionTenantId());
         return list;
     }
 
@@ -187,9 +178,9 @@ public class MPermissionServiceImpl extends BaseServiceImpl<MPermissionMapper, M
      * @param name
      * @return
      */
-    public List<MDeptEntity> selectByName(String name, Long equal_id, Long not_equal_id) {
+    public List<MPermissionVo> selectByName(String name, Long equal_id, Long not_equal_id) {
         // 查询 数据
-        List<MDeptEntity> list = mapper.selectByName(name, equal_id, not_equal_id, getUserSessionTenantId());
+        List<MPermissionVo> list = mapper.selectByName(name, equal_id, not_equal_id, getUserSessionTenantId());
         return list;
     }
 
@@ -199,9 +190,9 @@ public class MPermissionServiceImpl extends BaseServiceImpl<MPermissionMapper, M
      * @param name
      * @return
      */
-    public List<MDeptEntity> selectBySimpleName(String name, Long equal_id, Long not_equal_id) {
+    public List<MPermissionVo> selectBySimpleName(String name, Long equal_id, Long not_equal_id) {
         // 查询 数据
-        List<MDeptEntity> list = mapper.selectBySimpleName(name, equal_id, not_equal_id, getUserSessionTenantId());
+        List<MPermissionVo> list = mapper.selectBySimpleName(name, equal_id, not_equal_id, getUserSessionTenantId());
         return list;
     }
 
@@ -209,69 +200,11 @@ public class MPermissionServiceImpl extends BaseServiceImpl<MPermissionMapper, M
      * check逻辑
      * @return
      */
-    public CheckResult checkLogic(MDeptEntity entity, String moduleType){
+    public CheckResult checkLogic(MPermissionVo vo, String moduleType){
         switch (moduleType) {
             case CheckResult.INSERT_CHECK_TYPE:
-                // 新增场合，不能重复
-                List<MDeptEntity> codeList_insertCheck = selectByCode(entity.getCode(), null, null);
-                //                List<MDeptEntity> nameList_insertCheck = selectByName(entity.getName(), null, null);
-                //                List<MDeptEntity> simple_name_insertCheck = selectBySimpleName(entity.getSimple_name(), null, null);
-                if (codeList_insertCheck.size() >= 1) {
-                    return CheckResultUtil.NG("新增保存出错：部门编号【" + entity.getCode() + "】出现重复", entity.getCode());
-                }
-                //                if (nameList_insertCheck.size() >= 1) {
-                //                    return CheckResultUtil.NG("新增保存出错：部门全称【" + entity.getName() + "】出现重复", entity.getName());
-                //                }
-                //                if (simple_name_insertCheck.size() >= 1) {
-                //                    return CheckResultUtil.NG("新增保存出错：部门简称【" + entity.getSimple_name() + "】出现重复", entity.getSimple_name());
-                //                }
                 break;
             case CheckResult.UPDATE_CHECK_TYPE:
-                // 更新场合，不能重复设置
-                List<MDeptEntity> codeList_updCheck = selectByCode(entity.getCode(), null, entity.getId());
-                //                List<MDeptEntity> nameList_updCheck = selectByName(entity.getName(), null, entity.getId());
-                //                List<MDeptEntity> simple_name_updCheck = selectBySimpleName(entity.getSimple_name(), null, entity.getId());
-
-                if (codeList_updCheck.size() >= 1) {
-                    return CheckResultUtil.NG("更新保存出错：部门编号【" + entity.getCode() + "】出现重复！", entity.getCode());
-                }
-                //                if (nameList_updCheck.size() >= 1) {
-                //                    return CheckResultUtil.NG("更新保存出错：部门全称【" + entity.getName() + "】出现重复！", entity.getName());
-                //                }
-                //                if (simple_name_updCheck.size() >= 1) {
-                //                    return CheckResultUtil.NG("更新保存出错：部门简称【" + entity.getSimple_name() + "】出现重复！", entity.getSimple_name());
-                //                }
-                break;
-            case CheckResult.DELETE_CHECK_TYPE:
-                /** 如果逻辑删除为false，表示为：页面点击了删除操作 */
-                if(entity.getIs_del()) {
-                    return CheckResultUtil.OK();
-                }
-                // 是否被使用的check，如果被使用则不能删除
-                int count = mapper.isExistsInOrg(entity);
-                if(count > 0){
-                    return CheckResultUtil.NG("删除出错：该企业【"+ entity.getSimple_name() +"】在组织机构中正在使用！", count);
-                }
-                break;
-            case CheckResult.UNDELETE_CHECK_TYPE:
-                /** 如果逻辑删除为true，表示为：页面点击了删除操作 */
-                if(!entity.getIs_del()) {
-                    return CheckResultUtil.OK();
-                }
-                // 更新场合，不能重复设置
-                List<MDeptEntity> codeList_undel_Check = selectByCode(entity.getCode(), null, entity.getId());
-                //                List<MDeptEntity> nameList_undel_updCheck = selectByName(entity.getName(), null, entity.getId());
-                //                List<MDeptEntity> simple_name_undel_updCheck = selectBySimpleName(entity.getSimple_name(), null, entity.getId());
-
-                if (codeList_undel_Check.size() >= 1) {
-                    return CheckResultUtil.NG("复原出错：部门编号【" + entity.getCode() + "】出现重复", entity.getCode());
-                }
-                //                if (nameList_undel_updCheck.size() >= 1) {
-                //                    return CheckResultUtil.NG("复原出错：部门全称【" + entity.getName() + "】出现重复", entity.getName());
-                //                }
-                //                if (simple_name_undel_updCheck.size() >= 1) {
-                //                    return CheckResultUtil.NG("复原出错：部门简称【" + entity.getSimple_name() + "】出现重复", entity.getSimple_name());
-                //                }
                 break;
             default:
         }
