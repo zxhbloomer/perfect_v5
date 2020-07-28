@@ -2,11 +2,11 @@ package com.perfect.core.service.master.rabc.permission;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.perfect.bean.entity.master.org.MOrgEntity;
+import com.perfect.bean.entity.master.org.MDeptEntity;
 import com.perfect.bean.entity.master.rabc.permission.MPermissionEntity;
-import com.perfect.bean.vo.common.component.NameAndValueVo;
-import com.perfect.bean.vo.master.org.*;
-import com.perfect.bean.vo.master.user.MStaffVo;
+import com.perfect.bean.pojo.result.InsertResult;
+import com.perfect.bean.pojo.result.UpdateResult;
+import com.perfect.bean.vo.master.rabc.permission.MPermissionVo;
 
 import java.util.List;
 
@@ -20,4 +20,45 @@ import java.util.List;
  */
 public interface IMPermissionService extends IService<MPermissionEntity> {
 
+    /**
+     * 获取列表，页面查询
+     */
+    IPage<MPermissionVo> selectPage(MPermissionVo searchCondition) ;
+
+    /**
+     * 获取所有数据
+     */
+    List<MPermissionVo> select(MPermissionVo searchCondition) ;
+
+    /**
+     * 获取所选id的数据
+     */
+    List<MDeptEntity> selectIdsIn(List<MPermissionVo> searchCondition) ;
+
+
+    /**
+     * 批量删除复原
+     * @param searchCondition
+     * @return
+     */
+    void deleteByIdsIn(List<MPermissionVo> searchCondition);
+
+    /**
+     * 插入一条记录（选择字段，策略插入）
+     * @return
+     */
+    InsertResult<Integer> insert(MPermissionVo vo);
+
+    /**
+     * 更新一条记录（选择字段，策略更新）
+     * @return
+     */
+    UpdateResult<Integer> update(MPermissionVo vo);
+
+    /**
+     * 获取数据byid
+     * @param id
+     * @return
+     */
+    MPermissionVo selectByid(Long id);
 }
