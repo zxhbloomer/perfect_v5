@@ -3,14 +3,11 @@ package com.perfect.manager.controller.master.rabc.permission.dept;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.perfect.bean.pojo.result.JsonResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;
-import com.perfect.bean.vo.master.org.MDeptExportVo;
 import com.perfect.bean.vo.master.rabc.permission.MPermissionVo;
 import com.perfect.common.annotations.SysLogAnnotion;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
-import com.perfect.common.utils.bean.BeanUtilsSupport;
 import com.perfect.core.service.master.rabc.permission.IMPermissionService;
-import com.perfect.excel.export.ExcelUtil;
 import com.perfect.framework.base.controller.v1.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,8 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -72,17 +67,6 @@ public class PermissionDeptController extends BaseController {
         } else {
             throw new InsertErrorException("新增保存失败。");
         }
-    }
-
-    @SysLogAnnotion("部门主表数据导出")
-    @ApiOperation("根据选择的数据，部门主表数据导出")
-    @PostMapping("/export_selection")
-    public void exportSelection(@RequestBody(required = false) List<MPermissionVo> searchConditionList, HttpServletResponse response) throws
-        IOException {
-        List<MPermissionVo> searchResult = permissionService.selectIdsInForExport(searchConditionList);
-        List<MDeptExportVo> rtnList = BeanUtilsSupport.copyProperties(searchResult, MDeptExportVo.class);
-        ExcelUtil<MDeptExportVo> util = new ExcelUtil<>(MDeptExportVo.class);
-        util.exportExcel("部门主表数据导出", "部门主表数据", rtnList, response);
     }
 
     @SysLogAnnotion("部门主表数据逻辑删除复原")
