@@ -3,6 +3,7 @@ package com.perfect.core.mapper.master.rabc.permission.org;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.perfect.bean.entity.master.rabc.permission.MPermissionEntity;
 import com.perfect.bean.vo.master.org.MOrgTreeVo;
+import com.perfect.common.constant.PerfectDictConstant;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -62,7 +63,7 @@ public interface MPermissionOrgMapper extends BaseMapper<MPermissionEntity> {
         + "                    from cte t1                                                                              "
         + "          inner join m_org t2 on t1.id = t2.id                                                               "
         + "           left join v_org_name t3 on t3.serial_type = t2.serial_type and t3.serial_id = t2.serial_id        "
-        + "           left join v_dict_info t4 on t4.dict_value = t2.type and t4.code = 'org_setting_type'                                          "
+        + "           left join v_dict_info t4 on t4.dict_value = t2.type and t4.code = '"+PerfectDictConstant.DICT_ORG_SETTING_TYPE+"'     "
         + "                                                                          ";
 
     /**
@@ -73,6 +74,7 @@ public interface MPermissionOrgMapper extends BaseMapper<MPermissionEntity> {
         + "  where true                                                                                              "
         + "    and (t1.tenant_id = #{p1.tenant_id,jdbcType=BIGINT} or #{p1.tenant_id,jdbcType=BIGINT} is null)       "
         + "    and (t2.code like CONCAT (#{p1.code,jdbcType=VARCHAR},'%') or #{p1.code,jdbcType=VARCHAR} is null)    "
+        + "    and (t2.serial_type != '"+ PerfectDictConstant.DICT_ORG_SETTING_TYPE_POSITION_SERIAL_TYPE +"')        "
         + "   <if test='p1.codes != null and p1.codes.length!=0' >                                                   "
         + "    and t3.serial_type in                                                                                 "
         + "        <foreach collection='p1.codes' item='item' index='index' open='(' separator=',' close=')'>        "
