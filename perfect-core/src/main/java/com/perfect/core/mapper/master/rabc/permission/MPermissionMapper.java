@@ -46,6 +46,9 @@ public interface MPermissionMapper extends BaseMapper<MPermissionEntity> {
         + "    and (t1.is_del =#{p1.is_del,jdbcType=VARCHAR} or #{p1.is_del,jdbcType=VARCHAR} is null)                 "
         + "    and (t1.tenant_id =#{p1.tenant_id,jdbcType=BIGINT} or #{p1.tenant_id,jdbcType=BIGINT} is null)          "
         + "    and (t1.id =#{p1.id,jdbcType=BIGINT} or #{p1.id,jdbcType=BIGINT} is null)                               "
+        + "    and t1.serial_type = '"+ PerfectDictConstant.DICT_SYS_CODE_TYPE_M_DEPT +"'                              "
+        + "    and t1.serial_id = #{p1.serial_id,jdbcType=BIGINT}                                                      "
+        + "    and (t1.id =#{p1.id,jdbcType=BIGINT} or #{p1.id,jdbcType=BIGINT} is null)                               "
         + "      ")
     IPage<MPermissionVo> selectPage(Page page, @Param("p1") MPermissionVo searchCondition);
 

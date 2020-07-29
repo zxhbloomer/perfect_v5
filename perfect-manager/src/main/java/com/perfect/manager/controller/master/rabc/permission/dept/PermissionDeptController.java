@@ -1,7 +1,9 @@
 package com.perfect.manager.controller.master.rabc.permission.dept;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.perfect.bean.pojo.result.InsertResult;
 import com.perfect.bean.pojo.result.JsonResult;
+import com.perfect.bean.pojo.result.UpdateResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;
 import com.perfect.bean.vo.master.rabc.permission.MPermissionVo;
 import com.perfect.common.annotations.SysLogAnnotion;
@@ -28,7 +30,7 @@ import java.util.List;
 public class PermissionDeptController extends BaseController {
 
     @Autowired
-    private IMPermissionService permissionService;
+    private IMPermissionService service;
 
     @SysLogAnnotion("根据查询条件，获取部门权限表信息")
     @ApiOperation("根据参数id，获取部门权限表信息")
@@ -37,7 +39,7 @@ public class PermissionDeptController extends BaseController {
     public ResponseEntity<JsonResult<IPage<MPermissionVo>>> list(@RequestBody(required = false)
         MPermissionVo searchCondition)  {
         searchCondition.setTenant_id(getUserSessionTenantId());
-        IPage<MPermissionVo> entity = permissionService.selectPage(searchCondition);
+        IPage<MPermissionVo> entity = service.selectPage(searchCondition);
         return ResponseEntity.ok().body(ResultUtil.OK(entity));
     }
 
@@ -46,9 +48,10 @@ public class PermissionDeptController extends BaseController {
     @PostMapping("/save")
     @ResponseBody
     public ResponseEntity<JsonResult<MPermissionVo>> save(@RequestBody(required = false) MPermissionVo bean) {
-
-        if(permissionService.update(bean).isSuccess()){
-            return ResponseEntity.ok().body(ResultUtil.OK(permissionService.selectByid(bean.getId()),"更新成功"));
+        bean.setTenant_id(super.getUserSessionTenantId());
+        UpdateResult<MPermissionVo> rtn = service.update(bean);
+        if(rtn.isSuccess()){
+            return ResponseEntity.ok().body(ResultUtil.OK(rtn.getData(),"更新成功"));
         } else {
             throw new UpdateErrorException("保存的数据已经被修改，请查询后重新编辑更新。");
         }
@@ -59,8 +62,10 @@ public class PermissionDeptController extends BaseController {
     @PostMapping("/insert")
     @ResponseBody
     public ResponseEntity<JsonResult<MPermissionVo>> insert(@RequestBody(required = false) MPermissionVo bean) {
-        if(permissionService.insert(bean).isSuccess()){
-            return ResponseEntity.ok().body(ResultUtil.OK(permissionService.selectByid(bean.getId()),"插入成功"));
+        bean.setTenant_id(getUserSessionTenantId());
+        InsertResult<MPermissionVo> rtn = service.insert(bean);
+        if(rtn.isSuccess()){
+            return ResponseEntity.ok().body(ResultUtil.OK(rtn.getData(),"插入成功"));
         } else {
             throw new InsertErrorException("新增保存失败。");
         }
@@ -71,7 +76,7 @@ public class PermissionDeptController extends BaseController {
     @PostMapping("/delete")
     @ResponseBody
     public ResponseEntity<JsonResult<String>> delete(@RequestBody(required = false) List<MPermissionVo> searchConditionList) {
-        permissionService.deleteByIdsIn(searchConditionList);
+        service.deleteByIdsIn(searchConditionList);
         return ResponseEntity.ok().body(ResultUtil.OK("OK"));
     }
 }
