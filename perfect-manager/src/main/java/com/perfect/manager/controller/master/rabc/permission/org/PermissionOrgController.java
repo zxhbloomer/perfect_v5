@@ -36,6 +36,7 @@ public class PermissionOrgController extends BaseController {
     @PostMapping("/tree/dept/list")
     @ResponseBody
     public ResponseEntity<JsonResult<List<MOrgTreeVo>>> treeList(@RequestBody(required = false) MOrgTreeVo searchCondition) {
+        searchCondition.setTenant_id(getUserSessionTenantId());
         List<MOrgTreeVo> vo = service.getTreeList(searchCondition);
         return ResponseEntity.ok().body(ResultUtil.OK(vo));
     }

@@ -39,7 +39,6 @@ public class MPermissionOrgServiceImpl extends BaseServiceImpl<MPermissionOrgMap
      */
     @Override
     public List<MOrgTreeVo> getTreeList(MOrgTreeVo searchCondition) {
-        searchCondition.setTenant_id(getUserSessionTenantId());
         switch (searchCondition.getType()) {
             case PerfectDictConstant.DICT_ORG_SETTING_TYPE_TENANT:
                 // 组织机构
