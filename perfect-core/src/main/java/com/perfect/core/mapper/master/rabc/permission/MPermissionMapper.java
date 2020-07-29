@@ -26,27 +26,9 @@ public interface MPermissionMapper extends BaseMapper<MPermissionEntity> {
     String COMMON_SELECT = "                                                                   "
         + "                                                                                    "
         + "           SELECT                                                                   "
-        + "           	t1.* ,                                                                 "
-        + "           	t2.`name` as handler_id_name,                                          "
-        + "           	t3.`name` as sub_handler_id_name,                                      "
-        + "           	t4.`name` as leader_id_name,                                           "
-        + "           	t5.`name` as response_leader_id_name,                                  "
-        + "             c_staff.name as c_name,                                                "
-        + "             u_staff.name as u_name,                                                "
-        + "             t6.label as is_del_name,                                               "
-        + "             vor.group_full_simple_name,                                            "
-        + "             vor.company_simple_name,                                               "
-        + "             vor.parent_dept_simple_name                                            "
+        + "           	t1.*                                                                   "
         + "           FROM                                                                     "
-        + "           	m_dept t1                                                              "
-        + "           	LEFT JOIN m_staff t2 on t1.handler_id = t2.id                          "
-        + "           	LEFT JOIN m_staff t3 on t1.sub_handler_id = t3.id                      "
-        + "           	LEFT JOIN m_staff t4 on t1.leader_id = t4.id                           "
-        + "           	LEFT JOIN m_staff t5 on t1.response_leader_id = t5.id                  "
-        + "             LEFT JOIN m_staff c_staff ON t1.c_id = c_staff.id                      "
-        + "             LEFT JOIN m_staff u_staff ON t1.u_id = u_staff.id                      "
-        + "             LEFT JOIN v_dict_info AS t6 ON t6.code = '" + PerfectDictConstant.DICT_SYS_DELETE_MAP + "' and t6.dict_value = cast(t1.is_del as char(1))  "
-        + "             LEFT JOIN v_org_route_company_dept_info vor on t1.id = vor.current_id  "
+        + "           	m_permission t1                                                        "
         + "                                                                          ";
 
 
@@ -58,24 +40,14 @@ public interface MPermissionMapper extends BaseMapper<MPermissionEntity> {
      */
     @Select("    "
         + COMMON_SELECT
-        + "  where true                                                              "
-        + "    and (t1.code like CONCAT ('%',#{p1.code,jdbcType=VARCHAR},'%') or #{p1.code,jdbcType=VARCHAR} is null)  "
+        + "  where true                                                                                                "
+        + "    and t1.type = '"+ PerfectDictConstant.DICT_MSTR_PERMISSION_TYPE_DEPT +"'                                "
         + "    and (t1.name like CONCAT ('%',#{p1.name,jdbcType=VARCHAR},'%') or #{p1.name,jdbcType=VARCHAR} is null)  "
         + "    and (t1.is_del =#{p1.is_del,jdbcType=VARCHAR} or #{p1.is_del,jdbcType=VARCHAR} is null)                 "
         + "    and (t1.tenant_id =#{p1.tenant_id,jdbcType=BIGINT} or #{p1.tenant_id,jdbcType=BIGINT} is null)          "
-        + "    and (t1.id =#{p1.id,jdbcType=BIGINT} or #{p1.id,jdbcType=BIGINT} is null)                              "
-        + "    and (                                                                                                 "
-        + "       case when #{p1.dataModel,jdbcType=VARCHAR} = '"+ PerfectDictConstant.DICT_ORG_USED_TYPE_SHOW_UNUSED +"' then   "
-        + "           not exists(                                                                                    "
-        + "                     select 1                                                                             "
-        + "                       from m_org subt1                                                                   "
-        + "                      where subt1.serial_type = '"+ PerfectDictConstant.DICT_SYS_CODE_TYPE_M_DEPT +"'    "
-        + "                        and t1.id = subt1.serial_id                                                        "
-        + "           )                                                                                              "
-        + "       else true                                                                                          "
-        + "       end                                                                                                "
-        + "        )                                                                                                 "
-        + "      ") IPage<MPermissionVo> selectPage(Page page, @Param("p1") MPermissionVo searchCondition);
+        + "    and (t1.id =#{p1.id,jdbcType=BIGINT} or #{p1.id,jdbcType=BIGINT} is null)                               "
+        + "      ")
+    IPage<MPermissionVo> selectPage(Page page, @Param("p1") MPermissionVo searchCondition);
 
     /**
      * 按条件获取所有数据，没有分页

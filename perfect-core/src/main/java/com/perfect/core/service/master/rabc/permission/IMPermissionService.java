@@ -24,10 +24,10 @@ public interface IMPermissionService extends IService<MPermissionEntity> {
      */
     IPage<MPermissionVo> selectPage(MPermissionVo searchCondition) ;
 
-    /**
-     * 获取所有数据
-     */
-    List<MPermissionVo> select(MPermissionVo searchCondition) ;
+//    /**
+//     * 获取所有数据
+//     */
+//    List<MPermissionVo> select(MPermissionVo searchCondition) ;
 
     /**
      * 获取所选id的数据

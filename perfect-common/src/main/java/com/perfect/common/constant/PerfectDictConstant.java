@@ -156,4 +156,14 @@ public class PerfectDictConstant {
     public static final String DICT_SYS_MENU_TYPE_TOPNAV = "T";
     public static final String DICT_SYS_MENU_TYPE_NODE = "N";
     public static final String DICT_SYS_MENU_TYPE_PAGE = "P";
+
+    /**
+     * 权限类型
+     */
+    public static final String DICT_MSTR_PERMISSION_TYPE = "mstr_permission_type";
+    public static final String DICT_MSTR_PERMISSION_TYPE_DEPT = "10";
+    public static final String DICT_MSTR_PERMISSION_TYPE_POSITION = "20";
+    public static final String DICT_MSTR_PERMISSION_TYPE_USER = "30";
+    public static final String DICT_MSTR_PERMISSION_TYPE_OUT = "40";
+
 }

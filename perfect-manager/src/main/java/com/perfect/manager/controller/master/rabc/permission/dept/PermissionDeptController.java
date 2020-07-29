@@ -15,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -31,21 +30,19 @@ public class PermissionDeptController extends BaseController {
     @Autowired
     private IMPermissionService permissionService;
 
-    @Autowired
-    private RestTemplate restTemplate;
-
-    @SysLogAnnotion("根据查询条件，获取部门主表信息")
-    @ApiOperation("根据参数id，获取部门主表信息")
+    @SysLogAnnotion("根据查询条件，获取部门权限表信息")
+    @ApiOperation("根据参数id，获取部门权限表信息")
     @PostMapping("/list")
     @ResponseBody
     public ResponseEntity<JsonResult<IPage<MPermissionVo>>> list(@RequestBody(required = false)
         MPermissionVo searchCondition)  {
+        searchCondition.setTenant_id(getUserSessionTenantId());
         IPage<MPermissionVo> entity = permissionService.selectPage(searchCondition);
         return ResponseEntity.ok().body(ResultUtil.OK(entity));
     }
 
-    @SysLogAnnotion("部门主表数据更新保存")
-    @ApiOperation("根据参数id，获取部门主表信息")
+    @SysLogAnnotion("部门权限表数据更新保存")
+    @ApiOperation("根据参数id，获取部门权限表信息")
     @PostMapping("/save")
     @ResponseBody
     public ResponseEntity<JsonResult<MPermissionVo>> save(@RequestBody(required = false) MPermissionVo bean) {
@@ -57,8 +54,8 @@ public class PermissionDeptController extends BaseController {
         }
     }
 
-    @SysLogAnnotion("部门主表数据新增保存")
-    @ApiOperation("根据参数id，获取部门主表信息")
+    @SysLogAnnotion("部门权限表数据新增保存")
+    @ApiOperation("根据参数id，获取部门权限表信息")
     @PostMapping("/insert")
     @ResponseBody
     public ResponseEntity<JsonResult<MPermissionVo>> insert(@RequestBody(required = false) MPermissionVo bean) {
@@ -69,7 +66,7 @@ public class PermissionDeptController extends BaseController {
         }
     }
 
-    @SysLogAnnotion("部门主表数据逻辑删除复原")
+    @SysLogAnnotion("部门权限表数据逻辑删除复原")
     @ApiOperation("根据参数id，逻辑删除复原数据")
     @PostMapping("/delete")
     @ResponseBody

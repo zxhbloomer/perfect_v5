@@ -47,7 +47,6 @@ public class MPermissionServiceImpl extends BaseServiceImpl<MPermissionMapper, M
      */
     @Override
     public IPage<MPermissionVo> selectPage(MPermissionVo searchCondition) {
-        searchCondition.setTenant_id(getUserSessionTenantId());
         // 分页条件
         Page<MPermissionVo> pageCondition =
             new Page(searchCondition.getPageCondition().getCurrent(), searchCondition.getPageCondition().getSize());
@@ -56,19 +55,18 @@ public class MPermissionServiceImpl extends BaseServiceImpl<MPermissionMapper, M
         return mapper.selectPage(pageCondition, searchCondition);
     }
 
-    /**
-     * 获取列表，查询所有数据
-     *
-     * @param searchCondition
-     * @return
-     */
-    @Override
-    public List<MPermissionVo> select(MPermissionVo searchCondition) {
-        searchCondition.setTenant_id(getUserSessionTenantId());
-        // 查询 数据
-        List<MPermissionVo> list = mapper.select(searchCondition);
-        return list;
-    }
+//    /**
+//     * 获取列表，查询所有数据
+//     *
+//     * @param searchCondition
+//     * @return
+//     */
+//    @Override
+//    public List<MPermissionVo> select(MPermissionVo searchCondition) {
+//        // 查询 数据
+//        List<MPermissionVo> list = mapper.select(searchCondition);
+//        return list;
+//    }
 
     /**
      * 获取列表，根据id查询所有数据
