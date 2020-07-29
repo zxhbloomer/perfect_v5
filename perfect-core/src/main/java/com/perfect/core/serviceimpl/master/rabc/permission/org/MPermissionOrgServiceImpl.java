@@ -39,38 +39,6 @@ public class MPermissionOrgServiceImpl extends BaseServiceImpl<MPermissionOrgMap
      */
     @Override
     public List<MOrgTreeVo> getTreeList(MOrgTreeVo searchCondition) {
-        switch (searchCondition.getType()) {
-            case PerfectDictConstant.DICT_ORG_SETTING_TYPE_TENANT:
-                // 组织机构
-                break;
-            case PerfectDictConstant.DICT_ORG_SETTING_TYPE_COMPANY:
-                // 企业
-                String[] company_codes = {
-                    PerfectDictConstant.DICT_ORG_SETTING_TYPE_TENANT_SERIAL_TYPE,
-                    PerfectDictConstant.DICT_ORG_SETTING_TYPE_GROUP_SERIAL_TYPE,
-                    PerfectDictConstant.DICT_ORG_SETTING_TYPE_COMPANY_SERIAL_TYPE};
-                searchCondition.setCodes(company_codes);
-                break;
-            case PerfectDictConstant.DICT_ORG_SETTING_TYPE_DEPT:
-                // 部门
-                String[] dept_codes = {
-                    PerfectDictConstant.DICT_ORG_SETTING_TYPE_TENANT_SERIAL_TYPE,
-                    PerfectDictConstant.DICT_ORG_SETTING_TYPE_GROUP_SERIAL_TYPE,
-                    PerfectDictConstant.DICT_ORG_SETTING_TYPE_COMPANY_SERIAL_TYPE,
-                    PerfectDictConstant.DICT_ORG_SETTING_TYPE_DEPT_SERIAL_TYPE
-                };
-                searchCondition.setCodes(dept_codes);
-                // 获取code
-                MOrgEntity mOrgEntity = mOrgMapper.selectOne(new QueryWrapper<MOrgEntity>()
-                    .eq("serial_id",searchCondition.getSerial_id())
-                    .eq("serial_type", searchCondition.getSerial_type())
-                );
-                String code = mOrgEntity.getCode().substring(0,8);
-                searchCondition.setCode(code);
-                searchCondition.setCurrent_code(mOrgEntity.getCode());
-                break;
-        };
-
         // 查询 数据
         List<MOrgTreeVo> list = mapper.getTreeList(searchCondition);
         List<MOrgTreeVo> rtnList = TreeUtil.getTreeList(list);
