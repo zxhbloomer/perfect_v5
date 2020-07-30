@@ -2,7 +2,7 @@ package com.perfect.core.serviceimpl.master.rabc.permission.dept;
 
 import com.perfect.bean.entity.master.rabc.permission.MPermissionEntity;
 import com.perfect.bean.utils.common.tree.TreeUtil;
-import com.perfect.bean.vo.master.org.MOrgTreeVo;
+import com.perfect.bean.vo.master.rabc.permission.dept.MOrgDeptPermissionTreeVo;
 import com.perfect.core.mapper.master.org.MOrgMapper;
 import com.perfect.core.mapper.master.rabc.permission.dept.MPermissionOrgMapper;
 import com.perfect.core.service.base.v1.BaseServiceImpl;
@@ -35,10 +35,10 @@ public class MPermissionOrgServiceImpl extends BaseServiceImpl<MPermissionOrgMap
      * 获取所有数据，左侧树数据
      */
     @Override
-    public List<MOrgTreeVo> getTreeList(MOrgTreeVo searchCondition) {
+    public List<MOrgDeptPermissionTreeVo> getTreeList(MOrgDeptPermissionTreeVo searchCondition) {
         // 查询 数据
-        List<MOrgTreeVo> list = mapper.getTreeList(searchCondition);
-        List<MOrgTreeVo> rtnList = TreeUtil.getTreeList(list);
+        List<MOrgDeptPermissionTreeVo> list = mapper.getTreeList(searchCondition);
+        List<MOrgDeptPermissionTreeVo> rtnList = TreeUtil.getTreeList(list);
         return rtnList;
     }
 }

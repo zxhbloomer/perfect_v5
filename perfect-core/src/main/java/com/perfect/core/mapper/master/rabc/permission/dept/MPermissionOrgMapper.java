@@ -2,7 +2,7 @@ package com.perfect.core.mapper.master.rabc.permission.dept;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.perfect.bean.entity.master.rabc.permission.MPermissionEntity;
-import com.perfect.bean.vo.master.org.MOrgTreeVo;
+import com.perfect.bean.vo.master.rabc.permission.dept.MOrgDeptPermissionTreeVo;
 import com.perfect.common.constant.PerfectDictConstant;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -100,6 +100,6 @@ public interface MPermissionOrgMapper extends BaseMapper<MPermissionEntity> {
         + "   </if>                                                                                                  "
         + "  order by t2.code                                                                                        "
         + " </script>     ")
-    List<MOrgTreeVo> getTreeList(@Param("p1") MOrgTreeVo searchCondition);
+    List<MOrgDeptPermissionTreeVo> getTreeList(@Param("p1") MOrgDeptPermissionTreeVo searchCondition);
 
 }

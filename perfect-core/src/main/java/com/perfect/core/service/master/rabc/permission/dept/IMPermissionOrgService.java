@@ -2,7 +2,7 @@ package com.perfect.core.service.master.rabc.permission.dept;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.perfect.bean.entity.master.rabc.permission.MPermissionEntity;
-import com.perfect.bean.vo.master.org.MOrgTreeVo;
+import com.perfect.bean.vo.master.rabc.permission.dept.MOrgDeptPermissionTreeVo;
 
 import java.util.List;
 
@@ -18,6 +18,6 @@ public interface IMPermissionOrgService extends IService<MPermissionEntity> {
     /**
      * 获取所有数据，左侧树数据
      */
-    List<MOrgTreeVo> getTreeList(MOrgTreeVo searchCondition) ;
+    List<MOrgDeptPermissionTreeVo> getTreeList(MOrgDeptPermissionTreeVo searchCondition) ;
 
 }
