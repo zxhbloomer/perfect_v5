@@ -1,9 +1,8 @@
-package com.perfect.core.service.master.rabc.permission.org;
+package com.perfect.core.service.master.rabc.permission.dept;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.perfect.bean.entity.master.rabc.permission.MPermissionEntity;
 import com.perfect.bean.vo.master.org.MOrgTreeVo;
-import com.perfect.bean.vo.master.org.MOrgVo;
 
 import java.util.List;
 

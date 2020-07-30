@@ -1,10 +1,10 @@
-package com.perfect.manager.controller.master.rabc.permission.org;
+package com.perfect.manager.controller.master.rabc.permission.dept;
 
 import com.perfect.bean.pojo.result.JsonResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;
 import com.perfect.bean.vo.master.org.MOrgTreeVo;
 import com.perfect.common.annotations.SysLogAnnotion;
-import com.perfect.core.service.master.rabc.permission.org.IMPermissionOrgService;
+import com.perfect.core.service.master.rabc.permission.dept.IMPermissionOrgService;
 import com.perfect.framework.base.controller.v1.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

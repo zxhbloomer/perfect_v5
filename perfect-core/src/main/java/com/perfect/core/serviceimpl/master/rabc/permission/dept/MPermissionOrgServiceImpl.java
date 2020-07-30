@@ -1,15 +1,12 @@
-package com.perfect.core.serviceimpl.master.rabc.permission.org;
+package com.perfect.core.serviceimpl.master.rabc.permission.dept;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.perfect.bean.entity.master.org.MOrgEntity;
 import com.perfect.bean.entity.master.rabc.permission.MPermissionEntity;
 import com.perfect.bean.utils.common.tree.TreeUtil;
 import com.perfect.bean.vo.master.org.MOrgTreeVo;
-import com.perfect.common.constant.PerfectDictConstant;
 import com.perfect.core.mapper.master.org.MOrgMapper;
-import com.perfect.core.mapper.master.rabc.permission.org.MPermissionOrgMapper;
+import com.perfect.core.mapper.master.rabc.permission.dept.MPermissionOrgMapper;
 import com.perfect.core.service.base.v1.BaseServiceImpl;
-import com.perfect.core.service.master.rabc.permission.org.IMPermissionOrgService;
+import com.perfect.core.service.master.rabc.permission.dept.IMPermissionOrgService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.perfect.core.mapper.master.rabc.permission.org;
+package com.perfect.core.mapper.master.rabc.permission.dept;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.perfect.bean.entity.master.rabc.permission.MPermissionEntity;
@@ -59,11 +59,20 @@ public interface MPermissionOrgMapper extends BaseMapper<MPermissionEntity> {
         + "                         t2.u_time,                                                                          "
         + "                         t2.dbversion ,                                                                      "
         + "                         t2.serial_id ,                                                                      "
-        + "                         t2.serial_type                                                                      "
+        + "                         t2.serial_type,                                                                     "
+        + "                         t5.dept_permission_count                                                            "
         + "                    from cte t1                                                                              "
         + "          inner join m_org t2 on t1.id = t2.id                                                               "
         + "           left join v_org_name t3 on t3.serial_type = t2.serial_type and t3.serial_id = t2.serial_id        "
         + "           left join v_dict_info t4 on t4.dict_value = t2.type and t4.code = '"+PerfectDictConstant.DICT_ORG_SETTING_TYPE+"'     "
+        + "	          left join (                                                                                       "
+        + "	                      select subt.serial_type,                                                              "
+        + "	          						       subt.serial_id,                                                      "
+        + "	          									 count(1) as dept_permission_count                              "
+        + "	          						  from m_permission subt                                                    "
+        + "	          					GROUP BY subt.serial_type,                                                      "
+        + "	          					         subt.serial_id                                                         "
+        + "	                     ) t5 on t2.serial_type = t5.serial_type and t2.serial_id = t5.serial_id                "
         + "                                                                          ";
 
     /**
