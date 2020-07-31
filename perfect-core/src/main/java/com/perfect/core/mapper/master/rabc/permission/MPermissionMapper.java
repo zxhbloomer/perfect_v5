@@ -23,13 +23,17 @@ import java.util.List;
 @Repository
 public interface MPermissionMapper extends BaseMapper<MPermissionEntity> {
 
-    String COMMON_SELECT = "                                                                   "
-        + "                                                                                    "
-        + "           SELECT                                                                   "
-        + "           	t1.*                                                                   "
-        + "           FROM                                                                     "
-        + "           	m_permission t1                                                        "
-        + "                                                                          ";
+    String COMMON_SELECT = "                                                              "
+        + "                                                                               "
+        + "      SELECT                                                                   "
+        + "             t1.*,                                                             "
+        + "             c_staff.name as c_name,                                           "
+        + "             u_staff.name as u_name                                            "
+        + "        FROM                                                                   "
+        + "             m_permission t1                                                   "
+        + "   LEFT JOIN m_staff c_staff ON t1.c_id = c_staff.id                           "
+        + "   LEFT JOIN m_staff u_staff ON t1.u_id = u_staff.id                           "
+        + "                                                                               ";
 
 
     /**
