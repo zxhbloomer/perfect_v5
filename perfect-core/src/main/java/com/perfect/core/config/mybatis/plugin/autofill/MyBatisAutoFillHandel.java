@@ -28,7 +28,7 @@ public class MyBatisAutoFillHandel implements MetaObjectHandler {
         this.setFieldValByNameMy("u_id", SecurityUtil.getStaff_id() < 0 ? null : SecurityUtil.getStaff_id(), metaObject);
         // 默认未删除
         this.setFieldValByNameMy("is_del", false, metaObject);
-        // 默认未启用
+        // 默认未启用 是否启用(1:true-已启用,0:false-已禁用)
         this.setFieldValByNameMy("is_enable", false, metaObject);
     }
 

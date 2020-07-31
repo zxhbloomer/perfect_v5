@@ -101,6 +101,11 @@ public class MOrgDeptPermissionTreeVo extends TreeNode implements Serializable {
     private Integer dbversion;
 
     /**
+     * 部门权限个数
+     */
+    private Integer dept_permission_count;
+
+    /**
      * 换页条件
      */
     private PageCondition pageCondition;

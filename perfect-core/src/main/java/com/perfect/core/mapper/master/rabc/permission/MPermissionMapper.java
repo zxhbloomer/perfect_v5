@@ -72,70 +72,14 @@ public interface MPermissionMapper extends BaseMapper<MPermissionEntity> {
      * @return
      */
     @Select("<script>"
-        + " select t.* "
-        + "   from m_dept t "
-        + "  where true "
-        + "    and (t.tenant_id = #{p2} or #{p2} is null  )                                               "
-        + "    and t.id in "
-        + "        <foreach collection='p1' item='item' index='index' open='(' separator=',' close=')'>"
-        + "         #{item.id}  "
-        + "        </foreach>"
+        + COMMON_SELECT
+        + "  where true                                                                                                "
+        + "    and t1.id in                                                                                            "
+        + "        <foreach collection='p1' item='item' index='index' open='(' separator=',' close=')'>                "
+        + "         #{item.id}                                                                                         "
+        + "        </foreach>                                                                                          "
         + "  </script>")
-    List<MPermissionVo> selectIdsIn(@Param("p1") List<MPermissionVo> searchCondition, @Param("p2")Long tenant_id);
-
-    /**
-     * 按条件获取所有数据，没有分页
-     * @param code
-     * @return
-     */
-    @Select("    "
-        + " select t.* "
-        + "   from m_dept t "
-        + "  where true "
-        + "    and t.code =  #{p1}   "
-        + "    and (t.id  =  #{p2} or #{p2} is null)   "
-        + "    and (t.id  <> #{p3} or #{p3} is null)   "
-        + "    and (t.tenant_id  = #{p4} or #{p4} is null)   "
-        + "    and t.is_del =  0   "
-        + "      ")
-    List<MPermissionVo> selectByCode(@Param("p1") String code, @Param("p2") Long equal_id,
-        @Param("p3") Long not_equal_id, @Param("p4")Long tenant_id);
-
-    /**
-     * 按条件获取所有数据，没有分页
-     * @param name
-     * @return
-     */
-    @Select("    "
-        + " select t.* "
-        + "   from m_dept t "
-        + "  where true "
-        + "    and t.name =  #{p1}   "
-        + "    and (t.id  =  #{p2} or #{p2} is null)   "
-        + "    and (t.id  <> #{p3} or #{p3} is null)   "
-        + "    and (t.tenant_id  = #{p4} or #{p4} is null)   "
-        + "    and t.is_del =  0   "
-        + "      ")
-    List<MPermissionVo> selectByName(@Param("p1") String name, @Param("p2") Long equal_id,
-        @Param("p3") Long not_equal_id, @Param("p4")Long tenant_id);
-
-    /**
-     * 按条件获取所有数据，没有分页
-     * @param name
-     * @return
-     */
-    @Select("    "
-        + " select t.* "
-        + "   from m_dept t "
-        + "  where true "
-        + "    and t.simple_name =  #{p1}   "
-        + "    and (t.id  =  #{p2} or #{p2} is null)   "
-        + "    and (t.id  <> #{p3} or #{p3} is null)   "
-        + "    and (t.tenant_id  = #{p4} or #{p4} is null)   "
-        + "    and t.is_del =  0   "
-        + "      ")
-    List<MPermissionVo> selectBySimpleName(@Param("p1") String name, @Param("p2") Long equal_id,
-        @Param("p3") Long not_equal_id, @Param("p4")Long tenant_id);
+    List<MPermissionVo> selectIdsIn(@Param("p1") List<MPermissionVo> searchCondition);
 
     /**
      * 获取单条数据
@@ -146,21 +90,7 @@ public interface MPermissionMapper extends BaseMapper<MPermissionEntity> {
         + COMMON_SELECT
         + "  where true                                                              "
         + "    and (t1.id = #{p1})                                                   "
-        + "    and (t1.tenant_id = #{p2} or #{p2} is null  )                         "
         + "                                                                          ")
-    MPermissionVo selectByid(@Param("p1") Long id, @Param("p2")Long tenant_id);
+    MPermissionVo selectByid(@Param("p1") Long id);
 
-    /**
-     * 查询在组织架构中是否存在有被使用的数据
-     * @param searchCondition
-     * @return
-     */
-    @Select("                                                                                                   "
-        + " select count(1)                                                                                          "
-        + "   from m_org t                                                                                      "
-        + "  where true                                                                                         "
-        + "    and t.serial_type = '" + PerfectDictConstant.DICT_ORG_SETTING_TYPE_DEPT_SERIAL_TYPE + "'      "
-        + "    and t.serial_id = #{p1.id,jdbcType=BIGINT}                                                       "
-        + "                                                                                                     ")
-    int isExistsInOrg(@Param("p1") MPermissionVo searchCondition);
 }

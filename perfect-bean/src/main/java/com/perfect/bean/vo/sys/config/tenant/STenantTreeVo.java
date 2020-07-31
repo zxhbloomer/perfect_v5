@@ -26,6 +26,9 @@ public class STenantTreeVo extends TreeNode implements Serializable {
      */
     private String code;
 
+    /**
+     * 是否启用(1:true-已启用,0:false-已禁用)
+     */
     private Boolean is_enable;
 
     /**

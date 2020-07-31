@@ -1,12 +1,10 @@
 package com.perfect.bean.vo.master.rabc.permission;
 
-import com.baomidou.mybatisplus.annotation.*;
 import com.perfect.bean.vo.common.condition.PageCondition;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -70,7 +68,7 @@ public class MPermissionVo implements Serializable {
     private Boolean is_del;
 
     /**
-     * 是否禁用(1:true-已启用,0:false-未启用)
+     * 是否启用(1:true-已启用,0:false-已禁用)
      */
     private Boolean is_enable;
 

@@ -79,4 +79,13 @@ public class PermissionDeptController extends BaseController {
         service.deleteByIdsIn(searchConditionList);
         return ResponseEntity.ok().body(ResultUtil.OK("OK"));
     }
+
+    @SysLogAnnotion("部门权限表数据逻辑删除复原")
+    @ApiOperation("根据参数id，逻辑删除复原数据")
+    @PostMapping("/enable")
+    @ResponseBody
+    public ResponseEntity<JsonResult<String>> enable(@RequestBody(required = false) MPermissionVo searchConditionList) {
+        service.enableById(searchConditionList);
+        return ResponseEntity.ok().body(ResultUtil.OK("OK"));
+    }
 }

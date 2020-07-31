@@ -54,6 +54,9 @@ public class STenantVo extends BaseVo implements Serializable {
      */
     private String simple_name;
 
+    /**
+     * 是否启用(1:true-已启用,0:false-已禁用)
+     */
     private Boolean is_enable;
 
     /**

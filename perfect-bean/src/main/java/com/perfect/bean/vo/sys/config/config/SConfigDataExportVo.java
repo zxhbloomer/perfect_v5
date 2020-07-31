@@ -1,14 +1,13 @@
 package com.perfect.bean.vo.sys.config.config;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 import com.perfect.bean.config.base.v1.BaseVo;
-import com.perfect.bean.pojo.fs.UploadFileResultPojo;
 import com.perfect.common.annotations.ExcelAnnotion;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @author zxh
@@ -42,7 +41,7 @@ public class SConfigDataExportVo extends BaseVo implements Serializable {
     private String value;
 
     /**
-     * 是否禁用(1:false-未启用,0:true-已启用)
+     * 是否启用(1:true-已启用,0:false-已禁用)
      */
     @ExcelAnnotion(name = "是否禁用")
     private Boolean is_enable;

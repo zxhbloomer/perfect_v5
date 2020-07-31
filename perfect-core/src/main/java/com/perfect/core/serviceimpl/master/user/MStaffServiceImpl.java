@@ -155,7 +155,7 @@ public class MStaffServiceImpl extends BaseServiceImpl<MStaffMapper, MStaffEntit
 
         mUserEntity.setIs_del(mUserEntity.getIs_del() == null ? false : mUserEntity.getIs_del());
         mUserEntity.setIs_lock(mUserEntity.getIs_lock() == null ? false : mUserEntity.getIs_lock());
-        mUserEntity.setIs_enable(mUserEntity.getIs_enable() == null ? false : mUserEntity.getIs_enable());
+        mUserEntity.setIs_enable(mUserEntity.getIs_enable() == null ? true : mUserEntity.getIs_enable());
         mUserEntity.setIs_biz_admin(mUserEntity.getIs_biz_admin() == null ? false : mUserEntity.getIs_biz_admin());
         mUserEntity.setIs_changed_pwd(mUserEntity.getIs_changed_pwd() == null ? false : mUserEntity.getIs_changed_pwd());
         mUserEntity.setTenant_id(getUserSessionTenantId());

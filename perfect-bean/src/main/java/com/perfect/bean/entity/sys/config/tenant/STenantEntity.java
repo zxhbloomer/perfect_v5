@@ -3,7 +3,6 @@ package com.perfect.bean.entity.sys.config.tenant;
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -53,6 +52,9 @@ public class STenantEntity implements Serializable {
     @TableField("simple_name")
     private String simple_name;
 
+    /**
+     * 是否启用(1:true-已启用,0:false-已禁用)
+     */
     @TableField("is_enable")
     private Boolean is_enable;
 

@@ -39,7 +39,7 @@ public class SConfigVo extends UploadFileResultPojo implements Serializable {
     private String value;
 
     /**
-     * 是否禁用(1:false-未启用,0:true-已启用)
+     * 是否启用(1:true-已启用,0:false-已禁用)
      */
     private Boolean is_enable;
 

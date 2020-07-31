@@ -1,9 +1,6 @@
 package com.perfect.bean.vo.master.user;
 
-import com.baomidou.mybatisplus.annotation.*;
 import com.perfect.bean.config.base.v1.BaseVo;
-import com.perfect.bean.entity.base.entity.v1.BaseEntity;
-import com.perfect.bean.entity.master.user.MUserEntity;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -64,8 +61,7 @@ public class MUserVo extends BaseVo implements Serializable {
     private Boolean is_lock;
 
     /**
-     * 是否禁用
-
+     * 是否启用(1:true-已启用,0:false-已禁用)
      */
     private Boolean is_enable;
 

@@ -34,6 +34,12 @@ public interface IMPermissionService extends IService<MPermissionEntity> {
      */
     List<MPermissionVo> selectIdsIn(List<MPermissionVo> searchCondition) ;
 
+    /**
+     * 批量删除复原
+     * @param searchCondition
+     * @return
+     */
+    void enableById(MPermissionVo searchCondition);
 
     /**
      * 批量删除复原

@@ -1,12 +1,12 @@
 package com.perfect.bean.entity.master.rabc.permission;
 
 import com.baomidou.mybatisplus.annotation.*;
-
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -76,7 +76,7 @@ public class MPermissionEntity implements Serializable {
     private Boolean is_del;
 
     /**
-     * 是否禁用(1:true-已启用,0:false-未启用)
+     * 是否启用(1:true-已启用,0:false-已禁用)
      */
     @TableField("is_enable")
     private Boolean is_enable;

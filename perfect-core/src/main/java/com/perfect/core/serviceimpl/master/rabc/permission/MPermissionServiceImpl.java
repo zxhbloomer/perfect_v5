@@ -55,19 +55,6 @@ public class MPermissionServiceImpl extends BaseServiceImpl<MPermissionMapper, M
         return mapper.selectPage(pageCondition, searchCondition);
     }
 
-//    /**
-//     * 获取列表，查询所有数据
-//     *
-//     * @param searchCondition
-//     * @return
-//     */
-//    @Override
-//    public List<MPermissionVo> select(MPermissionVo searchCondition) {
-//        // 查询 数据
-//        List<MPermissionVo> list = mapper.select(searchCondition);
-//        return list;
-//    }
-
     /**
      * 获取列表，根据id查询所有数据
      *
@@ -77,7 +64,7 @@ public class MPermissionServiceImpl extends BaseServiceImpl<MPermissionMapper, M
     @Override
     public List<MPermissionVo> selectIdsIn(List<MPermissionVo> searchCondition) {
         // 查询 数据
-        List<MPermissionVo> list = mapper.selectIdsIn(searchCondition, getUserSessionTenantId());
+        List<MPermissionVo> list = mapper.selectIdsIn(searchCondition);
         return list;
     }
 
@@ -88,14 +75,29 @@ public class MPermissionServiceImpl extends BaseServiceImpl<MPermissionMapper, M
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
+    public void enableById(MPermissionVo searchCondition) {
+        MPermissionVo vo = mapper.selectByid(searchCondition.getId());
+        vo.setIs_enable(!vo.getIs_enable());
+        MPermissionEntity entity = (MPermissionEntity)BeanUtilsSupport.copyProperties(vo, MPermissionEntity.class);
+        saveOrUpdate(entity);
+    }
+
+    /**
+     * 批量删除复原
+     * @param searchCondition
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
     public void deleteByIdsIn(List<MPermissionVo> searchCondition) {
-        List<MPermissionVo> list = mapper.selectIdsIn(searchCondition, getUserSessionTenantId());
+        List<MPermissionVo> list = mapper.selectIdsIn(searchCondition);
         list.forEach(
             bean -> {
                 bean.setIs_del(!bean.getIs_del());
             }
         );
-//        saveOrUpdateBatch(list, 500);
+        List<MPermissionEntity> entities = BeanUtilsSupport.copyProperties(list, MPermissionEntity.class);
+        saveOrUpdateBatch(entities, 500);
     }
 
     /**
@@ -155,43 +157,7 @@ public class MPermissionServiceImpl extends BaseServiceImpl<MPermissionMapper, M
      */
     @Override
     public MPermissionVo selectByid(Long id){
-        return mapper.selectByid(id, getUserSessionTenantId());
-    }
-
-    /**
-     * 获取列表，查询所有数据
-     *
-     * @param code
-     * @return
-     */
-    public List<MPermissionVo> selectByCode(String code, Long equal_id, Long not_equal_id) {
-        // 查询 数据
-        List<MPermissionVo> list = mapper.selectByCode(code, equal_id, not_equal_id, getUserSessionTenantId());
-        return list;
-    }
-
-    /**
-     * 获取列表，查询所有数据
-     *
-     * @param name
-     * @return
-     */
-    public List<MPermissionVo> selectByName(String name, Long equal_id, Long not_equal_id) {
-        // 查询 数据
-        List<MPermissionVo> list = mapper.selectByName(name, equal_id, not_equal_id, getUserSessionTenantId());
-        return list;
-    }
-
-    /**
-     * 获取列表，查询所有数据
-     *
-     * @param name
-     * @return
-     */
-    public List<MPermissionVo> selectBySimpleName(String name, Long equal_id, Long not_equal_id) {
-        // 查询 数据
-        List<MPermissionVo> list = mapper.selectBySimpleName(name, equal_id, not_equal_id, getUserSessionTenantId());
-        return list;
+        return mapper.selectByid(id);
     }
 
     /**
