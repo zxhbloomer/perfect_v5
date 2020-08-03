@@ -5,6 +5,7 @@ import com.perfect.bean.pojo.result.InsertResult;
 import com.perfect.bean.pojo.result.JsonResult;
 import com.perfect.bean.pojo.result.UpdateResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;
+import com.perfect.bean.vo.master.rabc.permission.MMenuRootNodeListVo;
 import com.perfect.bean.vo.master.rabc.permission.MPermissionVo;
 import com.perfect.common.annotations.SysLogAnnotion;
 import com.perfect.common.exception.InsertErrorException;
@@ -80,12 +81,24 @@ public class PermissionDeptController extends BaseController {
         return ResponseEntity.ok().body(ResultUtil.OK("OK"));
     }
 
-    @SysLogAnnotion("部门权限表数据逻辑删除复原")
-    @ApiOperation("根据参数id，逻辑删除复原数据")
+    @SysLogAnnotion("部门权限表数据启用禁用")
+    @ApiOperation("根据参数id，启用禁用")
     @PostMapping("/enable")
     @ResponseBody
     public ResponseEntity<JsonResult<String>> enable(@RequestBody(required = false) MPermissionVo searchConditionList) {
         service.enableById(searchConditionList);
         return ResponseEntity.ok().body(ResultUtil.OK("OK"));
     }
+
+    @SysLogAnnotion("部门权限表数据获取系统菜单根节点")
+    @ApiOperation("部门权限表数据获取系统菜单根节点")
+    @PostMapping("/get_sys_menu_root_node")
+    @ResponseBody
+    public ResponseEntity<JsonResult<String>> getSystemMenuRootList(@RequestBody(required = false)
+        MMenuRootNodeListVo searchCondition) {
+        searchCondition.setTenant_id(getUserSessionTenantId());
+        service.getSystemMenuRootList(searchCondition);
+        return ResponseEntity.ok().body(ResultUtil.OK("OK"));
+    }
+
 }

@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.perfect.bean.entity.master.rabc.permission.MPermissionEntity;
+import com.perfect.bean.vo.master.rabc.permission.MMenuRootNodeListVo;
+import com.perfect.bean.vo.master.rabc.permission.MMenuRootNodeVo;
 import com.perfect.bean.vo.master.rabc.permission.MPermissionVo;
 import com.perfect.common.constant.PerfectDictConstant;
 import org.apache.ibatis.annotations.Param;
@@ -96,5 +98,20 @@ public interface MPermissionMapper extends BaseMapper<MPermissionEntity> {
         + "    and (t1.id = #{p1})                                                   "
         + "                                                                          ")
     MPermissionVo selectByid(@Param("p1") Long id);
+
+    /**
+     * 部门权限表数据获取系统菜单根节点
+     * @param vo
+     * @return
+     */
+    @Select("                                                                                                           "
+        + "        select t1.id AS  VALUE,                                                                              "
+        + "               t1.NAME AS label                                                                              "
+        + "          FROM m_menu t1                                                                                     "
+        + "   where true                                                                                                "
+        + "     and t1.type = '" + PerfectDictConstant.DICT_SYS_MENU_TYPE_ROOT + "'                                     "
+        + "     and (t1.tenant_id =#{p1.tenant_id,jdbcType=BIGINT} or #{p1.tenant_id,jdbcType=BIGINT} is null)          "
+        + "                                                                          ")
+    List<MMenuRootNodeVo> getSystemMenuRootList(@Param("p1") MMenuRootNodeListVo vo);
 
 }

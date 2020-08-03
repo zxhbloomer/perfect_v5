@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.perfect.bean.entity.master.rabc.permission.MPermissionEntity;
 import com.perfect.bean.pojo.result.InsertResult;
 import com.perfect.bean.pojo.result.UpdateResult;
+import com.perfect.bean.vo.master.rabc.permission.MMenuRootNodeListVo;
 import com.perfect.bean.vo.master.rabc.permission.MPermissionVo;
 
 import java.util.List;
@@ -66,4 +67,11 @@ public interface IMPermissionService extends IService<MPermissionEntity> {
      * @return
      */
     MPermissionVo selectByid(Long id);
+
+    /**
+     * 部门权限表数据获取系统菜单根节点
+     * @param vo
+     * @return
+     */
+    MMenuRootNodeListVo getSystemMenuRootList(MMenuRootNodeListVo vo);
 }

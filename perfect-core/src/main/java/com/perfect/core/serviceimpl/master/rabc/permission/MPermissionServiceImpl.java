@@ -1,7 +1,9 @@
 package com.perfect.core.serviceimpl.master.rabc.permission;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.perfect.bean.entity.master.menu.MMenuEntity;
 import com.perfect.bean.entity.master.rabc.permission.MPermissionEntity;
 import com.perfect.bean.pojo.result.CheckResult;
 import com.perfect.bean.pojo.result.InsertResult;
@@ -9,11 +11,14 @@ import com.perfect.bean.pojo.result.UpdateResult;
 import com.perfect.bean.result.utils.v1.CheckResultUtil;
 import com.perfect.bean.result.utils.v1.InsertResultUtil;
 import com.perfect.bean.result.utils.v1.UpdateResultUtil;
+import com.perfect.bean.vo.master.rabc.permission.MMenuRootNodeListVo;
+import com.perfect.bean.vo.master.rabc.permission.MMenuRootNodeVo;
 import com.perfect.bean.vo.master.rabc.permission.MPermissionVo;
 import com.perfect.common.exception.BusinessException;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
 import com.perfect.common.utils.bean.BeanUtilsSupport;
+import com.perfect.core.mapper.master.menu.MMenuMapper;
 import com.perfect.core.mapper.master.rabc.permission.MPermissionMapper;
 import com.perfect.core.service.base.v1.BaseServiceImpl;
 import com.perfect.core.service.master.rabc.permission.IMPermissionService;
@@ -38,6 +43,9 @@ public class MPermissionServiceImpl extends BaseServiceImpl<MPermissionMapper, M
 
     @Autowired
     private MPermissionMapper mapper;
+
+    @Autowired
+    private MMenuMapper menuMapper;
 
     /**
      * 获取列表，页面查询
@@ -174,4 +182,28 @@ public class MPermissionServiceImpl extends BaseServiceImpl<MPermissionMapper, M
         }
         return CheckResultUtil.OK();
     }
+
+    /**
+     * 部门权限表数据获取系统菜单根节点
+     * @param vo
+     * @return
+     */
+    @Override
+    public MMenuRootNodeListVo getSystemMenuRootList(MMenuRootNodeListVo vo) {
+        // 获取根节点list
+        List<MMenuRootNodeVo> list = mapper.getSystemMenuRootList(vo);
+
+        // 获取默认值
+        MMenuEntity entity = menuMapper.selectOne(new QueryWrapper<MMenuEntity>()
+            .eq("tenant_id",vo.getTenant_id())
+            .eq("is_default", true)
+        );
+
+        MMenuRootNodeListVo rtn = new MMenuRootNodeListVo();
+        rtn.setNodes(list);
+        rtn.setDefault_id(entity.getId());
+
+        return rtn;
+    }
+
 }
