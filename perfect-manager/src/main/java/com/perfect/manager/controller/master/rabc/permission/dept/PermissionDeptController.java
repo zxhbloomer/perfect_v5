@@ -94,11 +94,10 @@ public class PermissionDeptController extends BaseController {
     @ApiOperation("部门权限表数据获取系统菜单根节点")
     @PostMapping("/get_sys_menu_root_node")
     @ResponseBody
-    public ResponseEntity<JsonResult<String>> getSystemMenuRootList(@RequestBody(required = false)
-        MMenuRootNodeListVo searchCondition) {
+    public ResponseEntity<JsonResult<MMenuRootNodeListVo>> getSystemMenuRootList() {
+        MMenuRootNodeListVo searchCondition = new MMenuRootNodeListVo();
         searchCondition.setTenant_id(getUserSessionTenantId());
-        service.getSystemMenuRootList(searchCondition);
-        return ResponseEntity.ok().body(ResultUtil.OK("OK"));
+        return ResponseEntity.ok().body(ResultUtil.OK(service.getSystemMenuRootList(searchCondition)));
     }
 
 }
