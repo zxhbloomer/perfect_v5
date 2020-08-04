@@ -64,7 +64,7 @@ public class MMenuServiceImpl extends BaseServiceImpl<MMenuMapper, MMenuEntity> 
      */
     @Override
     public MMenuVo getTreeData(MMenuDataVo searchCondition) {
-        MMenuVo MMenuVo = new MMenuVo();
+        MMenuVo mMenuVo = new MMenuVo();
         // 查询 菜单 数据
         List<MMenuDataVo> list = mapper.select(searchCondition);
         setDepthId(list);
@@ -80,10 +80,10 @@ public class MMenuServiceImpl extends BaseServiceImpl<MMenuMapper, MMenuEntity> 
         searchCondition.setRoot_ids((Long[]) root_ids.toArray(new Long[root_ids.size()]));
         List<MMenuPageFunctionVo> pageFunctionVoList = mapper.getAllMenuButton(searchCondition);
 
-        MMenuVo.setMenu_data(rtnList);
-        MMenuVo.setMenu_buttons(pageFunctionVoList);
+        mMenuVo.setMenu_data(rtnList);
+        mMenuVo.setMenu_buttons(pageFunctionVoList);
 
-        return MMenuVo;
+        return mMenuVo;
     }
 
 
