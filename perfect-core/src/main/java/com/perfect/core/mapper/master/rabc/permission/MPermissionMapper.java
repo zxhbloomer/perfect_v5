@@ -105,7 +105,8 @@ public interface MPermissionMapper extends BaseMapper<MPermissionEntity> {
      * @return
      */
     @Select("                                                                                                           "
-        + "        select t1.id AS  VALUE,                                                                              "
+        + "        select t1.id ,                                                                                       "
+        + "               t1.code AS  VALUE,                                                                              "
         + "               t1.NAME AS label                                                                              "
         + "          FROM m_menu t1                                                                                     "
         + "   where true                                                                                                "

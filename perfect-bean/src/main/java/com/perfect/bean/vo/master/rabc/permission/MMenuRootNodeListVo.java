@@ -30,9 +30,9 @@ public class MMenuRootNodeListVo implements Serializable {
 
 
     /**
-     * 结点name
+     * 默认结点
      */
-    private Long default_id;
+    private MMenuRootNodeVo default_node;
 
     /**
      * 租户id

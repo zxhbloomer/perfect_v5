@@ -22,10 +22,12 @@ public class MMenuRootNodeVo implements Serializable {
 
     private static final long serialVersionUID = 3014514062292138636L;
 
+    private Long id;
+
     /**
      * 结点id
      */
-    private Long value;
+    private String value;
 
 
     /**

@@ -14,6 +14,7 @@ import com.perfect.bean.result.utils.v1.UpdateResultUtil;
 import com.perfect.bean.vo.master.rabc.permission.MMenuRootNodeListVo;
 import com.perfect.bean.vo.master.rabc.permission.MMenuRootNodeVo;
 import com.perfect.bean.vo.master.rabc.permission.MPermissionVo;
+import com.perfect.common.constant.PerfectDictConstant;
 import com.perfect.common.exception.BusinessException;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
@@ -197,11 +198,16 @@ public class MPermissionServiceImpl extends BaseServiceImpl<MPermissionMapper, M
         MMenuEntity entity = menuMapper.selectOne(new QueryWrapper<MMenuEntity>()
             .eq("tenant_id",vo.getTenant_id())
             .eq("is_default", true)
+            .eq("type", PerfectDictConstant.DICT_SYS_MENU_TYPE_ROOT)
         );
 
+        MMenuRootNodeVo default_vo = new MMenuRootNodeVo();
+        default_vo.setId(entity.getId());
+        default_vo.setValue(entity.getCode());
+        default_vo.setLabel(entity.getName());
         MMenuRootNodeListVo rtn = new MMenuRootNodeListVo();
         rtn.setNodes(list);
-        rtn.setDefault_id(entity.getId());
+        rtn.setDefault_node(default_vo);
 
         return rtn;
     }
