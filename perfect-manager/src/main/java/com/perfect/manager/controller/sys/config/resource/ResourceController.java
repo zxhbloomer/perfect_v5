@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.perfect.bean.entity.sys.config.resource.SResourceEntity;
 import com.perfect.bean.pojo.result.JsonResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;
-import com.perfect.bean.vo.sys.rabc.role.SRoleExportVo;
+import com.perfect.bean.vo.sys.rbac.role.SRoleExportVo;
 import com.perfect.bean.vo.sys.config.resource.SResourceExportVo;
 import com.perfect.bean.vo.sys.config.resource.SResourceVo;
 import com.perfect.common.annotations.SysLogAnnotion;

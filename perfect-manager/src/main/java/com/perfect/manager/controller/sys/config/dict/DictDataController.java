@@ -20,7 +20,7 @@ import com.perfect.bean.pojo.result.JsonResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;
 import com.perfect.bean.vo.sys.config.dict.SDictTypeExportVo;
 import com.perfect.bean.vo.sys.config.resource.SResourceExportVo;
-import com.perfect.bean.vo.sys.rabc.role.SRoleVo;
+import com.perfect.bean.vo.sys.rbac.role.SRoleVo;
 import com.perfect.common.enums.ResultEnum;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
