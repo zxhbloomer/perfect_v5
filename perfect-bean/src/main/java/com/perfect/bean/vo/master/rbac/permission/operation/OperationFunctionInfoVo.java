@@ -39,4 +39,9 @@ public class OperationFunctionInfoVo implements Serializable {
      * 权限标识
      */
     private String perms;
+
+    /**
+     * 值
+     */
+    private Boolean value;
 }
