@@ -32,8 +32,8 @@ public class PerfectInvalidSessionStrategy implements InvalidSessionStrategy {
         // if (CommonUtil.isAjaxRequest(request)) {
 
         ResponseResultUtil.responseWriteError(request, response,
-            new PerfectInvalidSessionStrategyException("session会话超时或者是非法的session，请登录后重试！"),
-            HttpStatus.UNAUTHORIZED.value(), "session会话超时或者是非法的session，请登录后重试！");
+            new PerfectInvalidSessionStrategyException("您的会话已过期，请重新登录！"),
+            HttpStatus.UNAUTHORIZED.value(), "您的会话已过期，请重新登录！");
 
         // }
         // redirectStrategy.sendRedirect(request, response, perfectSecurityProperties.getLogoutUrl());
