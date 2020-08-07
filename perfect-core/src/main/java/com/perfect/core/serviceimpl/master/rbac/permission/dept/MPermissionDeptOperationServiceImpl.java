@@ -1,4 +1,4 @@
-package com.perfect.core.serviceimpl.master.rbac.permission.operation;
+package com.perfect.core.serviceimpl.master.rbac.permission.dept;
 
 import com.perfect.bean.entity.master.rbac.permission.MPermissionEntity;
 import com.perfect.bean.utils.common.tree.TreeUtil;
@@ -6,9 +6,9 @@ import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuPageFunctionVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuVo;
 import com.perfect.core.mapper.master.rbac.permission.MPermissionMapper;
-import com.perfect.core.mapper.master.rbac.permission.operation.MPermissionOperationMapper;
+import com.perfect.core.mapper.master.rbac.permission.dept.MPermissionDeptOperationMapper;
 import com.perfect.core.service.base.v1.BaseServiceImpl;
-import com.perfect.core.service.master.rbac.permission.operation.IMPermissionOperationService;
+import com.perfect.core.service.master.rbac.permission.dept.IMPermissionDeptOperationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,11 +26,11 @@ import java.util.stream.Collectors;
  * @since 2020-07-27
  */
 @Service
-public class MPermissionOperationServiceImpl extends BaseServiceImpl<MPermissionMapper, MPermissionEntity> implements
-    IMPermissionOperationService {
+public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermissionMapper, MPermissionEntity> implements
+    IMPermissionDeptOperationService {
 
     @Autowired
-    private MPermissionOperationMapper mapper;
+    private MPermissionDeptOperationMapper mapper;
 
     /**
      * 获取列表，查询所有数据

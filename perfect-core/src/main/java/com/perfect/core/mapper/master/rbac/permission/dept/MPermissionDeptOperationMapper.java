@@ -1,4 +1,4 @@
-package com.perfect.core.mapper.master.rbac.permission.operation;
+package com.perfect.core.mapper.master.rbac.permission.dept;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.perfect.bean.entity.master.rbac.permission.MPermissionEntity;
@@ -22,7 +22,7 @@ import java.util.List;
  * @since 2020-07-27
  */
 @Repository
-public interface MPermissionOperationMapper extends BaseMapper<MPermissionEntity> {
+public interface MPermissionDeptOperationMapper extends BaseMapper<MPermissionEntity> {
 
     String commonTreeGrid = "    "
         + "                                                                                            "

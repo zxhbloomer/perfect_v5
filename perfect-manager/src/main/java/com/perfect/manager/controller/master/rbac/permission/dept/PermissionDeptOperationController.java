@@ -6,7 +6,7 @@ import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuVo;
 import com.perfect.common.annotations.RepeatSubmitAnnotion;
 import com.perfect.common.annotations.SysLogAnnotion;
-import com.perfect.core.service.master.rbac.permission.operation.IMPermissionOperationService;
+import com.perfect.core.service.master.rbac.permission.dept.IMPermissionDeptOperationService;
 import com.perfect.framework.base.controller.v1.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/api/v1/permission/operation")
 @Slf4j
 @Api("权限操作")
-public class PermissionOperationController extends BaseController {
+public class PermissionDeptOperationController extends BaseController {
 
     @Autowired
-    private IMPermissionOperationService service;
+    private IMPermissionDeptOperationService service;
 
     @SysLogAnnotion("根据查询条件，获取部门权限操作数据")
     @ApiOperation("根据查询条件，获取部门权限操作数据")
