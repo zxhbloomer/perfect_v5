@@ -48,4 +48,43 @@ public class PermissionDeptOperationController extends BaseController {
         OperationMenuVo entity = service.setSystemMenuData2PermissionData(searchCondition);
         return ResponseEntity.ok().body(ResultUtil.OK(entity));
     }
+
+    /**
+     * INSERT INTO m_permission_menu (
+     * 	id,
+     * 	permission_id,
+     * 	menu_id,
+     * 	is_default,
+     * 	`code`,
+     * 	`name`,
+     * 	root_id,
+     * 	parent_id,
+     * 	son_count,
+     * 	sort,
+     * 	type,
+     * 	visible,
+     * 	perms,
+     * 	page_id,
+     * 	page_code,
+     * 	parent_path,
+     * 	path,
+     * 	full_path,
+     * 	route_name,
+     * 	meta_title,
+     * 	meta_icon,
+     * 	component,
+     * 	affix,
+     * 	descr,
+     * 	tenant_id,
+     * 	c_id,
+     * 	c_time,
+     * 	u_id,
+     * 	u_time,
+     * dbversion
+     * )
+     *
+     *
+     *
+     *
+     */
 }
