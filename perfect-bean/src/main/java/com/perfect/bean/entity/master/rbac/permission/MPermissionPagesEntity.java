@@ -28,6 +28,12 @@ public class MPermissionPagesEntity implements Serializable {
     private Long id;
 
     /**
+     * page_id，数据通过复制s_pages，为不破坏表连接关系，该字段记录s_pages.id
+     */
+    @TableField("page_id")
+    private Long page_id;
+
+    /**
      * 配置vue export default  name时所使用的type：constants_program.P_VUE_SETTING
      */
     @TableField("code")

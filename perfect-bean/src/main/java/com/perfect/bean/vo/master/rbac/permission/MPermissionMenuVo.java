@@ -27,6 +27,16 @@ public class MPermissionMenuVo implements Serializable {
     private Long id;
 
     /**
+     * 权限id
+     */
+    private Long permission_id;
+
+    /**
+     * menu_id，数据通过复制m_menu，为不破坏表连接关系，该字段记录m_menu.id
+     */
+    private Long menu_id;
+
+    /**
      * 默认菜单（0非默认 1默认）
      */
     private Boolean is_default;

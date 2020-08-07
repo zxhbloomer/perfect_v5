@@ -28,6 +28,18 @@ public class MPermissionMenuEntity implements Serializable {
     private Long id;
 
     /**
+     * 权限id
+     */
+    @TableField("permission_id")
+    private Long permission_id;
+
+    /**
+     * menu_id，数据通过复制m_menu，为不破坏表连接关系，该字段记录m_menu.id
+     */
+    @TableField("menu_id")
+    private Long menu_id;
+
+    /**
      * 默认菜单（0非默认 1默认）
      */
     @TableField("is_default")
