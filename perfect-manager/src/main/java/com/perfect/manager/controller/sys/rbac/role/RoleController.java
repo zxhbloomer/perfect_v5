@@ -6,6 +6,7 @@ import com.perfect.bean.pojo.result.JsonResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;
 import com.perfect.bean.vo.sys.rbac.role.SRoleExportVo;
 import com.perfect.bean.vo.sys.rbac.role.SRoleVo;
+import com.perfect.common.annotations.RepeatSubmitAnnotion;
 import com.perfect.common.annotations.SysLogAnnotion;
 import com.perfect.common.enums.ResultEnum;
 import com.perfect.common.exception.InsertErrorException;
@@ -68,6 +69,7 @@ public class RoleController extends BaseController {
     @ApiOperation("根据参数id，获取角色信息")
     @PostMapping("/save")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<SRoleEntity>> save(@RequestBody(required = false) SRoleEntity sRoleEntity) {
         sRoleEntity.setC_id(null);
         sRoleEntity.setC_time(null);
@@ -82,6 +84,7 @@ public class RoleController extends BaseController {
     @ApiOperation("根据参数id，获取角色信息")
     @PostMapping("/insert")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<SRoleEntity>> insert(@RequestBody(required = false) SRoleEntity sRoleEntity) {
         if(isRoleService.save(sRoleEntity)){
             return ResponseEntity.ok().body(ResultUtil.OK(isRoleService.getById(sRoleEntity.getId()),"插入成功"));
@@ -144,6 +147,7 @@ public class RoleController extends BaseController {
     @ApiOperation("根据参数id，逻辑删除复原数据")
     @PostMapping("/delete")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<String>> delete(@RequestBody(required = false) List<SRoleVo> searchConditionList) {
         isRoleService.deleteByIdsIn(searchConditionList);
         return ResponseEntity.ok().body(ResultUtil.OK("OK"));

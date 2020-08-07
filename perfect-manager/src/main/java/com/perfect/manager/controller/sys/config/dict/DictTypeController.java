@@ -8,6 +8,7 @@ import com.perfect.bean.vo.sys.config.dict.SDictTypeExportVo;
 import com.perfect.bean.vo.sys.config.dict.SDictTypeVo;
 import com.perfect.bean.vo.sys.config.resource.SResourceExportVo;
 import com.perfect.bean.vo.sys.rbac.role.SRoleVo;
+import com.perfect.common.annotations.RepeatSubmitAnnotion;
 import com.perfect.common.annotations.SysLogAnnotion;
 import com.perfect.common.enums.ResultEnum;
 import com.perfect.common.exception.InsertErrorException;
@@ -70,6 +71,7 @@ public class DictTypeController extends BaseController {
     @ApiOperation("根据参数id，获取字典主表信息")
     @PostMapping("/save")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<SDictTypeEntity>> save(@RequestBody(required = false) SDictTypeEntity bean) {
 
         if(isDictTypeService.update(bean).isSuccess()){
@@ -83,6 +85,7 @@ public class DictTypeController extends BaseController {
     @ApiOperation("根据参数id，获取字典主表信息")
     @PostMapping("/insert")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<SDictTypeEntity>> insert(@RequestBody(required = false) SDictTypeEntity bean) {
         if(isDictTypeService.insert(bean).isSuccess()){
             return ResponseEntity.ok().body(ResultUtil.OK(isDictTypeService.getById(bean.getId()),"插入成功"));
@@ -115,6 +118,7 @@ public class DictTypeController extends BaseController {
     @ApiOperation("根据参数id，逻辑删除复原数据")
     @PostMapping("/delete")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<String>> delete(@RequestBody(required = false) List<SDictTypeVo> searchConditionList) {
         isDictTypeService.deleteByIdsIn(searchConditionList);
         return ResponseEntity.ok().body(ResultUtil.OK("OK"));

@@ -5,6 +5,7 @@ import com.perfect.bean.entity.master.MAddressEntity;
 import com.perfect.bean.pojo.result.JsonResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;
 import com.perfect.bean.vo.master.MAddressVo;
+import com.perfect.common.annotations.RepeatSubmitAnnotion;
 import com.perfect.common.annotations.SysLogAnnotion;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
@@ -48,6 +49,7 @@ public class MasterAddressController extends BaseController {
     @ApiOperation("根据参数id，获取地址簿主表信息")
     @PostMapping("/address/save")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<MAddressEntity>> save(@RequestBody(required = false) MAddressEntity bean) {
 
         if(service.update(bean).isSuccess()){
@@ -61,6 +63,7 @@ public class MasterAddressController extends BaseController {
     @ApiOperation("根据参数id，获取地址簿主表信息")
     @PostMapping("/address/insert")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<MAddressVo>> insert(@RequestBody(required = false) MAddressEntity bean) {
         if(service.insert(bean).isSuccess()){
             return ResponseEntity.ok().body(ResultUtil.OK(service.selectByid(bean.getId()),"插入成功"));
@@ -73,6 +76,7 @@ public class MasterAddressController extends BaseController {
     @ApiOperation("根据参数id，逻辑删除复原数据")
     @PostMapping("/address/delete")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<String>> delete(@RequestBody(required = false) List<MAddressVo> searchConditionList) {
         service.realDeleteByIdsIn(searchConditionList);
         return ResponseEntity.ok().body(ResultUtil.OK("OK"));

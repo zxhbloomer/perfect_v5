@@ -4,9 +4,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.perfect.bean.entity.sys.config.resource.SResourceEntity;
 import com.perfect.bean.pojo.result.JsonResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;
-import com.perfect.bean.vo.sys.rbac.role.SRoleExportVo;
 import com.perfect.bean.vo.sys.config.resource.SResourceExportVo;
 import com.perfect.bean.vo.sys.config.resource.SResourceVo;
+import com.perfect.bean.vo.sys.rbac.role.SRoleExportVo;
+import com.perfect.common.annotations.RepeatSubmitAnnotion;
 import com.perfect.common.annotations.SysLogAnnotion;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
@@ -67,6 +68,7 @@ public class ResourceController extends BaseController {
     @ApiOperation("根据参数id，获取资源表信息")
     @PostMapping("/save")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<SResourceEntity>> save(@RequestBody(required = false) SResourceEntity sResourceEntity) {
         sResourceEntity.setC_id(null);
         sResourceEntity.setC_time(null);
@@ -81,6 +83,7 @@ public class ResourceController extends BaseController {
     @ApiOperation("根据参数id，获取资源表信息")
     @PostMapping("/insert")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<SResourceEntity>> insert(@RequestBody(required = false) SResourceEntity sResourceEntity) {
         if(isResourceService.save(sResourceEntity)){
             return ResponseEntity.ok().body(ResultUtil.OK(isResourceService.getById(sResourceEntity.getId()),"插入成功"));
@@ -114,6 +117,7 @@ public class ResourceController extends BaseController {
     @ApiOperation("根据参数id，逻辑删除复原数据")
     @PostMapping("/delete")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<String>> delete(@RequestBody(required = false) List<SResourceVo> searchConditionList) {
         isResourceService.deleteByIdsIn(searchConditionList);
         return ResponseEntity.ok().body(ResultUtil.OK("OK"));

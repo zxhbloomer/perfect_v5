@@ -3,9 +3,10 @@ package com.perfect.manager.controller.master.user;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.perfect.bean.pojo.result.JsonResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;
-import com.perfect.bean.vo.master.user.MStaffExportVo;
 import com.perfect.bean.vo.master.org.MStaffPositionVo;
+import com.perfect.bean.vo.master.user.MStaffExportVo;
 import com.perfect.bean.vo.master.user.MStaffVo;
+import com.perfect.common.annotations.RepeatSubmitAnnotion;
 import com.perfect.common.annotations.SysLogAnnotion;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
@@ -55,6 +56,7 @@ public class  MasterStaffController extends BaseController {
     @ApiOperation("根据参数id，获取员工主表信息")
     @PostMapping("/save")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<MStaffVo>> save(@RequestBody(required = false) MStaffVo bean, HttpServletRequest request) {
         if(service.update(bean, request.getSession()).isSuccess()){
             super.doResetUserSessionByStaffId(bean.getId());
@@ -68,6 +70,7 @@ public class  MasterStaffController extends BaseController {
     @ApiOperation("根据参数id，获取员工主表信息")
     @PostMapping("/insert")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<MStaffVo>> insert(@RequestBody(required = false) MStaffVo bean, HttpServletRequest request) {
         if(service.insert(bean, request.getSession()).isSuccess()){
             return ResponseEntity.ok().body(ResultUtil.OK(service.selectByid(bean.getId()),"插入成功"));
@@ -102,6 +105,7 @@ public class  MasterStaffController extends BaseController {
     @ApiOperation("根据参数id，逻辑删除复原数据")
     @PostMapping("/delete")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<String>> delete(@RequestBody(required = false) List<MStaffVo> searchConditionList) {
         service.deleteByIdsIn(searchConditionList);
         return ResponseEntity.ok().body(ResultUtil.OK("OK"));
@@ -120,6 +124,7 @@ public class  MasterStaffController extends BaseController {
     @ApiOperation("根据参数id，查询岗位员工")
     @PostMapping("/position/save")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<String>> setPositionStaff(@RequestBody(required = false) MStaffPositionVo searchCondition) {
         service.setPositionStaff(searchCondition);
         return ResponseEntity.ok().body(ResultUtil.OK("OK"));

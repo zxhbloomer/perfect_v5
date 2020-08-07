@@ -76,6 +76,7 @@ public class SysFunctionController extends BaseController {
     @ApiOperation("根据参数id，物理删除数据")
     @PostMapping("/delete")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<String>> delete(@RequestBody(required = false)
         List<SFunctionVo> searchConditionList) {
         service.realDeleteByIdsIn(searchConditionList);

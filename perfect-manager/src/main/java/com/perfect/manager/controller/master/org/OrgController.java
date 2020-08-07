@@ -7,6 +7,7 @@ import com.perfect.bean.result.utils.v1.ResultUtil;
 import com.perfect.bean.vo.common.component.NameAndValueVo;
 import com.perfect.bean.vo.master.org.*;
 import com.perfect.bean.vo.master.user.MStaffVo;
+import com.perfect.common.annotations.RepeatSubmitAnnotion;
 import com.perfect.common.annotations.SysLogAnnotion;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
@@ -113,6 +114,7 @@ public class OrgController extends BaseController {
     @ApiOperation("根据参数id，获取组织架构主表信息")
     @PostMapping("/save")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<MOrgVo>> save(@RequestBody(required = false) MOrgEntity bean) {
 
         if(service.update(bean).isSuccess()){
@@ -126,6 +128,7 @@ public class OrgController extends BaseController {
     @ApiOperation("根据参数id，获取组织架构主表信息")
     @PostMapping("/insert")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<MOrgVo>> insert(@RequestBody(required = false) MOrgEntity bean) {
         if(service.insert(bean).isSuccess()){
             return ResponseEntity.ok().body(ResultUtil.OK(service.selectByid(bean.getId()),"插入成功"));
@@ -150,6 +153,7 @@ public class OrgController extends BaseController {
     @ApiOperation("新增模式下，可新增子结点得类型")
     @PostMapping("/delete")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<String>> delete(@RequestBody(required = false) MOrgEntity bean) {
         Boolean rtn = service.deleteById(bean);
         return ResponseEntity.ok().body(ResultUtil.OK("删除成功"));
@@ -159,6 +163,7 @@ public class OrgController extends BaseController {
     @ApiOperation("根据参数id，获取组织架构主表信息，拖拽后，全量更新")
     @PostMapping("/dragsave")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<String>> dragsave(@RequestBody(required = false) List<MOrgTreeVo> beans) {
         service.dragsave(beans);
         return ResponseEntity.ok().body(ResultUtil.OK("拖拽更新成功"));
@@ -178,6 +183,7 @@ public class OrgController extends BaseController {
     @ApiOperation("保存穿梭框数据，员工岗位设置")
     @PostMapping("/staff/transfer/save")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<MStaffPositionTransferVo>> setStaffTransferList(@RequestBody(required = false) MStaffTransferVo bean) {
         bean.setTenant_id(super.getUserSessionTenantId());
         return ResponseEntity.ok().body(ResultUtil.OK(service.setStaffTransfer(bean)));

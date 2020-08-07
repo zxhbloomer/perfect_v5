@@ -7,7 +7,6 @@ import com.perfect.bean.pojo.result.UpdateResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;
 import com.perfect.bean.vo.master.menu.MMenuDataVo;
 import com.perfect.bean.vo.master.menu.MMenuVo;
-import com.perfect.bean.vo.master.org.MOrgTreeVo;
 import com.perfect.common.annotations.RepeatSubmitAnnotion;
 import com.perfect.common.annotations.SysLogAnnotion;
 import com.perfect.common.exception.InsertErrorException;
@@ -62,6 +61,7 @@ public class MasterMenuController extends BaseController {
     @ApiOperation("系统菜单数据更新保存")
     @PostMapping("/save")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<MMenuDataVo>> save(@RequestBody(required = false) MMenuEntity bean) {
         bean.setTenant_id(super.getUserSessionTenantId());
         UpdateResult<MMenuDataVo> rtn = service.update(bean);
@@ -136,6 +136,7 @@ public class MasterMenuController extends BaseController {
     @ApiOperation("根据参数id，逻辑删除数据")
     @PostMapping("/realdelete")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<String>> realDelete(@RequestBody(required = false) MMenuDataVo searchCondition) {
         searchCondition.setTenant_id(super.getUserSessionTenantId());
         if(searchCondition == null) {
@@ -150,6 +151,7 @@ public class MasterMenuController extends BaseController {
     @ApiOperation("系统菜单数据更新保存，拖拽后，全量更新")
     @PostMapping("/dragsave")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<String>> dragsave(@RequestBody(required = false) List<MMenuDataVo> beans) {
         service.dragsave(beans);
         return ResponseEntity.ok().body(ResultUtil.OK("拖拽更新成功"));

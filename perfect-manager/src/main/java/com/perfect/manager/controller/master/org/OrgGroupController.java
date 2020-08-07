@@ -6,6 +6,7 @@ import com.perfect.bean.pojo.result.JsonResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;
 import com.perfect.bean.vo.master.org.MGroupExportVo;
 import com.perfect.bean.vo.master.org.MGroupVo;
+import com.perfect.common.annotations.RepeatSubmitAnnotion;
 import com.perfect.common.annotations.SysLogAnnotion;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
@@ -53,6 +54,7 @@ public class OrgGroupController extends BaseController {
     @ApiOperation("根据参数id，获取集团主表信息")
     @PostMapping("/save")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<MGroupVo>> save(@RequestBody(required = false) MGroupEntity bean) {
 
         if(service.update(bean).isSuccess()){
@@ -66,6 +68,7 @@ public class OrgGroupController extends BaseController {
     @ApiOperation("根据参数id，获取集团主表信息")
     @PostMapping("/insert")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<MGroupVo>> insert(@RequestBody(required = false) MGroupEntity bean) {
         if(service.insert(bean).isSuccess()){
             return ResponseEntity.ok().body(ResultUtil.OK(service.selectByid(bean.getId()),"插入成功"));
@@ -98,6 +101,7 @@ public class OrgGroupController extends BaseController {
     @ApiOperation("根据参数id，逻辑删除复原数据")
     @PostMapping("/delete")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<String>> delete(@RequestBody(required = false) List<MGroupVo> searchConditionList) {
         service.deleteByIdsIn(searchConditionList);
         return ResponseEntity.ok().body(ResultUtil.OK("OK"));

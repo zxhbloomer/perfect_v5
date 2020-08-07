@@ -7,6 +7,7 @@ import com.perfect.bean.pojo.result.UpdateResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;
 import com.perfect.bean.vo.master.rbac.permission.MMenuRootNodeListVo;
 import com.perfect.bean.vo.master.rbac.permission.MPermissionVo;
+import com.perfect.common.annotations.RepeatSubmitAnnotion;
 import com.perfect.common.annotations.SysLogAnnotion;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
@@ -48,6 +49,7 @@ public class PermissionDeptController extends BaseController {
     @ApiOperation("根据参数id，获取部门权限表信息")
     @PostMapping("/save")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<MPermissionVo>> save(@RequestBody(required = false) MPermissionVo bean) {
         bean.setTenant_id(super.getUserSessionTenantId());
         UpdateResult<MPermissionVo> rtn = service.update(bean);
@@ -62,6 +64,7 @@ public class PermissionDeptController extends BaseController {
     @ApiOperation("根据参数id，获取部门权限表信息")
     @PostMapping("/insert")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<MPermissionVo>> insert(@RequestBody(required = false) MPermissionVo bean) {
         bean.setTenant_id(getUserSessionTenantId());
         InsertResult<MPermissionVo> rtn = service.insert(bean);
@@ -76,6 +79,7 @@ public class PermissionDeptController extends BaseController {
     @ApiOperation("根据参数id，逻辑删除复原数据")
     @PostMapping("/delete")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<String>> delete(@RequestBody(required = false) List<MPermissionVo> searchConditionList) {
         service.deleteByIdsIn(searchConditionList);
         return ResponseEntity.ok().body(ResultUtil.OK("OK"));

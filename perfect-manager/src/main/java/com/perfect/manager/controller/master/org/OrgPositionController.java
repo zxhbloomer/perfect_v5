@@ -5,8 +5,9 @@ import com.perfect.bean.entity.master.org.MPositionEntity;
 import com.perfect.bean.pojo.result.JsonResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;
 import com.perfect.bean.vo.master.org.MDeptExportVo;
-import com.perfect.bean.vo.master.org.MPositionVo;
 import com.perfect.bean.vo.master.org.MPositionExportVo;
+import com.perfect.bean.vo.master.org.MPositionVo;
+import com.perfect.common.annotations.RepeatSubmitAnnotion;
 import com.perfect.common.annotations.SysLogAnnotion;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
@@ -65,6 +66,7 @@ public class OrgPositionController extends BaseController {
     @ApiOperation("根据参数id，获取岗位主表信息")
     @PostMapping("/save")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<MPositionVo>> save(@RequestBody(required = false) MPositionEntity bean) {
         if(service.update(bean).isSuccess()){
             return ResponseEntity.ok().body(ResultUtil.OK(service.selectByid(bean.getId()),"更新成功"));
@@ -77,6 +79,7 @@ public class OrgPositionController extends BaseController {
     @ApiOperation("根据参数id，获取岗位主表信息")
     @PostMapping("/insert")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<MPositionVo>> insert(@RequestBody(required = false) MPositionEntity bean) {
         if(service.insert(bean).isSuccess()){
             return ResponseEntity.ok().body(ResultUtil.OK(service.selectByid(bean.getId()),"插入成功"));
@@ -109,6 +112,7 @@ public class OrgPositionController extends BaseController {
     @ApiOperation("根据参数id，逻辑删除复原数据")
     @PostMapping("/delete")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<String>> delete(@RequestBody(required = false) List<MPositionVo> searchConditionList) {
         service.deleteByIdsIn(searchConditionList);
         return ResponseEntity.ok().body(ResultUtil.OK("OK"));

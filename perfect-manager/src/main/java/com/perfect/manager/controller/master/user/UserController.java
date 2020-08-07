@@ -2,25 +2,24 @@ package com.perfect.manager.controller.master.user;
 
 import com.perfect.bean.entity.master.user.MUserEntity;
 import com.perfect.bean.pojo.result.JsonResult;
+import com.perfect.bean.result.utils.v1.ResultUtil;
 import com.perfect.bean.vo.master.user.MUserVo;
+import com.perfect.bean.vo.master.user.UserInfoVo;
+import com.perfect.common.annotations.RepeatSubmitAnnotion;
 import com.perfect.common.annotations.SysLogAnnotion;
 import com.perfect.common.constant.PerfectConstant;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.PasswordException;
 import com.perfect.common.exception.UpdateErrorException;
 import com.perfect.common.utils.string.StringUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import com.perfect.bean.result.utils.v1.ResultUtil;
-import com.perfect.bean.vo.master.user.UserInfoVo;
 import com.perfect.core.service.client.user.IMUserService;
 import com.perfect.framework.base.controller.v1.BaseController;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -65,6 +64,7 @@ public class UserController extends BaseController {
     @ApiOperation("根据参数id，获取员工主表信息")
     @PostMapping("/save")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<MUserVo>> save(@RequestBody(required = false) MUserEntity bean) {
 
         if(service.update(bean).isSuccess()){
@@ -78,6 +78,7 @@ public class UserController extends BaseController {
     @ApiOperation("根据参数id，获取员工主表信息")
     @PostMapping("/insert")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<MUserVo>> insert(@RequestBody(required = false) MUserEntity bean) {
         if(service.insert(bean).isSuccess()){
             return ResponseEntity.ok().body(ResultUtil.OK(service.selectByid(bean.getId()),"插入成功"));

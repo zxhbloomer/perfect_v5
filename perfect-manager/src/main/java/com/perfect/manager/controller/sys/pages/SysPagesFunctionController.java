@@ -89,6 +89,7 @@ public class SysPagesFunctionController extends BaseController {
     @ApiOperation("页面按钮表数据物理删除，部分数据")
     @PostMapping("/delete")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<String>> delete(@RequestBody(required = false)
         List<SPagesFunctionVo> searchConditionList) {
         service.realDeleteByIdsIn(searchConditionList);

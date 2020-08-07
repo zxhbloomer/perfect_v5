@@ -1,37 +1,36 @@
 package com.perfect.manager.controller.sys.config.dict;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.perfect.bean.entity.sys.config.dict.SDictDataEntity;
-import com.perfect.bean.pojo.result.UpdateResult;
-import com.perfect.bean.vo.sys.config.dict.SDictDataVo;
-import com.perfect.common.annotations.SysLogAnnotion;
-import com.perfect.core.service.sys.config.dict.ISDictDataService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import com.perfect.bean.pojo.result.JsonResult;
+import com.perfect.bean.pojo.result.UpdateResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;
+import com.perfect.bean.vo.sys.config.dict.SDictDataVo;
 import com.perfect.bean.vo.sys.config.dict.SDictTypeExportVo;
 import com.perfect.bean.vo.sys.config.resource.SResourceExportVo;
 import com.perfect.bean.vo.sys.rbac.role.SRoleVo;
+import com.perfect.common.annotations.RepeatSubmitAnnotion;
+import com.perfect.common.annotations.SysLogAnnotion;
 import com.perfect.common.enums.ResultEnum;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
 import com.perfect.common.utils.bean.BeanUtilsSupport;
+import com.perfect.core.service.sys.config.dict.ISDictDataService;
 import com.perfect.excel.export.ExcelUtil;
 import com.perfect.excel.upload.PerfectExcelReader;
 import com.perfect.framework.base.controller.v1.BaseController;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * @author zhangxh
@@ -73,6 +72,7 @@ public class DictDataController extends BaseController {
     @ApiOperation("根据参数id，获取字典数据表信息")
     @PostMapping("/save")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<SDictDataVo>> save(@RequestBody(required = false) SDictDataEntity bean) {
         if(service.update(bean).isSuccess()){
             return ResponseEntity.ok().body(ResultUtil.OK(service.selectByid(bean.getId()),"更新成功"));
@@ -85,6 +85,7 @@ public class DictDataController extends BaseController {
     @ApiOperation("根据参数id，获取字典数据表信息")
     @PostMapping("/insert")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<SDictDataVo>> insert(@RequestBody(required = false) SDictDataEntity bean) {
         if(service.insert(bean).isSuccess()){
             return ResponseEntity.ok().body(ResultUtil.OK(service.selectByid(bean.getId()),"插入成功"));
@@ -117,6 +118,7 @@ public class DictDataController extends BaseController {
     @ApiOperation("根据参数id，逻辑删除复原数据")
     @PostMapping("/delete")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<String>> delete(@RequestBody(required = false) List<SDictDataVo> searchConditionList) {
         service.deleteByIdsIn(searchConditionList);
         return ResponseEntity.ok().body(ResultUtil.OK("OK"));

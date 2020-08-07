@@ -104,6 +104,7 @@ public class ConfigController extends BaseController {
     @ApiOperation("根据参数id，逻辑删除数据")
     @PostMapping("/delete")
     @ResponseBody
+    @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<String>> delete(@RequestBody(required = false) List<SConfigVo> searchConditionList) {
         service.realDeleteByIdsIn(searchConditionList);
         return ResponseEntity.ok().body(ResultUtil.OK("OK"));
