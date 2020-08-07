@@ -203,7 +203,7 @@ public class MPermissionServiceImpl extends BaseServiceImpl<MPermissionMapper, M
 
         MMenuRootNodeVo default_vo = new MMenuRootNodeVo();
         default_vo.setId(entity.getId());
-        default_vo.setValue(entity.getCode());
+        default_vo.setValue(entity.getId());
         default_vo.setLabel(entity.getName());
         MMenuRootNodeListVo rtn = new MMenuRootNodeListVo();
         rtn.setNodes(list);

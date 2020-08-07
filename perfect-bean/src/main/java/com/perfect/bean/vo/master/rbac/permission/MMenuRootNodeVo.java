@@ -27,7 +27,7 @@ public class MMenuRootNodeVo implements Serializable {
     /**
      * 结点id
      */
-    private String value;
+    private Long value;
 
 
     /**

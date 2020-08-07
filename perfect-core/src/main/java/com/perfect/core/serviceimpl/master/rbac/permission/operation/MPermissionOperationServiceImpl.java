@@ -89,4 +89,17 @@ public class MPermissionOperationServiceImpl extends BaseServiceImpl<MPermission
             }
         }
     }
+
+    /**
+     * 复制选中的菜单
+     *
+     * @param searchCondition
+     * @return
+     */
+    @Override
+    public OperationMenuVo setSystemMenuData2PermissionData(OperationMenuDataVo searchCondition) {
+
+
+        return null;
+    }
 }

@@ -4,6 +4,7 @@ import com.perfect.bean.pojo.result.JsonResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuVo;
+import com.perfect.common.annotations.RepeatSubmitAnnotion;
 import com.perfect.common.annotations.SysLogAnnotion;
 import com.perfect.core.service.master.rbac.permission.operation.IMPermissionOperationService;
 import com.perfect.framework.base.controller.v1.BaseController;
@@ -33,6 +34,18 @@ public class PermissionOperationController extends BaseController {
     public ResponseEntity<JsonResult<OperationMenuVo>> list(@RequestBody(required = false) OperationMenuDataVo searchCondition) {
         searchCondition.setTenant_id(super.getUserSessionTenantId());
         OperationMenuVo entity = service.getTreeData(searchCondition);
+        return ResponseEntity.ok().body(ResultUtil.OK(entity));
+    }
+
+    @SysLogAnnotion("复制选中的菜单")
+    @ApiOperation("复制选中的菜单")
+    @PostMapping("/dept/set_permission_menu_data")
+    @ResponseBody
+    @RepeatSubmitAnnotion
+    public ResponseEntity<JsonResult<OperationMenuVo>> setSystemMenuData2PermissionDataApi(@RequestBody(required = false) OperationMenuDataVo searchCondition) {
+        searchCondition.setTenant_id(super.getUserSessionTenantId());
+
+        OperationMenuVo entity = service.setSystemMenuData2PermissionData(searchCondition);
         return ResponseEntity.ok().body(ResultUtil.OK(entity));
     }
 }

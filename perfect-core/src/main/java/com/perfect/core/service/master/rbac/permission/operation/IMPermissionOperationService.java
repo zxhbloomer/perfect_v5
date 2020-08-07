@@ -19,4 +19,9 @@ public interface IMPermissionOperationService extends IService<MPermissionEntity
      * 获取所有数据
      */
     OperationMenuVo getTreeData(OperationMenuDataVo searchCondition) ;
+
+    /**
+     * 复制选中的菜单
+     */
+    OperationMenuVo setSystemMenuData2PermissionData(OperationMenuDataVo searchCondition) ;
 }
