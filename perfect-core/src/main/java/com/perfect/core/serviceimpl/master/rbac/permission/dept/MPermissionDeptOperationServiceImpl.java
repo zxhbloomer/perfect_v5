@@ -1,17 +1,20 @@
 package com.perfect.core.serviceimpl.master.rbac.permission.dept;
 
 import com.perfect.bean.entity.master.rbac.permission.MPermissionEntity;
+import com.perfect.bean.entity.master.rbac.permission.MPermissionMenuEntity;
 import com.perfect.bean.utils.common.tree.TreeUtil;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuPageFunctionVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuVo;
 import com.perfect.core.mapper.master.rbac.permission.MPermissionMapper;
+import com.perfect.core.mapper.master.rbac.permission.MPermissionMenuMapper;
 import com.perfect.core.mapper.master.rbac.permission.dept.MPermissionDeptOperationMapper;
 import com.perfect.core.service.base.v1.BaseServiceImpl;
 import com.perfect.core.service.master.rbac.permission.dept.IMPermissionDeptOperationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -31,6 +34,9 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
 
     @Autowired
     private MPermissionDeptOperationMapper mapper;
+
+    @Autowired
+    private MPermissionMenuMapper mPermissionMenuMapper;
 
     /**
      * 获取列表，查询所有数据
@@ -97,9 +103,19 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
      * @return
      */
     @Override
-    public OperationMenuVo setSystemMenuData2PermissionData(OperationMenuDataVo searchCondition) {
+    public int setSystemMenuData2PermissionData(OperationMenuDataVo searchCondition) {
 
-
-        return null;
+        // m_menu --copy-->m_permission_menu
+        MPermissionMenuEntity entity = new MPermissionMenuEntity();
+        entity.setTenant_id(searchCondition.getTenant_id());
+        entity.setC_id(searchCondition.getC_id());
+        entity.setU_id(searchCondition.getU_id());
+        entity.setC_time(LocalDateTime.now());
+        entity.setU_time(LocalDateTime.now());
+        entity.setDbversion(0);
+        entity.setMenu_id(searchCondition.getRoot_id());
+        entity.setPermission_id(searchCondition.getPermission_id());
+        int count = mPermissionMenuMapper.copyMmenu2MPermissionMenuEntity(entity);
+        return count;
     }
 }

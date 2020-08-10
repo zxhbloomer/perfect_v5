@@ -42,49 +42,12 @@ public class PermissionDeptOperationController extends BaseController {
     @PostMapping("/dept/set_permission_menu_data")
     @ResponseBody
     @RepeatSubmitAnnotion
-    public ResponseEntity<JsonResult<OperationMenuVo>> setSystemMenuData2PermissionDataApi(@RequestBody(required = false) OperationMenuDataVo searchCondition) {
+    public ResponseEntity<JsonResult<String>> setSystemMenuData2PermissionDataApi(@RequestBody(required = false) OperationMenuDataVo searchCondition) {
         searchCondition.setTenant_id(super.getUserSessionTenantId());
+        searchCondition.setC_id(super.getUserSessionStaffId());
+        searchCondition.setU_id(super.getUserSessionStaffId());
 
-        OperationMenuVo entity = service.setSystemMenuData2PermissionData(searchCondition);
-        return ResponseEntity.ok().body(ResultUtil.OK(entity));
+        int count = service.setSystemMenuData2PermissionData(searchCondition);
+        return ResponseEntity.ok().body(ResultUtil.OK("复制成功","复制成功"));
     }
-
-    /**
-     * INSERT INTO m_permission_menu (
-     * 	id,
-     * 	permission_id,
-     * 	menu_id,
-     * 	is_default,
-     * 	`code`,
-     * 	`name`,
-     * 	root_id,
-     * 	parent_id,
-     * 	son_count,
-     * 	sort,
-     * 	type,
-     * 	visible,
-     * 	perms,
-     * 	page_id,
-     * 	page_code,
-     * 	parent_path,
-     * 	path,
-     * 	full_path,
-     * 	route_name,
-     * 	meta_title,
-     * 	meta_icon,
-     * 	component,
-     * 	affix,
-     * 	descr,
-     * 	tenant_id,
-     * 	c_id,
-     * 	c_time,
-     * 	u_id,
-     * 	u_time,
-     * dbversion
-     * )
-     *
-     *
-     *
-     *
-     */
 }

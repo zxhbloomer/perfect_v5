@@ -23,5 +23,5 @@ public interface IMPermissionDeptOperationService extends IService<MPermissionEn
     /**
      * 复制选中的菜单
      */
-    OperationMenuVo setSystemMenuData2PermissionData(OperationMenuDataVo searchCondition) ;
+    int setSystemMenuData2PermissionData(OperationMenuDataVo searchCondition) ;
 }
