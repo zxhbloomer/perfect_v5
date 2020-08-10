@@ -13,6 +13,7 @@ import com.perfect.core.service.base.v1.BaseServiceImpl;
 import com.perfect.core.service.master.rbac.permission.dept.IMPermissionDeptOperationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -102,9 +103,20 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
      * @param searchCondition
      * @return
      */
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public int setSystemMenuData2PermissionData(OperationMenuDataVo searchCondition) {
+    public void setSystemMenuData2PermissionData(OperationMenuDataVo searchCondition) {
 
+        // 表复制，m_menu->m_permission_menu
+        copyMmenu2MPermissionMenuEntity(searchCondition);
+    }
+
+    /**
+     * 表复制，m_menu->m_permission_menu
+     * @param searchCondition
+     * @return
+     */
+    private int copyMmenu2MPermissionMenuEntity(OperationMenuDataVo searchCondition) {
         // m_menu --copy-->m_permission_menu
         MPermissionMenuEntity entity = new MPermissionMenuEntity();
         entity.setTenant_id(searchCondition.getTenant_id());

@@ -17,6 +17,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MPermissionMenuMapper extends BaseMapper<MPermissionMenuEntity> {
 
+    /**
+     * 表复制，m_menu->m_permission_menu
+     * @param entity
+     * @return
+     */
     @Insert("                                                            "
         + "  INSERT INTO m_permission_menu (                             "
         + "   	         permission_id,                                  "

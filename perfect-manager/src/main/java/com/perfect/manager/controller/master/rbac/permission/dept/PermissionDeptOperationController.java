@@ -47,7 +47,7 @@ public class PermissionDeptOperationController extends BaseController {
         searchCondition.setC_id(super.getUserSessionStaffId());
         searchCondition.setU_id(super.getUserSessionStaffId());
 
-        int count = service.setSystemMenuData2PermissionData(searchCondition);
+        service.setSystemMenuData2PermissionData(searchCondition);
         return ResponseEntity.ok().body(ResultUtil.OK("复制成功","复制成功"));
     }
 }
