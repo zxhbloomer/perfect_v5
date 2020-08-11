@@ -5,6 +5,7 @@ import com.perfect.bean.entity.master.rbac.permission.MPermissionMenuEntity;
 import com.perfect.bean.entity.master.rbac.permission.MPermissionOperationEntity;
 import com.perfect.bean.entity.master.rbac.permission.MPermissionPagesEntity;
 import com.perfect.bean.utils.common.tree.TreeUtil;
+import com.perfect.bean.vo.master.rbac.permission.MPermissionVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuPageFunctionVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuVo;
@@ -14,6 +15,7 @@ import com.perfect.core.mapper.master.rbac.permission.MPermissionOperationMapper
 import com.perfect.core.mapper.master.rbac.permission.MPermissionPagesMapper;
 import com.perfect.core.mapper.master.rbac.permission.dept.MPermissionDeptOperationMapper;
 import com.perfect.core.service.base.v1.BaseServiceImpl;
+import com.perfect.core.service.master.rbac.permission.IMPermissionService;
 import com.perfect.core.service.master.rbac.permission.dept.IMPermissionDeptOperationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,6 +50,9 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
 
     @Autowired
     private MPermissionOperationMapper mPermissionOperationMapper;
+
+    @Autowired
+    private IMPermissionService imPermissionService;
 
     /**
      * 获取列表，查询所有数据
@@ -123,6 +128,10 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
         copySpages2MPermissionPages(searchCondition);
         // 表复制，s_pages_function->m_permission_operation
         copyMPermissionOperation2MPermissionOperation(searchCondition);
+        // 以上复制完成后，更新m_permission.menu_id
+        MPermissionVo vo = imPermissionService.selectByid(searchCondition.getPermission_id());
+        vo.setMenu_id(searchCondition.getRoot_id());
+        imPermissionService.update(vo);
     }
 
     /**
