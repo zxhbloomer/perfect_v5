@@ -40,6 +40,12 @@ public class MPermissionOperationEntity implements Serializable {
     private Long page_id;
 
     /**
+     * 是否启用(0:false-已禁用,1:true-已启用)
+     */
+    @TableField("is_enable")
+    private Boolean is_enable;
+
+    /**
      * 类型：PAGE：主页面上，TABLE：表格上，POPUP：弹出框上
      */
     @TableField("type")

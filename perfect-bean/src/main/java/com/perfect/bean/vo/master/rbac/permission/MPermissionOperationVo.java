@@ -1,5 +1,6 @@
 package com.perfect.bean.vo.master.rbac.permission;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -30,6 +31,11 @@ public class MPermissionOperationVo implements Serializable {
      * operation_id，数据通过复制s_pages_function，为不破坏表连接关系，该字段记录s_pages_function.id
      */
     private Long operation_id;
+
+    /**
+     * 是否启用(0:false-已禁用,1:true-已启用)
+     */
+    private Boolean is_enable;
 
     /**
      * 页面id

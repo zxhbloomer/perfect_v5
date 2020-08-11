@@ -88,6 +88,6 @@ public interface MPermissionMenuMapper extends BaseMapper<MPermissionMenuEntity>
         + "        where true                                            "
         + "          and t1.root_id = #{p1.menu_id,jdbcType=BIGINT}      "
         + "              ")
-    int copyMmenu2MPermissionMenuEntity(@Param("p1") MPermissionMenuEntity entity);
+    int copyMMenu2MPermissionMenu(@Param("p1") MPermissionMenuEntity entity);
 
 }

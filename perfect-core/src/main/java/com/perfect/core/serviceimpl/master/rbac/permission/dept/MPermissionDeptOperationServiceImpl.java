@@ -2,12 +2,16 @@ package com.perfect.core.serviceimpl.master.rbac.permission.dept;
 
 import com.perfect.bean.entity.master.rbac.permission.MPermissionEntity;
 import com.perfect.bean.entity.master.rbac.permission.MPermissionMenuEntity;
+import com.perfect.bean.entity.master.rbac.permission.MPermissionOperationEntity;
+import com.perfect.bean.entity.master.rbac.permission.MPermissionPagesEntity;
 import com.perfect.bean.utils.common.tree.TreeUtil;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuPageFunctionVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuVo;
 import com.perfect.core.mapper.master.rbac.permission.MPermissionMapper;
 import com.perfect.core.mapper.master.rbac.permission.MPermissionMenuMapper;
+import com.perfect.core.mapper.master.rbac.permission.MPermissionOperationMapper;
+import com.perfect.core.mapper.master.rbac.permission.MPermissionPagesMapper;
 import com.perfect.core.mapper.master.rbac.permission.dept.MPermissionDeptOperationMapper;
 import com.perfect.core.service.base.v1.BaseServiceImpl;
 import com.perfect.core.service.master.rbac.permission.dept.IMPermissionDeptOperationService;
@@ -38,6 +42,12 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
 
     @Autowired
     private MPermissionMenuMapper mPermissionMenuMapper;
+
+    @Autowired
+    private MPermissionPagesMapper mPermissionPagesMapper;
+
+    @Autowired
+    private MPermissionOperationMapper mPermissionOperationMapper;
 
     /**
      * 获取列表，查询所有数据
@@ -108,7 +118,11 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
     public void setSystemMenuData2PermissionData(OperationMenuDataVo searchCondition) {
 
         // 表复制，m_menu->m_permission_menu
-        copyMmenu2MPermissionMenuEntity(searchCondition);
+        copyMmenu2MPermissionMenu(searchCondition);
+        // 表复制，s_pages->m_permission_pages
+        copySpages2MPermissionPages(searchCondition);
+        // 表复制，s_pages_function->m_permission_operation
+        copyMPermissionOperation2MPermissionOperation(searchCondition);
     }
 
     /**
@@ -116,7 +130,7 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
      * @param searchCondition
      * @return
      */
-    private int copyMmenu2MPermissionMenuEntity(OperationMenuDataVo searchCondition) {
+    private int copyMmenu2MPermissionMenu(OperationMenuDataVo searchCondition) {
         // m_menu --copy-->m_permission_menu
         MPermissionMenuEntity entity = new MPermissionMenuEntity();
         entity.setTenant_id(searchCondition.getTenant_id());
@@ -127,7 +141,43 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
         entity.setDbversion(0);
         entity.setMenu_id(searchCondition.getRoot_id());
         entity.setPermission_id(searchCondition.getPermission_id());
-        int count = mPermissionMenuMapper.copyMmenu2MPermissionMenuEntity(entity);
+        int count = mPermissionMenuMapper.copyMMenu2MPermissionMenu(entity);
+        return count;
+    }
+
+    /**
+     * 表复制，s_pages->m_permission_pages
+     * @param searchCondition
+     * @return
+     */
+    private int copySpages2MPermissionPages(OperationMenuDataVo searchCondition) {
+        // m_menu --copy-->m_permission_menu
+        MPermissionPagesEntity entity = new MPermissionPagesEntity();
+        entity.setTenant_id(searchCondition.getTenant_id());
+        entity.setC_id(searchCondition.getC_id());
+        entity.setU_id(searchCondition.getU_id());
+        entity.setC_time(LocalDateTime.now());
+        entity.setU_time(LocalDateTime.now());
+        entity.setDbversion(0);
+        int count = mPermissionPagesMapper.copySPages2MPermissionPages(entity, searchCondition.getRoot_id());
+        return count;
+    }
+
+    /**
+     * 表复制，s_pages_function->m_permission_operation
+     * @param searchCondition
+     * @return
+     */
+    private int copyMPermissionOperation2MPermissionOperation(OperationMenuDataVo searchCondition) {
+        // m_menu --copy-->m_permission_menu
+        MPermissionOperationEntity entity = new MPermissionOperationEntity();
+        entity.setTenant_id(searchCondition.getTenant_id());
+        entity.setC_id(searchCondition.getC_id());
+        entity.setU_id(searchCondition.getU_id());
+        entity.setC_time(LocalDateTime.now());
+        entity.setU_time(LocalDateTime.now());
+        entity.setDbversion(0);
+        int count = mPermissionOperationMapper.copyMPermissionOperation2MPermissionOperation(entity, searchCondition.getRoot_id());
         return count;
     }
 }
