@@ -43,5 +43,5 @@ public class OperationFunctionInfoVo implements Serializable {
     /**
      * 值
      */
-    private Boolean value;
+    private Boolean is_enable;
 }

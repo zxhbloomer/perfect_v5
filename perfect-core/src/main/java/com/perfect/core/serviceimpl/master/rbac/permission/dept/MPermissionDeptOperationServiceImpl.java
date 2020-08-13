@@ -79,7 +79,7 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
         List<OperationMenuPageFunctionVo> pageFunctionVoList = mapper.getAllMenuButton(searchCondition);
 
         mMenuVo.setMenu_data(rtnList);
-        mMenuVo.setMenu_buttons(pageFunctionVoList);
+//        mMenuVo.setMenu_buttons(pageFunctionVoList);
 
         return mMenuVo;
     }

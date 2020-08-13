@@ -186,5 +186,9 @@ public class OperationMenuDataVo extends TreeNode implements Serializable {
      */
     private Integer dbversion;
 
-
+    /**
+     * 全选字段
+     */
+    private Boolean indeterminate;
+    private Boolean check_all;
 }
