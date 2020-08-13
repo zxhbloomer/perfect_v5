@@ -1,6 +1,7 @@
 package com.perfect.bean.utils.common.tree;
 
 import com.perfect.bean.vo.common.tree.ITreeNode;
+import com.perfect.common.utils.reflection.ReflectionUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
@@ -13,7 +14,24 @@ import java.util.*;
  */
 @Slf4j
 public class TreeUtil {
+    /**
+     *
+     * @param listNodes
+     * @param <T>
+     * @return
+     */
     public static <T extends ITreeNode> List<T> getTreeList(List<T> listNodes) {
+        return TreeUtil.getTreeList(listNodes, null);
+    }
+
+    /**
+     *
+     * @param listNodes
+     * @param sonAndParentProperty 儿子与父亲连接的字段，需要反射来连接
+     * @param <T>
+     * @return
+     */
+    public static <T extends ITreeNode> List<T> getTreeList(List<T> listNodes, String sonAndParentProperty) {
         /**
          * 按不同的深度保存数据：level（深度）
          */
@@ -48,7 +66,7 @@ public class TreeUtil {
                     // 1：获取父亲结点，设置子结点数据
                     int parentLevel = level - 1;
                     List<T> parentList = differentLevelData.get(parentLevel);
-                    T parentBean = getParentLevelData(parentList, bean.getParent_id());
+                    T parentBean = getParentLevelData(parentList, bean.getParent_id(), sonAndParentProperty);
                     List<T> childrenList = new ArrayList<>();
                     childrenList.add(bean);
                     if(parentBean != null){
@@ -75,14 +93,25 @@ public class TreeUtil {
      * @param beans
      * @param parentid
      * @param <T>
+     * @param sonAndParentProperty 儿子与父亲连接的字段，需要反射来连接
      * @return
      */
-    private static <T extends ITreeNode> T getParentLevelData(List<T> beans, Long parentid) {
+    private static <T extends ITreeNode> T getParentLevelData(List<T> beans, Long parentid, String sonAndParentProperty) {
         if(beans != null) {
             for (T bean : beans) {
-                if (bean.getId().equals(parentid)) {
-                    bean.setLeaf(false);
-                    return bean;
+                if(sonAndParentProperty != null){
+                    // 自定义字段来进行连接
+                    Long id = ReflectionUtil.getFieldValue(bean, sonAndParentProperty);
+                    if(id.equals(parentid)){
+                        bean.setLeaf(false);
+                        return bean;
+                    }
+                } else {
+                    // 通过id来进行连接
+                    if (bean.getId().equals(parentid)) {
+                        bean.setLeaf(false);
+                        return bean;
+                    }
                 }
             }
         }

@@ -7,6 +7,7 @@ import org.joor.Reflect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ReflectionUtils;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import static org.joor.Reflect.on;
@@ -135,5 +136,41 @@ public class ReflectionUtil {
         Object obClass = on(type).create();
         Object obObject = JSONObject.parseObject(jsonData, ((Reflect)obClass).type());
         return obObject;
+    }
+
+    /**
+     * 获取对象的字段的值
+     * @param target
+     * @param fieldName
+     * @return
+     */
+    public static Object getFieldObject(Object target, String fieldName) {
+        Field field = ReflectionUtils.findField(target.getClass(), fieldName);
+        ReflectionUtils.makeAccessible(field);
+        return ReflectionUtils.getField(field, target);
+    }
+
+    /**
+     * 获取对象的字段的值
+     * @param target
+     * @param fieldName
+     * @return
+     */
+    public static <T> T getFieldValue(Object target, String fieldName) {
+        Field field = ReflectionUtils.findField(target.getClass(), fieldName);
+        ReflectionUtils.makeAccessible(field);
+        return (T) ReflectionUtils.getField(field, target);
+    }
+
+    /**
+     * 设置对象的字段的值
+     * @param target
+     * @param fieldName
+     * @return
+     */
+    public static void setFieldValue(Object target, String fieldName, Object value) {
+        Field field = ReflectionUtils.findField(target.getClass(), fieldName);
+        ReflectionUtils.makeAccessible(field);
+        ReflectionUtils.setField(field, target, value);
     }
 }

@@ -59,6 +59,10 @@ public class OperationMenuDataVo extends TreeNode implements Serializable {
      * 权限id，主键
      */
     private Long permission_id;
+    /**
+     * menu_id，数据通过复制m_menu，为不破坏表连接关系，该字段记录m_menu.id
+     */
+    private Long menu_id;
 
     /**
      * 父菜单ID
