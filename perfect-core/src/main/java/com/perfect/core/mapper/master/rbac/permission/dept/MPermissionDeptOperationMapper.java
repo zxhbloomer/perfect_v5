@@ -92,7 +92,7 @@ public interface MPermissionDeptOperationMapper extends BaseMapper<MPermissionEn
         + "  order by t2.code                                                                                         "
         + "      ")
     @Results({
-        @Result(property = "function_info", column = "function_info", javaType = List.class, typeHandler = OperationFunctionInfoVoTypeHandler.class),
+        @Result(column = "function_info", javaType = List.class, typeHandler = OperationFunctionInfoVoTypeHandler.class),
     })
     List<OperationMenuDataVo> select(@Param("p1") OperationMenuDataVo searchCondition);
 

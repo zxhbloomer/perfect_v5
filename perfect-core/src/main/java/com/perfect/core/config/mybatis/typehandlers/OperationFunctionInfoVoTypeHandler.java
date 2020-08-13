@@ -39,7 +39,11 @@ public class OperationFunctionInfoVoTypeHandler<T extends Object> extends BaseTy
 
     @Override
     public T getNullableResult(ResultSet rs, String columnName) throws SQLException {
-        return JSON.parseObject(rs.getString(columnName), clazz);
+        if(rs.getString(columnName) == null){
+            return null;
+        }else {
+            return JSON.parseObject(rs.getString(columnName), clazz);
+        }
     }
 
     @Override
