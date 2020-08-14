@@ -2,6 +2,7 @@ package com.perfect.manager.controller.master.rbac.permission.dept;
 
 import com.perfect.bean.pojo.result.JsonResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;
+import com.perfect.bean.vo.master.rbac.permission.MPermissionOperationVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuVo;
 import com.perfect.common.annotations.RepeatSubmitAnnotion;
@@ -14,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author zhangxh
@@ -42,12 +45,23 @@ public class PermissionDeptOperationController extends BaseController {
     @PostMapping("/dept/set_permission_menu_data")
     @ResponseBody
     @RepeatSubmitAnnotion
-    public ResponseEntity<JsonResult<String>> setSystemMenuData2PermissionDataApi(@RequestBody(required = false) OperationMenuDataVo searchCondition) {
+    public ResponseEntity<JsonResult<String>> setSystemMenuData2PermissionData(@RequestBody(required = false) OperationMenuDataVo searchCondition) {
         searchCondition.setTenant_id(super.getUserSessionTenantId());
         searchCondition.setC_id(super.getUserSessionStaffId());
         searchCondition.setU_id(super.getUserSessionStaffId());
 
         service.setSystemMenuData2PermissionData(searchCondition);
+        return ResponseEntity.ok().body(ResultUtil.OK("复制成功","复制成功"));
+    }
+
+    @SysLogAnnotion("保存权限操作数据")
+    @ApiOperation("保存权限操作数据")
+    @PostMapping("/dept/save")
+    @ResponseBody
+    @RepeatSubmitAnnotion
+    public ResponseEntity<JsonResult<String>> savePermission(@RequestBody(required = false)
+        List<MPermissionOperationVo> searchCondition) {
+        service.savePermission(searchCondition);
         return ResponseEntity.ok().body(ResultUtil.OK("复制成功","复制成功"));
     }
 }

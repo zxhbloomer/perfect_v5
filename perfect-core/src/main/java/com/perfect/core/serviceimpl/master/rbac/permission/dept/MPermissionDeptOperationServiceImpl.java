@@ -5,6 +5,7 @@ import com.perfect.bean.entity.master.rbac.permission.MPermissionMenuEntity;
 import com.perfect.bean.entity.master.rbac.permission.MPermissionOperationEntity;
 import com.perfect.bean.entity.master.rbac.permission.MPermissionPagesEntity;
 import com.perfect.bean.utils.common.tree.TreeUtil;
+import com.perfect.bean.vo.master.rbac.permission.MPermissionOperationVo;
 import com.perfect.bean.vo.master.rbac.permission.MPermissionVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuVo;
@@ -14,6 +15,7 @@ import com.perfect.core.mapper.master.rbac.permission.MPermissionOperationMapper
 import com.perfect.core.mapper.master.rbac.permission.MPermissionPagesMapper;
 import com.perfect.core.mapper.master.rbac.permission.dept.MPermissionDeptOperationMapper;
 import com.perfect.core.service.base.v1.BaseServiceImpl;
+import com.perfect.core.service.master.rbac.permission.IMPermissionOperationService;
 import com.perfect.core.service.master.rbac.permission.IMPermissionService;
 import com.perfect.core.service.master.rbac.permission.dept.IMPermissionDeptOperationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +55,9 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
     @Autowired
     private IMPermissionService imPermissionService;
 
+    @Autowired
+    private IMPermissionOperationService imPermissionOperationService;
+
     /**
      * 获取列表，查询所有数据
      *
@@ -67,7 +72,7 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
         setDepthId(list);
         // 设置树bean
         List<OperationMenuDataVo> rtnList = TreeUtil.getTreeList(list, "menu_id");
-        // 获取按钮清单
+
         List<Long> root_ids = new ArrayList<>();
         rtnList.stream()
             .collect(Collectors.toMap(OperationMenuDataVo::getRoot_id, Function.identity(), (oldValue, newValue) -> oldValue))
@@ -185,5 +190,24 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
         entity.setDbversion(0);
         int count = mPermissionOperationMapper.copyMPermissionOperation2MPermissionOperation(entity, searchCondition.getRoot_id());
         return count;
+    }
+
+    /**
+     * 保存权限操作数据
+     * @param list
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void savePermission(List<MPermissionOperationVo> list) {
+        List<Long> idList = new ArrayList<>();
+        list.forEach(bean -> {
+            idList.add(bean.getId());
+        });
+        List<MPermissionOperationEntity> operationEntities = imPermissionOperationService.listByIds(idList);
+        // 设置值
+//        operationEntities.forEach(bean -> {
+//            bean.setIs_enable()
+//        });
+        imPermissionOperationService.saveBatch(operationEntities);
     }
 }

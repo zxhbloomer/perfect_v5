@@ -2,8 +2,11 @@ package com.perfect.core.service.master.rbac.permission.dept;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.perfect.bean.entity.master.rbac.permission.MPermissionEntity;
+import com.perfect.bean.vo.master.rbac.permission.MPermissionOperationVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -24,4 +27,9 @@ public interface IMPermissionDeptOperationService extends IService<MPermissionEn
      * 复制选中的菜单
      */
     void setSystemMenuData2PermissionData(OperationMenuDataVo searchCondition) ;
+
+    /**
+     * 保存权限操作数据
+     */
+    void savePermission(List<MPermissionOperationVo> list) ;
 }
