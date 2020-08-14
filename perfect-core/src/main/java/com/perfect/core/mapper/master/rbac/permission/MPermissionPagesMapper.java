@@ -24,6 +24,7 @@ public interface MPermissionPagesMapper extends BaseMapper<MPermissionPagesEntit
      */
     @Insert("                                                            "
         + "  INSERT INTO m_permission_pages (                            "
+        + "   	         permission_id,                                  "
         + "   	         page_id,                                        "
         + "   	         `code`,                                         "
         + "   	         `name`,                                         "
@@ -40,6 +41,7 @@ public interface MPermissionPagesMapper extends BaseMapper<MPermissionPagesEntit
         + "   	         dbversion                                       "
         + "      )                                                       "
         + "       SELECT                                                 "
+        + "              #{p1.permission_id,jdbcType=BIGINT},            "
         + "              t1.id,                                          "
         + "              t1.`code`,                                      "
         + "              t1.`name`,                                      "

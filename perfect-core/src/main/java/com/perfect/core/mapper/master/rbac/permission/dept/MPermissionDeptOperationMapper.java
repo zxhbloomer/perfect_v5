@@ -3,7 +3,6 @@ package com.perfect.core.mapper.master.rbac.permission.dept;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.perfect.bean.entity.master.rbac.permission.MPermissionEntity;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
-import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuPageFunctionVo;
 import com.perfect.common.constant.PerfectDictConstant;
 import com.perfect.core.config.mybatis.typehandlers.OperationFunctionInfoVoTypeHandler;
 import org.apache.ibatis.annotations.Param;
@@ -99,28 +98,4 @@ public interface MPermissionDeptOperationMapper extends BaseMapper<MPermissionEn
     })
     List<OperationMenuDataVo> select(@Param("p1") OperationMenuDataVo searchCondition);
 
-
-    /**
-     * 获取所有的菜单按钮
-     * @param searchCondition
-     * @return
-     */
-    @Select(" <script>   "
-        + "     SELECT distinct t1.id,                                                                              "
-        + "            t1.code,                                                                                     "
-        + "            t1.name,                                                                                     "
-        + "            t1.sort                                                                                      "
-        + "       FROM s_function t1                                                                                "
-        + " inner join m_permission_operation t2 on t1.id = t2.function_id                                                "
-        + " inner join m_permission_menu t3 on t3.page_id = t2.page_id                                                         "
-        + "   <if test='p1.root_ids.length!=0' >                                                                    "
-        + "        and t3.root_id in                                                                                "
-        + "        <foreach collection='p1.root_ids' item='item' index='index' open='(' separator=',' close=')'>    "
-        + "         #{item}                                                                                         "
-        + "        </foreach>                                                                                       "
-        + "   </if>                                                                                                 "
-        + "        and (t3.tenant_id = #{p1.tenant_id,jdbcType=BIGINT} or #{p1.tenant_id,jdbcType=BIGINT} is null)  "
-        + "   order by t1.sort                                                                                      "
-        + "  </script>    ")
-    List<OperationMenuPageFunctionVo> getAllMenuButton(@Param("p1") OperationMenuDataVo searchCondition);
 }

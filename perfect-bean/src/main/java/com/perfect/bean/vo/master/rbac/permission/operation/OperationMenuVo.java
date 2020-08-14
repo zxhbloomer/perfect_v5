@@ -1,5 +1,6 @@
 package com.perfect.bean.vo.master.rbac.permission.operation;
 
+import com.perfect.bean.vo.master.rbac.permission.MPermissionOperationVo;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,8 +30,4 @@ public class OperationMenuVo implements Serializable {
      */
     List<OperationMenuDataVo> menu_data;
 
-    /**
-     * 按钮清单
-     */
-    List<OperationMenuPageFunctionVo> menu_buttons;
 }

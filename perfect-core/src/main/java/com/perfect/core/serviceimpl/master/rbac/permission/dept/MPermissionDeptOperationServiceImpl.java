@@ -7,7 +7,6 @@ import com.perfect.bean.entity.master.rbac.permission.MPermissionPagesEntity;
 import com.perfect.bean.utils.common.tree.TreeUtil;
 import com.perfect.bean.vo.master.rbac.permission.MPermissionVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
-import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuPageFunctionVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuVo;
 import com.perfect.core.mapper.master.rbac.permission.MPermissionMapper;
 import com.perfect.core.mapper.master.rbac.permission.MPermissionMenuMapper;
@@ -76,11 +75,7 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
             .stream()
             .forEach(item -> root_ids.add(item.getRoot_id()));
         searchCondition.setRoot_ids((Long[]) root_ids.toArray(new Long[root_ids.size()]));
-        List<OperationMenuPageFunctionVo> pageFunctionVoList = mapper.getAllMenuButton(searchCondition);
-
         mMenuVo.setMenu_data(rtnList);
-//        mMenuVo.setMenu_buttons(pageFunctionVoList);
-
         return mMenuVo;
     }
 
@@ -167,6 +162,7 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
         entity.setU_id(searchCondition.getU_id());
         entity.setC_time(LocalDateTime.now());
         entity.setU_time(LocalDateTime.now());
+        entity.setPermission_id(searchCondition.getPermission_id());
         entity.setDbversion(0);
         int count = mPermissionPagesMapper.copySPages2MPermissionPages(entity, searchCondition.getRoot_id());
         return count;
@@ -185,6 +181,7 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
         entity.setU_id(searchCondition.getU_id());
         entity.setC_time(LocalDateTime.now());
         entity.setU_time(LocalDateTime.now());
+        entity.setPermission_id(searchCondition.getPermission_id());
         entity.setDbversion(0);
         int count = mPermissionOperationMapper.copyMPermissionOperation2MPermissionOperation(entity, searchCondition.getRoot_id());
         return count;

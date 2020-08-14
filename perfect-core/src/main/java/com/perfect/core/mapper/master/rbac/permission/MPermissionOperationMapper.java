@@ -24,6 +24,7 @@ public interface MPermissionOperationMapper extends BaseMapper<MPermissionOperat
      */
     @Insert("                                                            "
         + "  INSERT INTO m_permission_operation (                        "
+        + "   	  	     permission_id,                                  "
         + "   	  	     operation_id,                                   "
         + "   	  	     page_id,                                        "
         + "   	  	     is_enable,                                      "
@@ -40,6 +41,7 @@ public interface MPermissionOperationMapper extends BaseMapper<MPermissionOperat
         + "   	  	     dbversion                                       "
         + "      )                                                       "
         + "       SELECT                                                 "
+        + "              #{p1.permission_id,jdbcType=BIGINT},            "
         + "              t1.id,                                          "
         + "              t1.page_id,                                     "
         + "              0,                                              "

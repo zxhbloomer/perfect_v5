@@ -28,6 +28,12 @@ public class MPermissionOperationEntity implements Serializable {
     private Long id;
 
     /**
+     * 权限id
+     */
+    @TableField("permission_id")
+    private Long permission_id;
+
+    /**
      * operation_id，数据通过复制s_pages_function，为不破坏表连接关系，该字段记录s_pages_function.id
      */
     @TableField("operation_id")
