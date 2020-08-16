@@ -1,5 +1,7 @@
 package com.perfect.core.serviceimpl.master.rbac.permission.dept;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Maps;
 import com.perfect.bean.entity.master.rbac.permission.MPermissionEntity;
 import com.perfect.bean.entity.master.rbac.permission.MPermissionMenuEntity;
 import com.perfect.bean.entity.master.rbac.permission.MPermissionOperationEntity;
@@ -25,8 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 /**
  * <p>
@@ -73,13 +74,6 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
         // 设置树bean
         List<OperationMenuDataVo> rtnList = TreeUtil.getTreeList(list, "menu_id");
 
-        List<Long> root_ids = new ArrayList<>();
-        rtnList.stream()
-            .collect(Collectors.toMap(OperationMenuDataVo::getRoot_id, Function.identity(), (oldValue, newValue) -> oldValue))
-            .values()
-            .stream()
-            .forEach(item -> root_ids.add(item.getRoot_id()));
-        searchCondition.setRoot_ids((Long[]) root_ids.toArray(new Long[root_ids.size()]));
         mMenuVo.setMenu_data(rtnList);
         return mMenuVo;
     }
@@ -204,6 +198,12 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
             idList.add(bean.getId());
         });
         List<MPermissionOperationEntity> operationEntities = imPermissionOperationService.listByIds(idList);
+        // 转化成map
+        Map<Long, MPermissionOperationEntity> operationEntityMap =  Maps.uniqueIndex(operationEntities, new Function <MPermissionOperationEntity,Long>() {
+            @Override
+            public Long apply(MPermissionOperationEntity entity) {
+                return entity.getId();
+            }});
         // 设置值
 //        operationEntities.forEach(bean -> {
 //            bean.setIs_enable()
