@@ -7,6 +7,7 @@ import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuVo;
 import com.perfect.common.annotations.RepeatSubmitAnnotion;
 import com.perfect.common.annotations.SysLogAnnotion;
+import com.perfect.common.exception.UpdateErrorException;
 import com.perfect.core.service.master.rbac.permission.dept.IMPermissionDeptOperationService;
 import com.perfect.framework.base.controller.v1.BaseController;
 import io.swagger.annotations.Api;
@@ -61,7 +62,11 @@ public class PermissionDeptOperationController extends BaseController {
     @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<String>> savePermission(@RequestBody(required = false)
         List<MPermissionOperationVo> searchCondition) {
-        service.savePermission(searchCondition);
-        return ResponseEntity.ok().body(ResultUtil.OK("复制成功","复制成功"));
+        boolean rtn = service.savePermission(searchCondition);
+        if(rtn){
+            return ResponseEntity.ok().body(ResultUtil.OK("保存成功","保存成功"));
+        } else {
+            throw new UpdateErrorException("保存失败，请查询后重新编辑保存。");
+        }
     }
 }

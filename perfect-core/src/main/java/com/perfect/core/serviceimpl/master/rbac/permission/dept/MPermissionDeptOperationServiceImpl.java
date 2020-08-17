@@ -192,22 +192,24 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void savePermission(List<MPermissionOperationVo> list) {
+    public boolean savePermission(List<MPermissionOperationVo> list) {
         List<Long> idList = new ArrayList<>();
         list.forEach(bean -> {
             idList.add(bean.getId());
         });
         List<MPermissionOperationEntity> operationEntities = imPermissionOperationService.listByIds(idList);
         // 转化成map
-        Map<Long, MPermissionOperationEntity> operationEntityMap =  Maps.uniqueIndex(operationEntities, new Function <MPermissionOperationEntity,Long>() {
+        Map<Long, MPermissionOperationVo> operationVoMap =  Maps.uniqueIndex(list, new Function <MPermissionOperationVo,Long>() {
             @Override
-            public Long apply(MPermissionOperationEntity entity) {
-                return entity.getId();
+            public Long apply(MPermissionOperationVo vo) {
+                return vo.getId();
             }});
         // 设置值
-//        operationEntities.forEach(bean -> {
-//            bean.setIs_enable()
-//        });
-        imPermissionOperationService.saveBatch(operationEntities);
+        operationEntities.forEach(bean -> {
+            bean.setIs_enable(operationVoMap.get(bean.getId()).getIs_enable());
+        });
+
+        boolean rtn = imPermissionOperationService.updateBatchById(operationEntities);
+        return rtn;
     }
 }

@@ -31,5 +31,5 @@ public interface IMPermissionDeptOperationService extends IService<MPermissionEn
     /**
      * 保存权限操作数据
      */
-    void savePermission(List<MPermissionOperationVo> list) ;
+    boolean savePermission(List<MPermissionOperationVo> list) ;
 }
