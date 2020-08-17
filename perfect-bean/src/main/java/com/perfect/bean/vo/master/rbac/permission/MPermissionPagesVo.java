@@ -1,6 +1,5 @@
 package com.perfect.bean.vo.master.rbac.permission;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
