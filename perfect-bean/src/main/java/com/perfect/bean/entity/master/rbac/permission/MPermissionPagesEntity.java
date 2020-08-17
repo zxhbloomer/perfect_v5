@@ -44,7 +44,7 @@ public class MPermissionPagesEntity implements Serializable {
      */
     @TableField("is_enable")
     private Boolean is_enable;
-    
+
     /**
      * 配置vue export default  name时所使用的type：constants_program.P_VUE_SETTING
      */

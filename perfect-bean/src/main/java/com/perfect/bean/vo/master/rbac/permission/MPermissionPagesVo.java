@@ -1,5 +1,6 @@
 package com.perfect.bean.vo.master.rbac.permission;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -35,6 +36,11 @@ public class MPermissionPagesVo implements Serializable {
      * page_id，数据通过复制s_pages，为不破坏表连接关系，该字段记录s_pages.id
      */
     private Long page_id;
+
+    /**
+     * 是否启用(0:false-已禁用,1:true-已启用)
+     */
+    private Boolean is_enable;
 
     /**
      * 配置vue export default  name时所使用的type：constants_program.P_VUE_SETTING
