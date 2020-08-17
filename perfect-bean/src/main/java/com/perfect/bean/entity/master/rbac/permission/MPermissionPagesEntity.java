@@ -40,6 +40,12 @@ public class MPermissionPagesEntity implements Serializable {
     private Long page_id;
 
     /**
+     * 是否启用(0:false-已禁用,1:true-已启用)
+     */
+    @TableField("is_enable")
+    private Boolean is_enable;
+    
+    /**
      * 配置vue export default  name时所使用的type：constants_program.P_VUE_SETTING
      */
     @TableField("code")
