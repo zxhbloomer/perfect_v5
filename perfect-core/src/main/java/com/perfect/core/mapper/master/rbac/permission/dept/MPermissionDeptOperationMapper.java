@@ -26,6 +26,7 @@ public interface MPermissionDeptOperationMapper extends BaseMapper<MPermissionEn
 
     String commonTreeGrid = "    "
         + "      select                                                                                            "
+        + "	            t2.id,                                                                                     "
         + "	            t2.is_enable,                                                                              "
         + "	            t2.is_default,                                                                             "
         + "	            t1.menu_id,                                                                                "

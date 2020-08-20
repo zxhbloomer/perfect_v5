@@ -7,6 +7,8 @@ import com.perfect.bean.entity.master.rbac.permission.MPermissionMenuEntity;
 import com.perfect.bean.entity.master.rbac.permission.MPermissionOperationEntity;
 import com.perfect.bean.entity.master.rbac.permission.MPermissionPagesEntity;
 import com.perfect.bean.utils.common.tree.TreeUtil;
+import com.perfect.bean.vo.master.rbac.permission.MPermissionMenuOperationVo;
+import com.perfect.bean.vo.master.rbac.permission.MPermissionMenuVo;
 import com.perfect.bean.vo.master.rbac.permission.MPermissionOperationVo;
 import com.perfect.bean.vo.master.rbac.permission.MPermissionVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
@@ -17,6 +19,7 @@ import com.perfect.core.mapper.master.rbac.permission.MPermissionOperationMapper
 import com.perfect.core.mapper.master.rbac.permission.MPermissionPagesMapper;
 import com.perfect.core.mapper.master.rbac.permission.dept.MPermissionDeptOperationMapper;
 import com.perfect.core.service.base.v1.BaseServiceImpl;
+import com.perfect.core.service.master.rbac.permission.IMPermissionMenuService;
 import com.perfect.core.service.master.rbac.permission.IMPermissionOperationService;
 import com.perfect.core.service.master.rbac.permission.IMPermissionService;
 import com.perfect.core.service.master.rbac.permission.dept.IMPermissionDeptOperationService;
@@ -58,6 +61,9 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
 
     @Autowired
     private IMPermissionOperationService imPermissionOperationService;
+
+    @Autowired
+    private IMPermissionMenuService imPermissionMenuService;
 
     /**
      * 获取列表，查询所有数据
@@ -193,19 +199,65 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
     }
 
     /**
-     * 保存权限操作数据
-     * @param list
+     * 保存权限操作数据和菜单权限
+     * @param condition
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean savePermission(List<MPermissionOperationVo> list) {
+    public boolean savePermission(MPermissionMenuOperationVo condition) {
+        // 获取菜单权限数据
+        List<MPermissionMenuVo> menu_data = condition.getMenu_data();
+        // 获取功能操作的数据
+        List<MPermissionOperationVo> operation_data = condition.getOperation_data();
+
+        // 更新菜单逻辑
+        boolean rtn_menu_update = saveMenuPermissionData(menu_data);
+        // 更新操作权限逻辑
+        boolean rtn_operation_update = saveOperationPermissionData(operation_data);
+
+        return rtn_menu_update & rtn_operation_update;
+    }
+
+    /**
+     * 更新菜单权限
+     * @param menu_data
+     * @return
+     */
+    private boolean saveMenuPermissionData(List<MPermissionMenuVo> menu_data){
         List<Long> idList = new ArrayList<>();
-        list.forEach(bean -> {
+        menu_data.forEach(bean -> {
+            idList.add(bean.getId());
+        });
+
+        List<MPermissionMenuEntity> menuEntities = imPermissionMenuService.listByIds(idList);
+        // 转化成map
+        Map<Long, MPermissionMenuVo> menuVoMap =  Maps.uniqueIndex(menu_data, new Function <MPermissionMenuVo,Long>() {
+            @Override
+            public Long apply(MPermissionMenuVo vo) {
+                return vo.getId();
+            }});
+        // 设置值
+        menuEntities.forEach(bean -> {
+            bean.setIs_enable(menuVoMap.get(bean.getId()).getIs_enable());
+        });
+
+        boolean rtn = imPermissionMenuService.updateBatchById(menuEntities);
+        return rtn;
+    }
+
+    /**
+     * 更新操作权限
+     * @param operation_data
+     * @return
+     */
+    private boolean saveOperationPermissionData(List<MPermissionOperationVo> operation_data){
+        List<Long> idList = new ArrayList<>();
+        operation_data.forEach(bean -> {
             idList.add(bean.getId());
         });
         List<MPermissionOperationEntity> operationEntities = imPermissionOperationService.listByIds(idList);
         // 转化成map
-        Map<Long, MPermissionOperationVo> operationVoMap =  Maps.uniqueIndex(list, new Function <MPermissionOperationVo,Long>() {
+        Map<Long, MPermissionOperationVo> operationVoMap =  Maps.uniqueIndex(operation_data, new Function <MPermissionOperationVo,Long>() {
             @Override
             public Long apply(MPermissionOperationVo vo) {
                 return vo.getId();
