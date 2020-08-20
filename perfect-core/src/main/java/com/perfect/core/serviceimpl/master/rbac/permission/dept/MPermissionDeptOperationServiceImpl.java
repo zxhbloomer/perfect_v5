@@ -70,7 +70,11 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
         OperationMenuVo mMenuVo = new OperationMenuVo();
         // 查询 菜单 数据
         List<OperationMenuDataVo> list = mapper.select(searchCondition);
+        // 设置数据条数
+        mMenuVo.setData_count(list.size());
+        // 格式化depthid
         setDepthId(list);
+
         // 设置树bean
         List<OperationMenuDataVo> rtnList = TreeUtil.getTreeList(list, "menu_id");
 

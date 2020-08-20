@@ -1,6 +1,5 @@
 package com.perfect.bean.vo.master.rbac.permission.operation;
 
-import com.perfect.bean.vo.master.rbac.permission.MPermissionOperationVo;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,5 +28,10 @@ public class OperationMenuVo implements Serializable {
      * 树菜单信息
      */
     List<OperationMenuDataVo> menu_data;
+
+    /**
+     * 条数
+     */
+    int data_count;
 
 }

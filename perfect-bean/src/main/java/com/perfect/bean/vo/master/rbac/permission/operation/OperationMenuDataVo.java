@@ -1,5 +1,6 @@
 package com.perfect.bean.vo.master.rbac.permission.operation;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.perfect.bean.vo.common.component.TreeNode;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
@@ -63,6 +64,11 @@ public class OperationMenuDataVo extends TreeNode implements Serializable {
      * menu_id，数据通过复制m_menu，为不破坏表连接关系，该字段记录m_menu.id
      */
     private Long menu_id;
+
+    /**
+     * 是否启用(0:false-已禁用,1:true-已启用)
+     */
+    private Boolean is_enable;
 
     /**
      * 父菜单ID
