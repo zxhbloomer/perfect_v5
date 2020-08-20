@@ -144,6 +144,7 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
         entity.setDbversion(0);
         entity.setMenu_id(searchCondition.getRoot_id());
         entity.setPermission_id(searchCondition.getPermission_id());
+        entity.setIs_enable(false);
         int count = mPermissionMenuMapper.copyMMenu2MPermissionMenu(entity);
         return count;
     }
@@ -182,6 +183,7 @@ public class MPermissionDeptOperationServiceImpl extends BaseServiceImpl<MPermis
         entity.setU_time(LocalDateTime.now());
         entity.setPermission_id(searchCondition.getPermission_id());
         entity.setDbversion(0);
+        entity.setIs_enable(false);
         int count = mPermissionOperationMapper.copyMPermissionOperation2MPermissionOperation(entity, searchCondition.getRoot_id());
         return count;
     }

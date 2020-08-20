@@ -44,7 +44,7 @@ public interface MPermissionOperationMapper extends BaseMapper<MPermissionOperat
         + "              #{p1.permission_id,jdbcType=BIGINT},            "
         + "              t1.id,                                          "
         + "              t1.page_id,                                     "
-        + "              0,                                              "
+        + "              #{p1.is_enable,jdbcType=BOOLEAN},               "
         + "              t1.type,                                        "
         + "              t1.function_id,                                 "
         + "              t1.sort,                                        "

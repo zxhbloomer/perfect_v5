@@ -40,6 +40,12 @@ public class MPermissionMenuEntity implements Serializable {
     private Long menu_id;
 
     /**
+     * 是否启用(0:false-已禁用,1:true-已启用)
+     */
+    @TableField("is_enable")
+    private Boolean is_enable;
+
+    /**
      * 默认菜单（0非默认 1默认）
      */
     @TableField("is_default")

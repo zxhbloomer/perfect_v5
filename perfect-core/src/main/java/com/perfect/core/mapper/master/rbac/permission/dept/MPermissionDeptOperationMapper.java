@@ -25,8 +25,9 @@ import java.util.List;
 public interface MPermissionDeptOperationMapper extends BaseMapper<MPermissionEntity> {
 
     String commonTreeGrid = "    "
-        + "                                                                                                        "
-        + "	     select t1.menu_id,                                                                                "
+        + "      select                                                                                            "
+        + "	            t2.is_default,                                                                             "
+        + "	            t1.menu_id,                                                                                "
         + "			    t1.menu_id as `value`,                                                                     "
         + "			    t1.name,                                                                                   "
         + "			    t1.name as label,                                                                          "
