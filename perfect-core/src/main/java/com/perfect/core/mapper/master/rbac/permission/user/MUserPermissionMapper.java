@@ -1,6 +1,5 @@
 package com.perfect.core.mapper.master.rbac.permission.user;
 
-import com.perfect.bean.bo.rbac.permission.user.SysMenuBo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
 import com.perfect.common.constant.PerfectDictConstant;
 import org.apache.ibatis.annotations.Param;
@@ -77,7 +76,7 @@ public interface MUserPermissionMapper {
         + "                   AND ( t2.tenant_id = #{p1} or #{p1} is null )                            "
         + "              ORDER BY t2.CODE;                                                             "
         + "                ")
-    List<SysMenuBo> getSystemMenu(@Param("p1")Long tenant_id);
+    List<OperationMenuDataVo> getSystemMenu(@Param("p1")Long tenant_id);
 
     /**
      * 获取菜单权限
