@@ -2,8 +2,6 @@ package com.perfect.core.mapper.client.user;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.perfect.bean.entity.master.user.MUserEntity;
-import com.perfect.bean.entity.sys.config.dict.SDictDataEntity;
-import com.perfect.bean.vo.master.user.MStaffVo;
 import com.perfect.bean.vo.master.user.MUserVo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -68,5 +66,4 @@ public interface MUserMapper extends BaseMapper<MUserEntity> {
         + "    and (t.tenant_id  = #{p4} or #{p4} is null)                                                      "
         + "                                                                                                      ")
     List<MUserEntity> selectLoginName(@Param("p1") String login_name, @Param("p2") Long equal_id, @Param("p3") Long not_equal_id, @Param("p4")Long tenant_id);
-
 }

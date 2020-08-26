@@ -102,6 +102,11 @@ public class MUserServiceImpl extends BaseServiceImpl<MUserMapper, MUserEntity> 
 
     /**
      * 获取userbean
+     *
+     * 1：用户 信息
+     * 2：员工 信息
+     * 3：租户 信息
+     *
      * @param loginOrStaffId
      * @return
      */
@@ -118,8 +123,11 @@ public class MUserServiceImpl extends BaseServiceImpl<MUserMapper, MUserEntity> 
         }
         STenantVo sTenantVo = iTenantService.selectByid(mStaffVo != null ? mStaffVo.getTenant_id() : null);
         UserSessionBo userSessionBo = new UserSessionBo();
+        /** 设置1：用户信息 */
         userSessionBo.setUser_info(mUserEntity);
+        /** 设置2：员工 信息 */
         userSessionBo.setStaff_info(mStaffVo);
+        /** 设置3：租户 信息 */
         userSessionBo.setTenant_info(sTenantVo);
 
         // 设置basebean

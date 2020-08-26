@@ -5,12 +5,14 @@ import com.perfect.bean.bo.session.user.UserSessionBo;
 import com.perfect.bean.bo.sys.SysInfoBo;
 import com.perfect.bean.pojo.fs.UploadFileResultPojo;
 import com.perfect.bean.utils.servlet.ServletUtil;
+import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
 import com.perfect.bean.vo.master.user.MStaffVo;
 import com.perfect.common.constant.PerfectConstant;
 import com.perfect.common.exception.BusinessException;
 import com.perfect.common.properies.PerfectConfigProperies;
 import com.perfect.common.utils.bean.BeanUtilsSupport;
 import com.perfect.core.service.client.user.IMUserService;
+import com.perfect.core.service.master.rbac.permission.user.IMUserPermissionService;
 import com.perfect.excel.bean.importconfig.template.ExcelTemplate;
 import com.perfect.excel.export.ExcelUtil;
 import com.perfect.excel.upload.PerfectExcelReader;
@@ -33,6 +35,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -52,6 +55,9 @@ public class BaseController {
 
     @Autowired
     private IMUserService service;
+
+    @Autowired
+    private IMUserPermissionService imUserPermissionService;
 
     /** 开发者模式，可以跳过验证码 */
     @Value("${perfect.security.develop-model}")
@@ -230,25 +236,33 @@ public class BaseController {
     }
 
     /**
+     * 获取user信息，权限信息，并保存到redis中
+     * 1：userbean信息
+     * 2：系统参数
+     * 3：菜单权限数据
+     * 4：操作权限数据
      * 执行usersession往session中保存的逻辑
-     *
      */
     public void resetUserSession(Long id, String loginOrStaffId ) {
+        /** 设置1：userbean信息  */
         UserSessionBo userSessionBo = service.getUserBean(id, loginOrStaffId);
         String sessionId = ServletUtil.getSession().getId();
 
         // 设置系统信息
         SysInfoBo sysInfoBo = new SysInfoBo();
         sysInfoBo.setDevelopModel(developModel);
+        /** 设置2：系统参数  */
         userSessionBo.setSys_Info(sysInfoBo);
-
-        // 设置session id
+        /** 设置3：菜单权限数据  */
+        List<OperationMenuDataVo> user_permission_menu = imUserPermissionService.getPermissionMenu(userSessionBo.getStaff_Id(), userSessionBo.getTenant_Id());
+        userSessionBo.setUser_permission_menu(user_permission_menu);
+        /** 设置session id */
         userSessionBo.setSession_id(sessionId);
         userSessionBo.setAppKey("PC_APP");
         userSessionBo.setTenant_Id(userSessionBo.getStaff_info().getTenant_id());
         userSessionBo.setTenantAdmin(false);
 
-        // 保存到redis中
+        /** 保存到redis中 */
         HttpSession session = ServletUtil.getSession();
         String key = PerfectConstant.SESSION_PREFIX.SESSION_USER_PREFIX_PREFIX + "_" + sessionId;
         if (ServletUtil.getUserSession() != null) {

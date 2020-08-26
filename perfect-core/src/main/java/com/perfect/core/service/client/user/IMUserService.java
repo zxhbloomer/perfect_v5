@@ -63,4 +63,4 @@ public interface IMUserService extends IService<MUserEntity> , UserDetailsServic
      */
     MUserEntity getDataByName(String username);
 
-}
+ }
