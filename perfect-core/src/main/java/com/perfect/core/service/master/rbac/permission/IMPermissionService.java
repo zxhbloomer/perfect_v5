@@ -7,6 +7,7 @@ import com.perfect.bean.pojo.result.InsertResult;
 import com.perfect.bean.pojo.result.UpdateResult;
 import com.perfect.bean.vo.master.rbac.permission.MMenuRootNodeListVo;
 import com.perfect.bean.vo.master.rbac.permission.MPermissionVo;
+import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
 
 import java.util.List;
 
@@ -53,7 +54,7 @@ public interface IMPermissionService extends IService<MPermissionEntity> {
      * 插入一条记录（选择字段，策略插入）
      * @return
      */
-    InsertResult<MPermissionVo> insert(MPermissionVo vo);
+    InsertResult<MPermissionVo> insert(MPermissionVo mPermissionVo, OperationMenuDataVo operationMenuDataVo);
 
     /**
      * 更新一条记录（选择字段，策略更新）

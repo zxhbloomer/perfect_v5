@@ -14,6 +14,7 @@ import com.perfect.bean.result.utils.v1.UpdateResultUtil;
 import com.perfect.bean.vo.master.rbac.permission.MMenuRootNodeListVo;
 import com.perfect.bean.vo.master.rbac.permission.MMenuRootNodeVo;
 import com.perfect.bean.vo.master.rbac.permission.MPermissionVo;
+import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
 import com.perfect.common.constant.PerfectDictConstant;
 import com.perfect.common.exception.BusinessException;
 import com.perfect.common.exception.InsertErrorException;
@@ -23,6 +24,7 @@ import com.perfect.core.mapper.master.menu.MMenuMapper;
 import com.perfect.core.mapper.master.rbac.permission.MPermissionMapper;
 import com.perfect.core.service.base.v1.BaseServiceImpl;
 import com.perfect.core.service.master.rbac.permission.IMPermissionService;
+import com.perfect.core.service.master.rbac.permission.dept.IMPermissionDeptOperationService;
 import com.perfect.core.utils.mybatis.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +49,9 @@ public class MPermissionServiceImpl extends BaseServiceImpl<MPermissionMapper, M
 
     @Autowired
     private MMenuMapper menuMapper;
+
+    @Autowired
+    private IMPermissionDeptOperationService imPermissionDeptOperationService;
 
     /**
      * 获取列表，页面查询
@@ -111,24 +116,40 @@ public class MPermissionServiceImpl extends BaseServiceImpl<MPermissionMapper, M
 
     /**
      * 插入一条记录（选择字段，策略插入）
-     * @param vo
+     * @param mPermissionVo
+     * @param operationMenuDataVo
      * @return
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public InsertResult<MPermissionVo> insert(MPermissionVo vo) {
+    public InsertResult<MPermissionVo> insert(MPermissionVo mPermissionVo, OperationMenuDataVo operationMenuDataVo) {
 
+        /** 插入到权限表中 */
         // 插入前check
-        CheckResult cr = checkLogic(vo, CheckResult.INSERT_CHECK_TYPE);
+        CheckResult cr = checkLogic(mPermissionVo, CheckResult.INSERT_CHECK_TYPE);
         if (cr.isSuccess() == false) {
             throw new BusinessException(cr.getMessage());
         }
         // 插入逻辑保存
-        MPermissionEntity entity = (MPermissionEntity)BeanUtilsSupport.copyProperties(vo, MPermissionEntity.class);
-        vo.setIs_del(false);
-        vo.setTenant_id(getUserSessionTenantId());
-        int count = mapper.insert(entity);
-        if(count == 0){
+        MPermissionEntity entity = (MPermissionEntity)BeanUtilsSupport.copyProperties(mPermissionVo, MPermissionEntity.class);
+        mPermissionVo.setIs_del(false);
+        mPermissionVo.setTenant_id(getUserSessionTenantId());
+        int count_insert = mapper.insert(entity);
+
+        /** 复制选中系统菜单，和操作权限  */
+        MMenuEntity mMenuEntity = menuMapper.selectOne(new QueryWrapper<MMenuEntity>()
+            .select("distinct tenant_id,root_id")
+            .eq("tenant_id",operationMenuDataVo.getTenant_id())
+        );
+        operationMenuDataVo.setPermission_id(entity.getId());
+        operationMenuDataVo.setRoot_id(mMenuEntity.getRoot_id());
+        imPermissionDeptOperationService.setSystemMenuData2PermissionData(operationMenuDataVo);
+
+        /** 最后更新m_permission中menu_id */
+        entity.setMenu_id(mMenuEntity.getRoot_id());
+        int count_update = mapper.updateById(entity);
+
+        if(count_insert == 0 ){
             throw new InsertErrorException("保存失败，请查询后重新再试。");
         }
         return InsertResultUtil.OK(selectByid(entity.getId()));

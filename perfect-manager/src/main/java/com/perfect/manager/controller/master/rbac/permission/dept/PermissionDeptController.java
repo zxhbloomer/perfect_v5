@@ -7,6 +7,7 @@ import com.perfect.bean.pojo.result.UpdateResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;
 import com.perfect.bean.vo.master.rbac.permission.MMenuRootNodeListVo;
 import com.perfect.bean.vo.master.rbac.permission.MPermissionVo;
+import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
 import com.perfect.common.annotations.RepeatSubmitAnnotion;
 import com.perfect.common.annotations.SysLogAnnotion;
 import com.perfect.common.exception.InsertErrorException;
@@ -67,7 +68,12 @@ public class PermissionDeptController extends BaseController {
     @RepeatSubmitAnnotion
     public ResponseEntity<JsonResult<MPermissionVo>> insert(@RequestBody(required = false) MPermissionVo bean) {
         bean.setTenant_id(getUserSessionTenantId());
-        InsertResult<MPermissionVo> rtn = service.insert(bean);
+        OperationMenuDataVo operationMenuDataVo = new OperationMenuDataVo();
+        operationMenuDataVo.setTenant_id(super.getUserSessionTenantId());
+        operationMenuDataVo.setC_id(super.getUserSessionStaffId());
+        operationMenuDataVo.setU_id(super.getUserSessionStaffId());
+
+        InsertResult<MPermissionVo> rtn = service.insert(bean, operationMenuDataVo);
         if(rtn.isSuccess()){
             return ResponseEntity.ok().body(ResultUtil.OK(rtn.getData(),"插入成功"));
         } else {

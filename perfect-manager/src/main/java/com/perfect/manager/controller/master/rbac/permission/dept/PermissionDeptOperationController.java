@@ -44,7 +44,8 @@ public class PermissionDeptOperationController extends BaseController {
     @PostMapping("/dept/set_permission_menu_data")
     @ResponseBody
     @RepeatSubmitAnnotion
-    public ResponseEntity<JsonResult<String>> setSystemMenuData2PermissionData(@RequestBody(required = false) OperationMenuDataVo searchCondition) {
+    public ResponseEntity<JsonResult<String>> setSystemMenuData2PermissionData(@RequestBody(required = false) OperationMenuDataVo searchCondition)
+    {
         searchCondition.setTenant_id(super.getUserSessionTenantId());
         searchCondition.setC_id(super.getUserSessionStaffId());
         searchCondition.setU_id(super.getUserSessionStaffId());
