@@ -2,6 +2,7 @@ package com.perfect.framework.spring.interceptor;
 
 import com.perfect.bean.result.utils.v1.ResponseResultUtil;
 import com.perfect.common.annotations.RepeatSubmitAnnotion;
+import com.perfect.common.enums.ResultEnum;
 import com.perfect.common.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -75,7 +76,9 @@ public abstract class ActionInterceptorAbstract extends HandlerInterceptorAdapte
                         request,
                         response,
                         new BusinessException("不允许重复提交，请稍后再试！"),
-                        HttpStatus.SERVICE_UNAVAILABLE.value(), "不允许重复提交，请稍后再试!");
+                        HttpStatus.SERVICE_UNAVAILABLE.value(),
+                        ResultEnum.SYSTEM_REPEAT_SUBMIT,
+                        "不允许重复提交，请稍后再试!");
                     log.debug("===========Controller前进行调用preHandle操作 结束===========");
                     // 只有返回true才会继续向下执行，返回false取消当前请求
                     return false;

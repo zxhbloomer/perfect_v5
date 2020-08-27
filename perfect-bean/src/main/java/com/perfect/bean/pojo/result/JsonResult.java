@@ -20,8 +20,9 @@ public class JsonResult<T> implements Serializable {
     private String timestamp;
     /** 返回状态: http status */
     private Integer http_status;
-    /** 返回消息：返回的code */
-    private int code;
+    /** 返回消息：返回的system_code */
+    private int system_code;
+    private String system_message;
     /** 返回消息：返回的消息 */
     private String message;
     /** 调用路径：路径 */

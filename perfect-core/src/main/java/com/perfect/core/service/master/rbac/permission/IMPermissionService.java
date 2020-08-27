@@ -75,10 +75,10 @@ public interface IMPermissionService extends IService<MPermissionEntity> {
      */
     MMenuRootNodeListVo getSystemMenuRootList(MMenuRootNodeListVo vo);
 
-    /**
-     * 判断是否已经选择了菜单
-     * @param searchCondition
-     * @return
-     */
-    Boolean isAlreadySetMenuId(MPermissionVo searchCondition);
+//    /**
+//     * 判断是否已经选择了菜单
+//     * @param searchCondition
+//     * @return
+//     */
+//    Boolean isAlreadySetMenuId(MPermissionVo searchCondition);
 }

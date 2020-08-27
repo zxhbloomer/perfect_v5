@@ -21,6 +21,6 @@ public interface IMUserPermissionService  {
     /**
      * 操作权限数据
      */
-    List<OperationFunctionInfoVo> getPermissionOperation(Long staff_id);
+    List<OperationFunctionInfoVo> getPermissionOperation(Long staff_id, Long tenant_id);
 
 }

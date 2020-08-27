@@ -212,24 +212,24 @@ public class MPermissionServiceImpl extends BaseServiceImpl<MPermissionMapper, M
         return rtn;
     }
 
-    /**
-     * 判断是否已经选择了菜单
-     * @param searchCondition
-     * @return
-     */
-    @Override
-    public Boolean isAlreadySetMenuId(MPermissionVo searchCondition){
-        // 获取默认值
-        Integer count = mapper.selectCount(new QueryWrapper<MPermissionEntity>()
-            .eq("tenant_id",searchCondition.getTenant_id())
-            .eq("id",searchCondition.getId())
-            .isNotNull("menu_id" )
-        );
-        if(count == 0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+//    /**
+//     * 判断是否已经选择了菜单
+//     * @param searchCondition
+//     * @return
+//     */
+//    @Override
+//    public Boolean isAlreadySetMenuId(MPermissionVo searchCondition){
+//        // 获取默认值
+//        Integer count = mapper.selectCount(new QueryWrapper<MPermissionEntity>()
+//            .eq("tenant_id",searchCondition.getTenant_id())
+//            .eq("id",searchCondition.getId())
+//            .isNotNull("menu_id" )
+//        );
+//        if(count == 0) {
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
 
 }

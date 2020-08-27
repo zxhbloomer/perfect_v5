@@ -104,13 +104,13 @@ public class PermissionDeptController extends BaseController {
         return ResponseEntity.ok().body(ResultUtil.OK(service.getSystemMenuRootList(searchCondition)));
     }
 
-    @SysLogAnnotion("判断是否已经选择了菜单")
-    @ApiOperation("判断是否已经选择了菜单")
-    @PostMapping("/setted")
-    @ResponseBody
-    public ResponseEntity<JsonResult<Boolean>> isAlreadySetMenuId(@RequestBody(required = false) MPermissionVo searchCondition) {
-        searchCondition.setTenant_id(getUserSessionTenantId());
-        return ResponseEntity.ok().body(ResultUtil.OK(service.isAlreadySetMenuId(searchCondition)));
-    }
+//    @SysLogAnnotion("判断是否已经选择了菜单")
+//    @ApiOperation("判断是否已经选择了菜单")
+//    @PostMapping("/setted")
+//    @ResponseBody
+//    public ResponseEntity<JsonResult<Boolean>> isAlreadySetMenuId(@RequestBody(required = false) MPermissionVo searchCondition) {
+//        searchCondition.setTenant_id(getUserSessionTenantId());
+//        return ResponseEntity.ok().body(ResultUtil.OK(service.isAlreadySetMenuId(searchCondition)));
+//    }
 
 }

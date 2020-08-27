@@ -5,8 +5,10 @@ import com.perfect.bean.bo.session.user.UserSessionBo;
 import com.perfect.bean.bo.sys.SysInfoBo;
 import com.perfect.bean.pojo.fs.UploadFileResultPojo;
 import com.perfect.bean.utils.servlet.ServletUtil;
+import com.perfect.bean.vo.master.rbac.permission.operation.OperationFunctionInfoVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
 import com.perfect.bean.vo.master.user.MStaffVo;
+import com.perfect.common.annotations.SysLogAnnotion;
 import com.perfect.common.constant.PerfectConstant;
 import com.perfect.common.exception.BusinessException;
 import com.perfect.common.properies.PerfectConfigProperies;
@@ -243,6 +245,7 @@ public class BaseController {
      * 4：操作权限数据
      * 执行usersession往session中保存的逻辑
      */
+    @SysLogAnnotion("设置用户session，包含：用户、员工、租户、系统参数、菜单权限、操作权限数据")
     public void resetUserSession(Long id, String loginOrStaffId ) {
         /** 设置1：userbean信息  */
         UserSessionBo userSessionBo = service.getUserBean(id, loginOrStaffId);
@@ -256,6 +259,9 @@ public class BaseController {
         /** 设置3：菜单权限数据  */
         List<OperationMenuDataVo> user_permission_menu = imUserPermissionService.getPermissionMenu(userSessionBo.getStaff_Id(), userSessionBo.getTenant_Id());
         userSessionBo.setUser_permission_menu(user_permission_menu);
+        /** 设置4：操作权限数据  */
+        List<OperationFunctionInfoVo> user_permission_operation = imUserPermissionService.getPermissionOperation(userSessionBo.getStaff_Id(), userSessionBo.getTenant_Id());
+        userSessionBo.setUser_permission_operation(user_permission_operation);
         /** 设置session id */
         userSessionBo.setSession_id(sessionId);
         userSessionBo.setAppKey("PC_APP");

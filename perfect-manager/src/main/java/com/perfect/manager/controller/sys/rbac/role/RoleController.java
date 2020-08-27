@@ -139,7 +139,7 @@ public class RoleController extends BaseController {
             File rtnFile = pr.getValidateResultsInFile("角色数据导入错误");
             pr.closeAll();
             SRoleVo errorInfo = super.uploadFile(rtnFile.getAbsolutePath(), SRoleVo.class);
-            return ResponseEntity.ok().body(ResultUtil.OK(errorInfo, ResultEnum.IMPORT_DATA_ERROR.getCode()));
+            return ResponseEntity.ok().body(ResultUtil.OK(errorInfo, ResultEnum.IMPORT_DATA_ERROR));
         }
     }
 

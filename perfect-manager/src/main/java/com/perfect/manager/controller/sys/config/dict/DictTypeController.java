@@ -149,7 +149,7 @@ public class DictTypeController extends BaseController {
             File rtnFile = pr.getValidateResultsInFile("字典类型数据导入错误");
             pr.closeAll();
             SRoleVo errorInfo = super.uploadFile(rtnFile.getAbsolutePath(), SRoleVo.class);
-            return ResponseEntity.ok().body(ResultUtil.OK(errorInfo, ResultEnum.IMPORT_DATA_ERROR.getCode()));
+            return ResponseEntity.ok().body(ResultUtil.OK(errorInfo, ResultEnum.IMPORT_DATA_ERROR));
         }
     }
 }

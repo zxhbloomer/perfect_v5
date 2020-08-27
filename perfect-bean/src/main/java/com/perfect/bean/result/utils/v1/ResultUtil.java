@@ -1,14 +1,13 @@
 package com.perfect.bean.result.utils.v1;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.perfect.bean.pojo.result.JsonResult;
 import com.perfect.common.enums.ResultEnum;
-import org.springframework.http.HttpStatus;
-
 import com.perfect.common.utils.CommonUtil;
 import com.perfect.common.utils.DateTimeUtil;
 import com.perfect.common.utils.ExceptionUtil;
+import org.springframework.http.HttpStatus;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * json返回值工具类
@@ -20,7 +19,8 @@ public class ResultUtil {
         return JsonResult.<T>builder()
             .timestamp(DateTimeUtil.getTime())
             .http_status(HttpStatus.OK.value())
-            .code(ResultEnum.OK.getCode())
+            .system_code(ResultEnum.OK.getCode())
+            .system_message(ResultEnum.OK.getMsg())
             .message(message)
             .path(CommonUtil.getRequest().getRequestURL().toString())
             .method(CommonUtil.getRequest().getMethod())
@@ -39,7 +39,8 @@ public class ResultUtil {
         return JsonResult.<T>builder()
                 .timestamp(DateTimeUtil.getTime())
                 .http_status(HttpStatus.OK.value())
-                .code(ResultEnum.OK.getCode())
+                .system_code(ResultEnum.OK.getCode())
+                .system_message(ResultEnum.OK.getMsg())
                 .message("调用成功")
                 .path(CommonUtil.getRequest().getRequestURL().toString())
                 .method(CommonUtil.getRequest().getMethod())
@@ -57,31 +58,21 @@ public class ResultUtil {
      */
     public static <T>JsonResult<T> OK(T data) {
         return ResultUtil.OK(data, false);
-//        return JsonResult.<T>builder()
-//            .timestamp(DateTimeUtil.getTime())
-//            .http_status(HttpStatus.OK.value())
-//            .code(ResultEnum.OK.getCode())
-//            .message("调用成功")
-//            .path(CommonUtil.getRequest().getRequestURL().toString())
-//            .method(CommonUtil.getRequest().getMethod())
-//            .success(true)
-//            .json_null_out(false)
-//            .data(data)
-//            .build();
     }
 
     /**
      * 含code的无错误的返回
      * @param data
-     * @param code
+     * @param system_code
      * @param <T>
      * @return
      */
-    public static <T>JsonResult<T> OK(T data, int code) {
+    public static <T>JsonResult<T> OK(T data, ResultEnum system_code) {
         return JsonResult.<T>builder()
             .timestamp(DateTimeUtil.getTime())
             .http_status(HttpStatus.OK.value())
-            .code(code)
+            .system_code(system_code.getCode())
+            .system_message(system_code.getMsg())
             .message("调用成功")
             .path(CommonUtil.getRequest().getRequestURL().toString())
             .method(CommonUtil.getRequest().getMethod())
@@ -90,29 +81,13 @@ public class ResultUtil {
             .build();
     }
 
-//    public static Object OK(Integer status, String message, String path, String method, Object data) {
-//        return JSONResult.builder()
-//                .timestamp(DateTimeUtil.getSystemDateYYYYMMDDHHMMSS())
-//                .status(status)
-//                .message(message)
-//                .path(path)
-//                .method(method)
-//                .OK(true)
-//                .data(data)
-//                .build();
-//
-//    }
-//
-//    public static Result OK() {
-//        return (Result) OK(null);
-//    }
-
-    public static <T>JsonResult<T> NG(Integer status, Exception exception, String message, HttpServletRequest request) {
+    public static <T>JsonResult<T> NG(Integer httpStatus,ResultEnum system_code, Exception exception, String message, HttpServletRequest request) {
 
         return JsonResult.<T>builder()
                 .timestamp(DateTimeUtil.getTime())
-                .http_status(status)
-                .code(ResultEnum.FAIL.getCode())
+                .http_status(httpStatus)
+                .system_code(system_code.getCode())
+                .system_message(system_code.getMsg())
                 .message(message)
                 .path(request.getRequestURL().toString())
                 .method(request.getMethod())

@@ -36,6 +36,7 @@ public enum ResultEnum {
     SYSTEM_INSERT_FAIL(11,"数据添加失败"),
 
     SYSTEM_DELETE_FAIL(12,"数据删除失败"),
+    SYSTEM_REPEAT_SUBMIT(13,"重复提交出错"),
 
     // 201-300，用户模块
     USER_LOGIN_ERROR(201, "登录名或登录密码不正确"),
@@ -54,7 +55,12 @@ public enum ResultEnum {
     //
     USER_OLD_PASSWORD_ERROR(208, "原密码错误"),
     //
-    USER_POINT_ERROR(209, "用户积分不足");
+    USER_AUTHENTICATION_ERROR(209, "用户认证出错"),
+    USER_NO_PERMISSION_ERROR(210, "没有该权限"),
+    USER_LOGIN_TIME_OUT_ERROR(211, "登录已失效"),
+    USER_SESSION_TIME_OUT_ERROR(212, "session过期")
+
+    ;
 
     private Integer code;
 

@@ -1,17 +1,16 @@
 package com.perfect.bean.result.utils.v1;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.perfect.common.constant.PerfectConstant;
+import com.perfect.common.enums.ResultEnum;
+import com.perfect.common.exception.ValidateCodeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.perfect.common.constant.PerfectConstant;
-import com.perfect.common.exception.ValidateCodeException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * response返回值工具类
@@ -38,11 +37,22 @@ public class ResponseResultUtil {
         ));
     }
 
+    /**
+     *  response 错误时返回
+     * @param request
+     * @param response
+     * @param exception
+     * @param httpStatus       http的status
+     * @param system_code      系统错误code
+     * @param errorMessage
+     * @throws IOException
+     */
     public static void responseWriteError(
                                             HttpServletRequest request,
                                             HttpServletResponse response,
                                             Exception exception,
                                             int httpStatus,
+                                            ResultEnum system_code,
                                             String errorMessage
                                         ) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -50,6 +60,7 @@ public class ResponseResultUtil {
         if(exception instanceof BadCredentialsException || exception instanceof UsernameNotFoundException){
             response.getWriter().write(objectMapper.writeValueAsString(
                     ResultUtil.NG(HttpStatus.UNAUTHORIZED.value(),
+                                    system_code,
                                     exception,
                                     errorMessage,
                                     request)
@@ -58,6 +69,7 @@ public class ResponseResultUtil {
         }else if(exception instanceof ValidateCodeException){
             response.getWriter().write(objectMapper.writeValueAsString(
                     ResultUtil.NG(httpStatus,
+                                    system_code,
                                     exception,
                                     errorMessage,
                                     request)
@@ -65,6 +77,7 @@ public class ResponseResultUtil {
         }else{
             response.getWriter().write(objectMapper.writeValueAsString(
                     ResultUtil.NG(httpStatus,
+                                    system_code,
                                     exception,
                                     errorMessage,
                                     request)

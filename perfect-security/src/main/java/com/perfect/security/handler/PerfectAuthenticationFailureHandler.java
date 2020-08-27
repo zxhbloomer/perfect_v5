@@ -1,6 +1,7 @@
 package com.perfect.security.handler;
 
 import com.perfect.bean.result.utils.v1.ResponseResultUtil;
+import com.perfect.common.enums.ResultEnum;
 import com.perfect.common.exception.CredentialException;
 import com.perfect.common.exception.ValidateCodeException;
 import org.springframework.http.HttpStatus;
@@ -41,7 +42,12 @@ public class PerfectAuthenticationFailureHandler implements AuthenticationFailur
         } else {
             message = "认证失败，请联系网站管理员！";
         }
-        ResponseResultUtil.responseWriteError(request,response,exception, HttpStatus.NOT_ACCEPTABLE.value(), message);
+        ResponseResultUtil.responseWriteError(request,
+            response,
+            exception,
+            HttpStatus.NOT_ACCEPTABLE.value(),
+            ResultEnum.USER_AUTHENTICATION_ERROR,
+            message);
     }
 }
 

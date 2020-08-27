@@ -1,6 +1,7 @@
 package com.perfect.framework.exception.handler;
 
 import com.perfect.bean.result.utils.v1.ResultUtil;
+import com.perfect.common.enums.ResultEnum;
 import com.perfect.common.exception.UpdateErrorException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,7 @@ public class GlobalDefaultExceptionHandler {
         log.error("错误信息：",e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                  ResultUtil.NG(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                        ResultEnum.SYSTEM_ERROR,
                         e,
                         e.getMessage(),
                         request)
@@ -51,6 +53,7 @@ public class GlobalDefaultExceptionHandler {
         log.error("错误信息：",e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
             ResultUtil.NG(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                ResultEnum.SYSTEM_ERROR,
                 e,
                 e.getMessage(),
                 request)

@@ -1,6 +1,7 @@
 package com.perfect.security.session;
 
 import com.perfect.bean.result.utils.v1.ResponseResultUtil;
+import com.perfect.common.enums.ResultEnum;
 import com.perfect.common.exception.PerfectInvalidSessionStrategyException;
 import com.perfect.security.properties.PerfectSecurityProperties;
 import org.springframework.http.HttpStatus;
@@ -31,9 +32,12 @@ public class PerfectInvalidSessionStrategy implements InvalidSessionStrategy {
         }
         // if (CommonUtil.isAjaxRequest(request)) {
 
-        ResponseResultUtil.responseWriteError(request, response,
+        ResponseResultUtil.responseWriteError(request,
+            response,
             new PerfectInvalidSessionStrategyException("您的会话已过期，请重新登录！"),
-            HttpStatus.UNAUTHORIZED.value(), "您的会话已过期，请重新登录！");
+            HttpStatus.UNAUTHORIZED.value(),
+            ResultEnum.USER_SESSION_TIME_OUT_ERROR,
+            "您的会话已过期，请重新登录！");
 
         // }
         // redirectStrategy.sendRedirect(request, response, perfectSecurityProperties.getLogoutUrl());
