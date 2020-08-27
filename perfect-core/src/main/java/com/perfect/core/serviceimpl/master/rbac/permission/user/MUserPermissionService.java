@@ -13,7 +13,7 @@ import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.perfect.bean.utils.common.tree.TreeUtil;
-import com.perfect.bean.vo.master.rbac.permission.operation.OperationFunctionInfoVo;
+import com.perfect.bean.vo.master.rbac.permission.MPermissionOperationVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
 import com.perfect.core.mapper.master.rbac.permission.user.MUserPermissionMapper;
 import com.perfect.core.service.master.rbac.permission.user.IMUserPermissionService;
@@ -97,7 +97,7 @@ public class MUserPermissionService implements IMUserPermissionService {
      * @return
      */
     @Override
-    public List<OperationFunctionInfoVo> getPermissionOperation(Long staff_id, Long tenant_id) {
+    public List<MPermissionOperationVo> getPermissionOperation(Long staff_id, Long tenant_id) {
         return null;
     }
 

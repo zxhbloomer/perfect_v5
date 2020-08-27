@@ -1,6 +1,6 @@
 package com.perfect.core.service.master.rbac.permission.user;
 
-import com.perfect.bean.vo.master.rbac.permission.operation.OperationFunctionInfoVo;
+import com.perfect.bean.vo.master.rbac.permission.MPermissionOperationVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
 
 import java.util.List;
@@ -21,6 +21,6 @@ public interface IMUserPermissionService  {
     /**
      * 操作权限数据
      */
-    List<OperationFunctionInfoVo> getPermissionOperation(Long staff_id, Long tenant_id);
+    List<MPermissionOperationVo> getPermissionOperation(Long staff_id, Long tenant_id);
 
 }

@@ -26,6 +26,11 @@ public class OperationFunctionInfoVo implements Serializable {
     private Long id;
 
     /**
+     * 权限主键
+     */
+    private Long permission_id;
+
+    /**
      * 按钮编号：字典表过来
      */
     private String code;
