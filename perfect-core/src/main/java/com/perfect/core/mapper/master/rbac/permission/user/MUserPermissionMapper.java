@@ -111,6 +111,7 @@ public interface MUserPermissionMapper {
         + "                	   v_permission_tree t1                                                                      "
         + "         INNER JOIN m_permission_menu t2 ON t1.menu_id = t2.menu_id                                           "
         + "                AND t1.tenant_id = t2.tenant_id                                                               "
+        + "                AND t1.permission_id = t2.permission_id                                                       "
         + "         INNER JOIN m_permission t3 on t3.id = t2.permission_id                                               "
         + "         INNER JOIN m_staff t4 on t3.serial_type = '" + PerfectDictConstant.DICT_ORG_SETTING_TYPE_DEPT_SERIAL_TYPE + "' "
         + "         	   and t3.serial_id = t4.dept_id                                                                 "

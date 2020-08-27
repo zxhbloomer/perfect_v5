@@ -39,20 +39,20 @@ public class PermissionDeptOperationController extends BaseController {
         return ResponseEntity.ok().body(ResultUtil.OK(entity));
     }
 
-    @SysLogAnnotion("复制选中的菜单")
-    @ApiOperation("复制选中的菜单")
-    @PostMapping("/dept/set_permission_menu_data")
-    @ResponseBody
-    @RepeatSubmitAnnotion
-    public ResponseEntity<JsonResult<String>> setSystemMenuData2PermissionData(@RequestBody(required = false) OperationMenuDataVo searchCondition)
-    {
-        searchCondition.setTenant_id(super.getUserSessionTenantId());
-        searchCondition.setC_id(super.getUserSessionStaffId());
-        searchCondition.setU_id(super.getUserSessionStaffId());
-
-        service.setSystemMenuData2PermissionData(searchCondition);
-        return ResponseEntity.ok().body(ResultUtil.OK("复制成功","复制成功"));
-    }
+//    @SysLogAnnotion("复制选中的菜单")
+//    @ApiOperation("复制选中的菜单")
+//    @PostMapping("/dept/set_permission_menu_data")
+//    @ResponseBody
+//    @RepeatSubmitAnnotion
+//    public ResponseEntity<JsonResult<String>> setSystemMenuData2PermissionData(@RequestBody(required = false) OperationMenuDataVo searchCondition)
+//    {
+//        searchCondition.setTenant_id(super.getUserSessionTenantId());
+//        searchCondition.setC_id(super.getUserSessionStaffId());
+//        searchCondition.setU_id(super.getUserSessionStaffId());
+//
+//        service.setSystemMenuData2PermissionData(searchCondition);
+//        return ResponseEntity.ok().body(ResultUtil.OK("复制成功","复制成功"));
+//    }
 
     @SysLogAnnotion("保存权限操作数据")
     @ApiOperation("保存权限操作数据")
