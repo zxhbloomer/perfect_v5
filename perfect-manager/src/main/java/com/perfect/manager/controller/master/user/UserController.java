@@ -47,6 +47,9 @@ public class UserController extends BaseController {
         /** 设置user session bean */
         userInfoVo.setUser_session_bean(getUserSession());
 
+        /** 设置user 权限数据 */
+        userInfoVo.setPermission_data(getUserPermission());
+
         //        ResponseEntity<OAuth2AccessToken
         return ResponseEntity.ok().body(ResultUtil.OK(userInfoVo));
     }

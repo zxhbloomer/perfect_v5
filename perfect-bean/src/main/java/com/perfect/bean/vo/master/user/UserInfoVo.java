@@ -1,5 +1,6 @@
 package com.perfect.bean.vo.master.user;
 
+import com.perfect.bean.bo.session.user.PermissionMenuOperationBo;
 import com.perfect.bean.bo.session.user.UserSessionBo;
 import com.perfect.bean.config.base.v1.BaseVo;
 import io.swagger.annotations.ApiModel;
@@ -28,4 +29,6 @@ public class UserInfoVo extends BaseVo implements Serializable {
     private String name;
 
     private UserSessionBo user_session_bean;
+
+    private PermissionMenuOperationBo permission_data;
 }

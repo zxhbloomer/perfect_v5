@@ -1,6 +1,7 @@
 package com.perfect.framework.base.controller.v1;
 
 import com.alibaba.fastjson.JSON;
+import com.perfect.bean.bo.session.user.PermissionMenuOperationBo;
 import com.perfect.bean.bo.session.user.UserSessionBo;
 import com.perfect.bean.bo.sys.SysInfoBo;
 import com.perfect.bean.pojo.fs.UploadFileResultPojo;
@@ -177,6 +178,15 @@ public class BaseController {
     }
 
     /**
+     * 获取当前登录用户的权限数据
+     * @return
+     */
+    public PermissionMenuOperationBo getUserPermission(){
+        PermissionMenuOperationBo bo = ServletUtil.getUserPermission();
+        return bo;
+    }
+
+    /**
      * 获取当前登录用户的session数据:租户数据
      * @return
      */
@@ -256,26 +266,40 @@ public class BaseController {
         sysInfoBo.setDevelopModel(developModel);
         /** 设置2：系统参数  */
         userSessionBo.setSys_Info(sysInfoBo);
-        /** 设置3：菜单权限数据  */
-        List<OperationMenuDataVo> user_permission_menu = imUserPermissionService.getPermissionMenu(userSessionBo.getStaff_Id(), userSessionBo.getTenant_Id());
-        userSessionBo.setUser_permission_menu(user_permission_menu);
-        /** 设置4：操作权限数据  */
-        List<MPermissionOperationVo> user_permission_operation = imUserPermissionService.getPermissionOperation(userSessionBo.getStaff_Id(), userSessionBo.getTenant_Id());
-        userSessionBo.setUser_permission_operation(user_permission_operation);
+
         /** 设置session id */
         userSessionBo.setSession_id(sessionId);
         userSessionBo.setAppKey("PC_APP");
         userSessionBo.setTenant_Id(userSessionBo.getStaff_info().getTenant_id());
         userSessionBo.setTenantAdmin(false);
 
-        /** 保存到redis中 */
+        /** 把用户session，保存到redis中 */
         HttpSession session = ServletUtil.getSession();
-        String key = PerfectConstant.SESSION_PREFIX.SESSION_USER_PREFIX_PREFIX + "_" + sessionId;
+        String key_session = PerfectConstant.SESSION_PREFIX.SESSION_USER_PREFIX_PREFIX + "_" + sessionId;
         if (ServletUtil.getUserSession() != null) {
-            session.removeAttribute(key);
-            session.setAttribute(key, userSessionBo);
+            session.removeAttribute(key_session);
+            session.setAttribute(key_session, userSessionBo);
         } else {
-            session.setAttribute(key, userSessionBo);
+            session.setAttribute(key_session, userSessionBo);
         }
+
+        /** 权限设置 */
+        PermissionMenuOperationBo permissionMenuOperationBo = new PermissionMenuOperationBo();
+        permissionMenuOperationBo.setSession_id(sessionId);
+        permissionMenuOperationBo.setStaff_id(userSessionBo.getStaff_Id());
+        permissionMenuOperationBo.setTenant_id(userSessionBo.getTenant_Id());
+        /** 设置3：菜单权限数据  */
+        List<OperationMenuDataVo> user_permission_menu = imUserPermissionService.getPermissionMenu(userSessionBo.getStaff_Id(), userSessionBo.getTenant_Id());
+        permissionMenuOperationBo.setUser_permission_menu(user_permission_menu);
+        /** 设置4：操作权限数据  */
+        List<MPermissionOperationVo> user_permission_operation = imUserPermissionService.getPermissionOperation(userSessionBo.getStaff_Id(), userSessionBo.getTenant_Id());
+        permissionMenuOperationBo.setUser_permission_operation(user_permission_operation);
+
+        /** 把用户的权限保存到redis中，但不保存到session中，和session有关联 */
+        String key_permission = PerfectConstant.REDIS_PREFIX.PERMISSION_MENU_OPERATION_PREFIX + "_" + sessionId;
+        if (ServletUtil.getUserSession() != null) {
+            session.removeAttribute(key_permission);
+        }
+        session.setAttribute(key_permission, permissionMenuOperationBo);
     }
 }

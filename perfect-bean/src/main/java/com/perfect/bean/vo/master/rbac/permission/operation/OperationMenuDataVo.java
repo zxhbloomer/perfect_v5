@@ -1,6 +1,5 @@
 package com.perfect.bean.vo.master.rbac.permission.operation;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.perfect.bean.vo.common.component.TreeNode;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
@@ -25,7 +24,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper=false)
 public class OperationMenuDataVo extends TreeNode implements Serializable {
 
-    private static final long serialVersionUID = 2600003769017036105L;
+    private static final long serialVersionUID = -1251765912368233832L;
 
     private Long id;
 

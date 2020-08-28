@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper=false)
 public class MPermissionOperationVo implements Serializable {
 
-    private static final long serialVersionUID = -5957459096487742464L;
+    private static final long serialVersionUID = 8300448389297059639L;
 
     private Long id;
 

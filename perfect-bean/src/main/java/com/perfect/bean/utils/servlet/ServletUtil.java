@@ -1,5 +1,6 @@
 package com.perfect.bean.utils.servlet;
 
+import com.perfect.bean.bo.session.user.PermissionMenuOperationBo;
 import com.perfect.bean.bo.session.user.UserSessionBo;
 import com.perfect.common.constant.PerfectConstant;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -33,5 +34,16 @@ public class ServletUtil {
         String sessionId = ServletUtil.getSession().getId();
         String key = PerfectConstant.SESSION_PREFIX.SESSION_USER_PREFIX_PREFIX + "_" + sessionId;
         return (UserSessionBo)session.getAttribute(key);
+    }
+
+    /**
+     * 返回session中保存的user permission
+     *
+     */
+    public static PermissionMenuOperationBo getUserPermission() {
+        HttpSession session = getSession();
+        String sessionId = ServletUtil.getSession().getId();
+        String key = PerfectConstant.REDIS_PREFIX.PERMISSION_MENU_OPERATION_PREFIX + "_" + sessionId;
+        return (PermissionMenuOperationBo)session.getAttribute(key);
     }
 }

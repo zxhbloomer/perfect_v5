@@ -1,11 +1,7 @@
 package com.perfect.redis.config;
 
-import com.perfect.common.properies.PerfectConfigProperies;
 import com.perfect.redis.listener.SpringHttpSessionListener;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration;
 
 import javax.servlet.http.HttpSessionListener;
