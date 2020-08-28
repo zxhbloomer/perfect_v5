@@ -12,12 +12,13 @@ import java.util.List;
  *
  */
 @Configuration
-public class PerfectSessionConfig extends RedisHttpSessionConfiguration {
+public class PerfectSessionListenerConfig extends RedisHttpSessionConfiguration {
 
-    public PerfectSessionConfig() {
+    public PerfectSessionListenerConfig() {
         List<HttpSessionListener> list = new ArrayList<>();
         list.add(new SpringHttpSessionListener());
         this.setHttpSessionListeners(list);
+        // session 过期时间30分钟
         this.setMaxInactiveIntervalInSeconds(30 * 60);
     }
 
