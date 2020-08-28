@@ -5,7 +5,7 @@ import com.perfect.bean.bo.session.user.UserSessionBo;
 import com.perfect.bean.bo.sys.SysInfoBo;
 import com.perfect.bean.pojo.fs.UploadFileResultPojo;
 import com.perfect.bean.utils.servlet.ServletUtil;
-import com.perfect.bean.vo.master.rbac.permission.operation.OperationFunctionInfoVo;
+import com.perfect.bean.vo.master.rbac.permission.MPermissionOperationVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
 import com.perfect.bean.vo.master.user.MStaffVo;
 import com.perfect.common.annotations.SysLogAnnotion;
@@ -260,7 +260,7 @@ public class BaseController {
         List<OperationMenuDataVo> user_permission_menu = imUserPermissionService.getPermissionMenu(userSessionBo.getStaff_Id(), userSessionBo.getTenant_Id());
         userSessionBo.setUser_permission_menu(user_permission_menu);
         /** 设置4：操作权限数据  */
-        List<OperationFunctionInfoVo> user_permission_operation = imUserPermissionService.getPermissionOperation(userSessionBo.getStaff_Id(), userSessionBo.getTenant_Id());
+        List<MPermissionOperationVo> user_permission_operation = imUserPermissionService.getPermissionOperation(userSessionBo.getStaff_Id(), userSessionBo.getTenant_Id());
         userSessionBo.setUser_permission_operation(user_permission_operation);
         /** 设置session id */
         userSessionBo.setSession_id(sessionId);

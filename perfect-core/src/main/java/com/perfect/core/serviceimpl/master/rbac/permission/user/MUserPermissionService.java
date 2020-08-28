@@ -11,7 +11,6 @@ package com.perfect.core.serviceimpl.master.rbac.permission.user;
 
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import com.perfect.bean.utils.common.tree.TreeUtil;
 import com.perfect.bean.vo.master.rbac.permission.MPermissionOperationVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
@@ -45,7 +44,6 @@ public class MUserPermissionService implements IMUserPermissionService {
     public List<OperationMenuDataVo> getPermissionMenu(Long staff_id, Long tenant_id) {
         /** 判断是否有自定义菜单 */
 
-
         /** 如果没有，获取该员工的权限：（部门权限+ 岗位权限+ 员工权限+ 角色权限）- 排除权限 */
         // 获取系统菜单
         List<OperationMenuDataVo> sysMenus = mapper.getSystemMenu(tenant_id);
@@ -60,7 +58,6 @@ public class MUserPermissionService implements IMUserPermissionService {
         // 排除权限
         List<OperationMenuDataVo> remove_permission_menu = null;
         /** 权限合并 */
-        List<OperationMenuDataVo> permission_menu = Lists.newArrayList();
         for(OperationMenuDataVo vo:sysMenus) {
             // 部门权限
             OperationMenuDataVo dept_permission_menu_results = filterData(dept_permission_menu, vo);
@@ -98,7 +95,9 @@ public class MUserPermissionService implements IMUserPermissionService {
      */
     @Override
     public List<MPermissionOperationVo> getPermissionOperation(Long staff_id, Long tenant_id) {
-        return null;
+        /** 获取操作权限数据 */
+        List<MPermissionOperationVo> list = mapper.getPermissionOperation(staff_id, tenant_id);
+        return list;
     }
 
     /**

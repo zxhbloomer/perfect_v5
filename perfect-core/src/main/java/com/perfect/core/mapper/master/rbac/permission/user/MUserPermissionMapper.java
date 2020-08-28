@@ -1,5 +1,6 @@
 package com.perfect.core.mapper.master.rbac.permission.user;
 
+import com.perfect.bean.vo.master.rbac.permission.MPermissionOperationVo;
 import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
 import com.perfect.common.constant.PerfectDictConstant;
 import org.apache.ibatis.annotations.Param;
@@ -124,4 +125,16 @@ public interface MUserPermissionMapper {
         + "                ")
     List<OperationMenuDataVo> getPermissionMenu(@Param("p1") Long staff_id,@Param("p2")Long tenant_id);
 
+
+    @Select("                                     "
+        + "       SELECT t3.*                                                               "
+        + "         FROM m_staff t1                                                         "
+        + "   INNER JOIN m_permission t2 ON t2.serial_type = '" + PerfectDictConstant.DICT_ORG_SETTING_TYPE_DEPT_SERIAL_TYPE + "' "
+        + "       	 AND t2.serial_id = t1.dept_id                                          "
+        + "       	 AND t2.`status` = TRUE                                                 "
+        + "   INNER JOIN m_permission_pages t3 on t3.permission_id = t2.id                  "
+        + "        WHERE t1.id = #{p1}                                                      "
+        + "          and ( t1.tenant_id = #{p2} or #{p2} is null )                          "
+        + "                ")
+    List<MPermissionOperationVo> getPermissionOperation(@Param("p1") Long staff_id,@Param("p2")Long tenant_id);
 }
