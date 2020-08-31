@@ -312,6 +312,7 @@ perfect:
 
 
 #-----------------------javamelody 系统监控工具 Configuration---------
+#-----------------------http://localhost:8081/actuator/monitoring---------
 management.server.port: 8081
 management.endpoints.web.exposure.include: info,health,monitoring
 javamelody:
