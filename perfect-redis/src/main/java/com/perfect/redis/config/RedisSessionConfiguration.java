@@ -1,10 +1,13 @@
 package com.perfect.redis.config;
 
+import com.perfect.redis.listener.PerfectHttpSessionAttributeListener;
+import com.perfect.redis.listener.PerfectHttpSessionListener;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.autoconfigure.session.RedisSessionProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisPassword;
@@ -13,6 +16,8 @@ import org.springframework.data.redis.connection.lettuce.LettuceClientConfigurat
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettucePoolingClientConfiguration;
 
+import javax.servlet.http.HttpSessionAttributeListener;
+import javax.servlet.http.HttpSessionListener;
 import java.time.Duration;
 
 @Configuration
@@ -62,6 +67,26 @@ public class RedisSessionConfiguration {
                         .poolConfig(defaultPoolConfig).build();
         LettuceConnectionFactory connectionFactory = new LettuceConnectionFactory(defaultRedisConfig, clientConfig);
         return connectionFactory;
+    }
+
+    /**
+     * 注册自定义的监听器 HttpSessionAttributeListener
+     * @return
+     */
+    @Bean
+    public ServletListenerRegistrationBean<HttpSessionAttributeListener> getPerfectHttpSessionAttributeListener(){
+        PerfectHttpSessionAttributeListener listener = new PerfectHttpSessionAttributeListener();
+        return new ServletListenerRegistrationBean<HttpSessionAttributeListener>(listener);
+    }
+
+    /**
+     * 注册自定义的监听器
+     * @return
+     */
+    @Bean
+    public ServletListenerRegistrationBean<HttpSessionListener> getPerfectHttpSessionListener(){
+        PerfectHttpSessionListener listener = new PerfectHttpSessionListener();
+        return new ServletListenerRegistrationBean<HttpSessionListener>(listener);
     }
 }
 

@@ -260,7 +260,7 @@ perfect:
     redis-cache-expired-min: 30
   security:
     # 免认证资源路径
-    anon-resources-url: /css/**,/js/**,/fonts/**,/img/**,/api/v1/imagecode,/api/v1/sms/code,/api/v1/signup/mobile
+    anon-resources-url: /css/**,/js/**,/fonts/**,/img/**,/api/v1/imagecode,/api/v1/sms/code,/api/v1/signup/mobile,/monitoring/**,/monitoring,/actuator/monitoring,/actuator/monitoring/**
     code:
       image:
         # 验证码相关配置，以下资源需要验证图形验证码，生成图形验证码的请求 ，
@@ -309,3 +309,32 @@ perfect:
     session:
       # 同一个账号最大并发登录数量，超出这个数量后，后者踢掉前者
       maximum-sessions: 1
+
+
+#-----------------------javamelody 系统监控工具 Configuration---------
+management.server.port: 8081
+management.endpoints.web.exposure.include: info,health,monitoring
+javamelody:
+  # Enable JavaMelody auto-configuration (optional, default: true)
+  enabled: true
+  # Data source names to exclude from monitoring (optional, comma-separated)
+  excluded-datasources: secretSource,topSecretSource
+  # Enable monitoring of Spring services and controllers (optional, default: true)
+  spring-monitoring-enabled: true
+  management-endpoint-monitoring-enabled: true
+  # Initialization parameters for JavaMelody (optional)
+  # See: https://github.com/javamelody/javamelody/wiki/UserGuide#6-optional-parameters
+  init-parameters:
+    # log http requests:
+    log: true
+    authorized-users: admin:password
+    # to exclude images, css, fonts and js urls from the monitoring:
+    #url-exclude-pattern: (/webjars/.*|/css/.*|/images/.*|/fonts/.*|/js/.*)
+    # to aggregate digits in http requests:
+    #http-transform-pattern: \d+
+    # to add basic auth:
+    #authorized-users: admin:pwd
+    # to change the default storage directory:
+    #storage-directory: /tmp/javamelody
+    # to change the default "/monitoring" path:
+    #monitoring-path: /admin/performance
