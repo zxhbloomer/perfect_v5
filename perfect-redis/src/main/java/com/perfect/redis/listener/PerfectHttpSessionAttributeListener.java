@@ -6,6 +6,10 @@ import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 
+/**
+ * 发现在spring boot 中HttpSessionAttributeListener，不能被调用
+ * https://github.com/spring-projects/spring-session/issues/5
+ */
 @Slf4j
 @WebListener
 public class PerfectHttpSessionAttributeListener implements HttpSessionAttributeListener {

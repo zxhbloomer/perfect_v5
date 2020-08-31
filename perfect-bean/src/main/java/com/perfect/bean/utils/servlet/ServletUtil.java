@@ -3,6 +3,7 @@ package com.perfect.bean.utils.servlet;
 import com.perfect.bean.bo.session.user.PermissionMenuOperationBo;
 import com.perfect.bean.bo.session.user.UserSessionBo;
 import com.perfect.common.constant.PerfectConstant;
+import com.perfect.common.utils.JsonConvertUtil;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -44,6 +45,8 @@ public class ServletUtil {
         HttpSession session = getSession();
         String sessionId = ServletUtil.getSession().getId();
         String key = PerfectConstant.REDIS_PREFIX.PERMISSION_MENU_OPERATION_PREFIX + "_" + sessionId;
-        return (PermissionMenuOperationBo)session.getAttribute(key);
+        String value = (String)session.getAttribute(key);
+        PermissionMenuOperationBo permissionMenuOperationBo = JsonConvertUtil.json2Obj(value, PermissionMenuOperationBo.class);
+        return permissionMenuOperationBo;
     }
 }

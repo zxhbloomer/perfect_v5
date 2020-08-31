@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSessionListener;
 
 /**
  * Session创建、销毁速率监控
+ * 发现在spring boot 中，不能被调用
+ * https://github.com/spring-projects/spring-session/issues/5
  */
 @Slf4j
 @WebListener
