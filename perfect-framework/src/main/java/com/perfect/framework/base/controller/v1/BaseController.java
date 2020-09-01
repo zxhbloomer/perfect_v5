@@ -300,7 +300,7 @@ public class BaseController {
         if (ServletUtil.getUserSession() != null) {
             session.removeAttribute(key_permission);
         }
-        // 存放json字符串，发现存放递归树的数据到redis会丢失数据
-        session.setAttribute(key_permission, JSON.toJSONString(permissionMenuOperationBo));
+        // 存放数据到session redis 中，由于不能存放递归数据，所以存放递归前的数据
+        session.setAttribute(key_permission, permissionMenuOperationBo);
     }
 }

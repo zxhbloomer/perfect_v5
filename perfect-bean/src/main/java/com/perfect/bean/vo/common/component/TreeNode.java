@@ -5,23 +5,25 @@ import com.perfect.bean.vo.common.tree.ITreeNode;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 /**
- * 生成租户树数据的接收类
+ * 树数据的基类
  *
  * @author zxh
  * @date 2019年 10月03日 11:55:24
  */
 @Data
-@ApiModel(value = "生成租户树数据的接收类", description = "生成租户树数据的接收类")
+@ApiModel(value = "树数据的基类", description = "树数据的基类")
 @EqualsAndHashCode(callSuper=false)
-public class TreeNode extends BaseVo implements ITreeNode<TreeNode>, Comparable<TreeNode> {
+public class TreeNode extends BaseVo implements ITreeNode<TreeNode>, Comparable<TreeNode> , Serializable {
+
+    private static final long serialVersionUID = 320909448609241562L;
 
     /** 级联value */
     private Long id;

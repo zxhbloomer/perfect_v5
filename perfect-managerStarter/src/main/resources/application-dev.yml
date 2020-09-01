@@ -217,6 +217,7 @@ RestTemplate-ReadTimeout: 150000
 #-----------------------日志设置---------------------------
 log:
   path: D:/spring_log/perfect/manager
+  logLevel: DEBUG
 
 #-----------------------mybatis-plus 设置---------
 mybatis-plus:

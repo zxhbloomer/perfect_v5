@@ -1,5 +1,6 @@
 package com.perfect.manager.controller.master.user;
 
+import com.perfect.bean.bo.session.user.PermissionMenuOperationBo;
 import com.perfect.bean.entity.master.user.MUserEntity;
 import com.perfect.bean.pojo.result.JsonResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;
@@ -47,8 +48,9 @@ public class UserController extends BaseController {
         /** 设置user session bean */
         userInfoVo.setUser_session_bean(getUserSession());
 
-        /** 设置user 权限数据 */
-        userInfoVo.setPermission_data(getUserPermission());
+        /** 设置user 权限数据，需要转换成树bean */
+        PermissionMenuOperationBo permissionMenuOperationBo = getUserPermission();
+        userInfoVo.setPermission_data(permissionMenuOperationBo);
 
         //        ResponseEntity<OAuth2AccessToken
         return ResponseEntity.ok().body(ResultUtil.OK(userInfoVo));

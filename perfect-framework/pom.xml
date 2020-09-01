@@ -60,14 +60,14 @@
             <optional>true</optional>
         </dependency>
         <!-- apache -->
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-configuration</groupId>
-            <artifactId>commons-configuration</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>commons-beanutils</groupId>-->
+<!--            <artifactId>commons-beanutils</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>commons-configuration</groupId>-->
+<!--            <artifactId>commons-configuration</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -109,10 +109,6 @@
         <dependency>
             <groupId>org.jooq</groupId>
             <artifactId>joor-java-8</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>annotations</artifactId>
         </dependency>
     </dependencies>
 

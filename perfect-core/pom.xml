@@ -75,15 +75,15 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId>
             </dependency>
-            <dependency>
-                <groupId>com.github.jsqlparser</groupId>
-                <artifactId>jsqlparser</artifactId>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.github.jsqlparser</groupId>-->
+<!--                <artifactId>jsqlparser</artifactId>-->
+<!--            </dependency>-->
             <!--google guava 工具类 -->
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.google.guava</groupId>-->
+<!--                <artifactId>guava</artifactId>-->
+<!--            </dependency>-->
             <!-- perfect 模块-->
             <dependency>
                 <groupId>com.perfect</groupId>
