@@ -1,7 +1,6 @@
-package com.perfect.bean.bo.session.user;
+package com.perfect.bean.bo.session.user.rbac;
 
 import com.perfect.bean.vo.master.rbac.permission.MPermissionOperationVo;
-import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -42,10 +41,10 @@ public class PermissionMenuOperationBo implements Serializable {
     /**
      * 菜单权限数据
      */
-    private List<OperationMenuDataVo> user_permission_menu;
+    private List<PermissionMenuBo> user_permission_menu;
 
     /**
      * 操作权限数据
      */
-    private List<MPermissionOperationVo> user_permission_operation;
+    private List<PermissionOperationBo> user_permission_operation;
 }

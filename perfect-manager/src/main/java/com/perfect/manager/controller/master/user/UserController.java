@@ -1,6 +1,6 @@
 package com.perfect.manager.controller.master.user;
 
-import com.perfect.bean.bo.session.user.PermissionMenuOperationBo;
+import com.perfect.bean.bo.session.user.rbac.PermissionMenuOperationBo;
 import com.perfect.bean.entity.master.user.MUserEntity;
 import com.perfect.bean.pojo.result.JsonResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;

@@ -1,13 +1,13 @@
 package com.perfect.framework.base.controller.v1;
 
 import com.alibaba.fastjson.JSON;
-import com.perfect.bean.bo.session.user.PermissionMenuOperationBo;
 import com.perfect.bean.bo.session.user.UserSessionBo;
+import com.perfect.bean.bo.session.user.rbac.PermissionMenuBo;
+import com.perfect.bean.bo.session.user.rbac.PermissionMenuOperationBo;
+import com.perfect.bean.bo.session.user.rbac.PermissionOperationBo;
 import com.perfect.bean.bo.sys.SysInfoBo;
 import com.perfect.bean.pojo.fs.UploadFileResultPojo;
 import com.perfect.bean.utils.servlet.ServletUtil;
-import com.perfect.bean.vo.master.rbac.permission.MPermissionOperationVo;
-import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
 import com.perfect.bean.vo.master.user.MStaffVo;
 import com.perfect.common.annotations.SysLogAnnotion;
 import com.perfect.common.constant.PerfectConstant;
@@ -289,10 +289,10 @@ public class BaseController {
         permissionMenuOperationBo.setStaff_id(userSessionBo.getStaff_Id());
         permissionMenuOperationBo.setTenant_id(userSessionBo.getTenant_Id());
         /** 设置3：菜单权限数据  */
-        List<OperationMenuDataVo> user_permission_menu = imUserPermissionService.getPermissionMenu(userSessionBo.getStaff_Id(), userSessionBo.getTenant_Id());
+        List<PermissionMenuBo> user_permission_menu = imUserPermissionService.getPermissionMenu(userSessionBo.getStaff_Id(), userSessionBo.getTenant_Id());
         permissionMenuOperationBo.setUser_permission_menu(user_permission_menu);
         /** 设置4：操作权限数据  */
-        List<MPermissionOperationVo> user_permission_operation = imUserPermissionService.getPermissionOperation(userSessionBo.getStaff_Id(), userSessionBo.getTenant_Id());
+        List<PermissionOperationBo> user_permission_operation = imUserPermissionService.getPermissionOperation(userSessionBo.getStaff_Id(), userSessionBo.getTenant_Id());
         permissionMenuOperationBo.setUser_permission_operation(user_permission_operation);
 
         /** 把用户的权限保存到redis中，但不保存到session中，和session有关联 */

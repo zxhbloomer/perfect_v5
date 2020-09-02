@@ -1,6 +1,6 @@
 package com.perfect.bean.utils.servlet;
 
-import com.perfect.bean.bo.session.user.PermissionMenuOperationBo;
+import com.perfect.bean.bo.session.user.rbac.PermissionMenuOperationBo;
 import com.perfect.bean.bo.session.user.UserSessionBo;
 import com.perfect.common.constant.PerfectConstant;
 import org.springframework.web.context.request.RequestContextHolder;

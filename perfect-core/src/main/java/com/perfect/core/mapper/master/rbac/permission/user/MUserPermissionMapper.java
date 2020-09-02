@@ -1,9 +1,12 @@
 package com.perfect.core.mapper.master.rbac.permission.user;
 
-import com.perfect.bean.vo.master.rbac.permission.MPermissionOperationVo;
-import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
+import com.perfect.bean.bo.session.user.rbac.PermissionMenuBo;
+import com.perfect.bean.bo.session.user.rbac.PermissionMenuMetaBo;
+import com.perfect.bean.bo.session.user.rbac.PermissionOperationBo;
 import com.perfect.common.constant.PerfectDictConstant;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -63,13 +66,15 @@ public interface MUserPermissionMapper {
         + "                       t2.visible,                                                          "
         + "                       t2.page_id,                                                          "
         + "                       t2.page_code,                                                        "
+        + "                       t2.path,                                                             "
         + "                       t2.full_path,                                                        "
         + "                       t2.route_name,                                                       "
         + "                       t2.meta_title,                                                       "
         + "                       t2.meta_icon,                                                        "
         + "                       t2.component,                                                        "
         + "                       t2.affix,                                                            "
-        + "                       t2.tenant_id                                                         "
+        + "                       t2.tenant_id,                                                        "
+        + "        JSON_OBJECT('title',t2.meta_title,'icon',t2.meta_icon,'affix',t2.affix) as meta,    "
         + "                  FROM tab1 t1                                                              "
         + "            INNER JOIN m_menu t2 ON t1.menu_id = t2.id                                      "
         + "                   AND t1.tenant_id = t2.tenant_id                                          "
@@ -77,7 +82,10 @@ public interface MUserPermissionMapper {
         + "                   AND ( t2.tenant_id = #{p1} or #{p1} is null )                            "
         + "              ORDER BY t2.CODE;                                                             "
         + "                ")
-    List<OperationMenuDataVo> getSystemMenu(@Param("p1")Long tenant_id);
+    @Results({
+        @Result(property = "meta", column = "meta", javaType = PermissionMenuMetaBo.class, typeHandler = com.perfect.core.config.mybatis.typehandlers.PermissionMenuMetaBoTypeHandler.class),
+    })
+    List<PermissionMenuBo> getSystemMenu(@Param("p1")Long tenant_id);
 
     /**
      * 获取菜单权限
@@ -107,6 +115,7 @@ public interface MUserPermissionMapper {
         + "                	   t2.meta_icon,                                                                             "
         + "                	   t2.component,                                                                             "
         + "                	   t2.affix,                                                                                 "
+        + "                    JSON_OBJECT('title',t2.meta_title,'icon',t2.meta_icon,'affix',t2.affix) as meta,          "
         + "                	   t2.tenant_id                                                                              "
         + "               FROM                                                                                           "
         + "                	   v_permission_tree t1                                                                      "
@@ -123,7 +132,10 @@ public interface MUserPermissionMapper {
         + "                AND ( t2.is_enable = true )                                                                   "
         + "           ORDER BY t2.CODE                                                                                   "
         + "                ")
-    List<OperationMenuDataVo> getPermissionMenu(@Param("p1") Long staff_id,@Param("p2")Long tenant_id);
+    @Results({
+        @Result(property = "meta", column = "meta", javaType = PermissionMenuMetaBo.class, typeHandler = com.perfect.core.config.mybatis.typehandlers.PermissionMenuMetaBoTypeHandler.class),
+    })
+    List<PermissionMenuBo> getPermissionMenu(@Param("p1") Long staff_id,@Param("p2")Long tenant_id);
 
 
     @Select("                                     "
@@ -136,5 +148,5 @@ public interface MUserPermissionMapper {
         + "        WHERE t1.id = #{p1}                                                      "
         + "          and ( t1.tenant_id = #{p2} or #{p2} is null )                          "
         + "                ")
-    List<MPermissionOperationVo> getPermissionOperation(@Param("p1") Long staff_id,@Param("p2")Long tenant_id);
+    List<PermissionOperationBo> getPermissionOperation(@Param("p1") Long staff_id,@Param("p2")Long tenant_id);
 }

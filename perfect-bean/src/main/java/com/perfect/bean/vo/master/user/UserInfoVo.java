@@ -1,6 +1,6 @@
 package com.perfect.bean.vo.master.user;
 
-import com.perfect.bean.bo.session.user.PermissionMenuOperationBo;
+import com.perfect.bean.bo.session.user.rbac.PermissionMenuOperationBo;
 import com.perfect.bean.bo.session.user.UserSessionBo;
 import com.perfect.bean.config.base.v1.BaseVo;
 import io.swagger.annotations.ApiModel;

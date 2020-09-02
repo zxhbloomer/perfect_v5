@@ -11,9 +11,9 @@ package com.perfect.core.serviceimpl.master.rbac.permission.user;
 
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
+import com.perfect.bean.bo.session.user.rbac.PermissionMenuBo;
+import com.perfect.bean.bo.session.user.rbac.PermissionOperationBo;
 import com.perfect.bean.utils.common.tree.TreeUtil;
-import com.perfect.bean.vo.master.rbac.permission.MPermissionOperationVo;
-import com.perfect.bean.vo.master.rbac.permission.operation.OperationMenuDataVo;
 import com.perfect.core.mapper.master.rbac.permission.user.MUserPermissionMapper;
 import com.perfect.core.service.master.rbac.permission.user.IMUserPermissionService;
 import lombok.extern.slf4j.Slf4j;
@@ -41,34 +41,34 @@ public class MUserPermissionService implements IMUserPermissionService {
      * 菜单权限数据
      */
     @Override
-    public List<OperationMenuDataVo> getPermissionMenu(Long staff_id, Long tenant_id) {
+    public List<PermissionMenuBo> getPermissionMenu(Long staff_id, Long tenant_id) {
         /** 判断是否有自定义菜单 */
 
         /** 如果没有，获取该员工的权限：（部门权限+ 岗位权限+ 员工权限+ 角色权限）- 排除权限 */
         // 获取系统菜单
-        List<OperationMenuDataVo> sysMenus = mapper.getSystemMenu(tenant_id);
+        List<PermissionMenuBo> sysMenus = mapper.getSystemMenu(tenant_id);
         // 部门权限
-        List<OperationMenuDataVo> dept_permission_menu = mapper.getPermissionMenu(staff_id, tenant_id);
+        List<PermissionMenuBo> dept_permission_menu = mapper.getPermissionMenu(staff_id, tenant_id);
         // 岗位权限
-        List<OperationMenuDataVo> position_permission_menu = null;
+        List<PermissionMenuBo> position_permission_menu = null;
         // 员工权限
-        List<OperationMenuDataVo> staff_permission_menu = null;
+        List<PermissionMenuBo> staff_permission_menu = null;
         // 角色权限
-        List<OperationMenuDataVo> roles_permission_menu = null;
+        List<PermissionMenuBo> roles_permission_menu = null;
         // 排除权限
-        List<OperationMenuDataVo> remove_permission_menu = null;
+        List<PermissionMenuBo> remove_permission_menu = null;
         /** 权限合并 */
-        for(OperationMenuDataVo vo:sysMenus) {
+        for(PermissionMenuBo vo:sysMenus) {
             // 部门权限
-            OperationMenuDataVo dept_permission_menu_results = filterData(dept_permission_menu, vo);
+            PermissionMenuBo dept_permission_menu_results = filterData(dept_permission_menu, vo);
             // 岗位权限
-            OperationMenuDataVo position_permission_menu_results = filterData(position_permission_menu, vo);
+            PermissionMenuBo position_permission_menu_results = filterData(position_permission_menu, vo);
             // 员工权限
-            OperationMenuDataVo staff_permission_menu_results = filterData(staff_permission_menu, vo);
+            PermissionMenuBo staff_permission_menu_results = filterData(staff_permission_menu, vo);
             // 角色权限
-            OperationMenuDataVo roles_permission_menu_results = filterData(roles_permission_menu, vo);
+            PermissionMenuBo roles_permission_menu_results = filterData(roles_permission_menu, vo);
             // 排除权限
-            OperationMenuDataVo remove_permission_menu_results = filterData(remove_permission_menu, vo);
+            PermissionMenuBo remove_permission_menu_results = filterData(remove_permission_menu, vo);
             /** 判断权限：（部门权限+ 岗位权限+ 员工权限+ 角色权限）- 排除权限 */
             vo.setIs_enable(getPermissionValue(dept_permission_menu_results,
                 position_permission_menu_results,
@@ -83,7 +83,7 @@ public class MUserPermissionService implements IMUserPermissionService {
 
 
         /** 设置菜单树bean，并返回 */
-        List<OperationMenuDataVo> rtnList = TreeUtil.getTreeList(sysMenus, "menu_id");
+        List<PermissionMenuBo> rtnList = TreeUtil.getTreeList(sysMenus, "menu_id");
         return rtnList;
     }
 
@@ -94,9 +94,9 @@ public class MUserPermissionService implements IMUserPermissionService {
      * @return
      */
     @Override
-    public List<MPermissionOperationVo> getPermissionOperation(Long staff_id, Long tenant_id) {
+    public List<PermissionOperationBo> getPermissionOperation(Long staff_id, Long tenant_id) {
         /** 获取操作权限数据 */
-        List<MPermissionOperationVo> list = mapper.getPermissionOperation(staff_id, tenant_id);
+        List<PermissionOperationBo> list = mapper.getPermissionOperation(staff_id, tenant_id);
         return list;
     }
 
@@ -106,11 +106,11 @@ public class MUserPermissionService implements IMUserPermissionService {
      * @param target_data
      * @return
      */
-    private OperationMenuDataVo filterData(List<OperationMenuDataVo> data, OperationMenuDataVo target_data){
+    private PermissionMenuBo filterData(List<PermissionMenuBo> data, PermissionMenuBo target_data){
         if(data == null) {
             return null;
         }
-        Collection<OperationMenuDataVo> filter = Collections2.filter(data, item -> item.getMenu_id().equals(target_data.getMenu_id()));
+        Collection<PermissionMenuBo> filter = Collections2.filter(data, item -> item.getMenu_id().equals(target_data.getMenu_id()));
         return Iterables.getOnlyElement(filter);
     }
 
@@ -123,11 +123,11 @@ public class MUserPermissionService implements IMUserPermissionService {
      * @param remove_permission_menu        排除权限
      * @return
      */
-    private boolean getPermissionValue(OperationMenuDataVo dept_permission_menu,
-        OperationMenuDataVo position_permission_menu,
-        OperationMenuDataVo staff_permission_menu,
-        OperationMenuDataVo roles_permission_menu,
-        OperationMenuDataVo remove_permission_menu
+    private boolean getPermissionValue(PermissionMenuBo dept_permission_menu,
+        PermissionMenuBo position_permission_menu,
+        PermissionMenuBo staff_permission_menu,
+        PermissionMenuBo roles_permission_menu,
+        PermissionMenuBo remove_permission_menu
         ){
         boolean rtn = false;
         if(dept_permission_menu != null){
