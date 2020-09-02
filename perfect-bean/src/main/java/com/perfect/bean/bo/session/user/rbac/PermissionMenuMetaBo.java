@@ -27,6 +27,11 @@ public class PermissionMenuMetaBo implements Serializable {
     private String title;
 
     /**
+     * name
+     */
+    private String name;
+
+    /**
      * icon
      */
     private String icon;

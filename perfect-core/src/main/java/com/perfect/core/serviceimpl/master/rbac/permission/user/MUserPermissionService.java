@@ -47,7 +47,7 @@ public class MUserPermissionService implements IMUserPermissionService {
         /** 如果没有，获取该员工的权限：（部门权限+ 岗位权限+ 员工权限+ 角色权限）- 排除权限 */
         // 获取系统菜单
         List<PermissionMenuBo> sysMenus = mapper.getSystemMenu(tenant_id);
-        // 部门权限
+        // 部门权限defaultActive
         List<PermissionMenuBo> dept_permission_menu = mapper.getPermissionMenu(staff_id, tenant_id);
         // 岗位权限
         List<PermissionMenuBo> position_permission_menu = null;
