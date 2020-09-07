@@ -1,6 +1,7 @@
 package com.perfect.bean.result.utils.v1;
 
 import com.perfect.bean.pojo.result.JsonResult;
+import com.perfect.common.constant.JsonResultTypeConstants;
 import com.perfect.common.enums.ResultEnum;
 import com.perfect.common.utils.CommonUtil;
 import com.perfect.common.utils.DateTimeUtil;
@@ -35,7 +36,7 @@ public class ResultUtil {
      * @param <T>
      * @return
      */
-    public static <T>JsonResult<T> OK(T data, boolean json_null_out) {
+    public static <T>JsonResult<T> OK(T data, Integer json_null_out) {
         return JsonResult.<T>builder()
                 .timestamp(DateTimeUtil.getTime())
                 .http_status(HttpStatus.OK.value())
@@ -45,7 +46,7 @@ public class ResultUtil {
                 .path(CommonUtil.getRequest().getRequestURL().toString())
                 .method(CommonUtil.getRequest().getMethod())
                 .success(true)
-                .json_null_out(json_null_out)
+                .json_result_type(json_null_out)
                 .data(data)
                 .build();
     }
@@ -57,7 +58,7 @@ public class ResultUtil {
      * @return
      */
     public static <T>JsonResult<T> OK(T data) {
-        return ResultUtil.OK(data, false);
+        return ResultUtil.OK(data, JsonResultTypeConstants.NORMAL);
     }
 
     /**

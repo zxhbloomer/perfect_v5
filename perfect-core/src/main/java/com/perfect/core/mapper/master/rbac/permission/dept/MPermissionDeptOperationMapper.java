@@ -50,6 +50,7 @@ public interface MPermissionDeptOperationMapper extends BaseMapper<MPermissionEn
         + "             t2.parent_path,                                                                            "
         + "             t2.path,                                                                                   "
         + "             t2.full_path,                                                                              "
+        + "             t2.default_open,                                                                              "
         + "             t2.route_name,                                                                             "
         + "             t2.meta_title,                                                                             "
         + "             t2.meta_icon,                                                                              "

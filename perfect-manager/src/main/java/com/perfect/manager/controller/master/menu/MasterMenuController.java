@@ -9,6 +9,7 @@ import com.perfect.bean.vo.master.menu.MMenuDataVo;
 import com.perfect.bean.vo.master.menu.MMenuVo;
 import com.perfect.common.annotations.RepeatSubmitAnnotion;
 import com.perfect.common.annotations.SysLogAnnotion;
+import com.perfect.common.constant.JsonResultTypeConstants;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
 import com.perfect.core.service.master.menu.IMMenuService;
@@ -54,7 +55,7 @@ public class MasterMenuController extends BaseController {
     @ResponseBody
     public ResponseEntity<JsonResult<List<MMenuDataVo>>> cascaderList(@RequestBody(required = false) MMenuVo searchCondition) {
         List<MMenuDataVo> vo = service.getCascaderList(searchCondition);
-        return ResponseEntity.ok().body(ResultUtil.OK(vo,true));
+        return ResponseEntity.ok().body(ResultUtil.OK(vo, JsonResultTypeConstants.STRING_EMPTY_BOOLEAN_FALSE));
     }
 
     @SysLogAnnotion("系统菜单数据更新保存")

@@ -33,7 +33,7 @@ public class JsonResult<T> implements Serializable {
     private boolean success;
     /** json 导出是否把null也输出*/
     @Builder.Default
-    private boolean json_null_out = true;
+    private int json_result_type = 0;
     /** 返回数据，如果类型是数组且为null，返回[] */
     private T data;
 }

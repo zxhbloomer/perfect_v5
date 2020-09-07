@@ -1,6 +1,5 @@
 package com.perfect.bean.bo.session.user.rbac;
 
-import com.perfect.bean.vo.master.rbac.permission.MPermissionOperationVo;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -47,4 +46,9 @@ public class PermissionMenuOperationBo implements Serializable {
      * 操作权限数据
      */
     private List<PermissionOperationBo> user_permission_operation;
+
+    /**
+     * 默认页面
+     */
+    private String default_page;
 }

@@ -136,6 +136,12 @@ public class MPermissionMenuEntity implements Serializable {
     private String full_path;
 
     /**
+     * 默认打开页面
+     */
+    @TableField("default_open")
+    private Boolean default_open;
+
+    /**
      * 路由名，需要唯一，很重要，且需要vue这里手工录入
      */
     @TableField("route_name")

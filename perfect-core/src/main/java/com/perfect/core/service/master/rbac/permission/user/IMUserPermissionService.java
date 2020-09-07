@@ -23,4 +23,11 @@ public interface IMUserPermissionService  {
      */
     List<PermissionOperationBo> getPermissionOperation(Long staff_id, Long tenant_id);
 
+    /**
+     * 获取默认页面
+     * @param tenant_id
+     * @return
+     */
+    String getPermissionMenuDefaultPage( Long tenant_id);
+
 }

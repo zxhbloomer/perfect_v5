@@ -9,11 +9,14 @@ package com.perfect.core.serviceimpl.master.rbac.permission.user;
  * @Version: 1.0
  */
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.perfect.bean.bo.session.user.rbac.PermissionMenuBo;
 import com.perfect.bean.bo.session.user.rbac.PermissionOperationBo;
+import com.perfect.bean.entity.master.rbac.permission.MPermissionMenuEntity;
 import com.perfect.bean.utils.common.tree.TreeUtil;
+import com.perfect.core.mapper.master.rbac.permission.MPermissionMenuMapper;
 import com.perfect.core.mapper.master.rbac.permission.user.MUserPermissionMapper;
 import com.perfect.core.service.master.rbac.permission.user.IMUserPermissionService;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +39,9 @@ public class MUserPermissionService implements IMUserPermissionService {
 
     @Autowired
     private MUserPermissionMapper mapper;
+
+    @Autowired
+    private MPermissionMenuMapper mPermissionMenuMapper;
 
     /**
      * 菜单权限数据
@@ -85,6 +91,30 @@ public class MUserPermissionService implements IMUserPermissionService {
         /** 设置菜单树bean，并返回 */
         List<PermissionMenuBo> rtnList = TreeUtil.getTreeList(sysMenus, "menu_id");
         return rtnList;
+    }
+
+    /**
+     * 获取默认页面
+     * @param tenant_id
+     * @return
+     */
+    @Override
+    public String getPermissionMenuDefaultPage(Long tenant_id) {
+        /** 判断是否有自定义菜单 */
+
+        /** 如果没有，获取default */
+        MPermissionMenuEntity mPermissionMenuEntity = mPermissionMenuMapper.selectOne(new QueryWrapper<MPermissionMenuEntity>()
+            .eq("tenant_id", tenant_id)
+            .eq("default_open", true)
+            .last("LIMIT 1")
+        );
+
+        /** 如果有
+         * TODO：暂时未实现
+         * */
+
+
+        return mPermissionMenuEntity.getFull_path();
     }
 
     /**

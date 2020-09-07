@@ -1,19 +1,17 @@
 package com.perfect.framework.config.messageconverter;
 
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.perfect.bean.pojo.result.JsonResult;
-import com.perfect.common.exception.ValidateCodeException;
+import com.perfect.common.constant.JsonResultTypeConstants;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import org.springframework.web.context.request.ServletWebRequest;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /*public class CallbackMappingJackson2HttpMessageConverter extends MappingJackson2HttpMessageConverter {
 
@@ -97,24 +95,51 @@ public class CallbackMappingJackson2HttpMessageConverter extends FastJsonHttpMes
             jsonResult = (JsonResult)o;
         } catch (Exception e) {
         }
-        if(jsonResult != null && jsonResult.isJson_null_out() ){
-            super.getFastJsonConfig().setSerializerFeatures(SerializerFeature.DisableCircularReferenceDetect,
-                                                            SerializerFeature.WriteNullStringAsEmpty,
-//                                                            SerializerFeature.WriteNullListAsEmpty,
-                                                            SerializerFeature.WriteNullBooleanAsFalse,
-                                                            SerializerFeature.PrettyFormat
-            );
-        } else {
-            super.getFastJsonConfig().setSerializerFeatures(SerializerFeature.DisableCircularReferenceDetect,
-                                                            SerializerFeature.WriteMapNullValue,
-//                                                            SerializerFeature.WriteNullStringAsEmpty,  --->注意这个不能开启
-                                                            SerializerFeature.WriteNullListAsEmpty,
-                                                            SerializerFeature.WriteNullBooleanAsFalse,
-                                                            SerializerFeature.PrettyFormat
-                                                            //,
-                                                            // SerializerFeature.WriteNullNumberAsZero
-            );
+        switch (jsonResult.getJson_result_type()) {
+            case JsonResultTypeConstants.STRING_EMPTY_BOOLEAN_FALSE:
+                super.getFastJsonConfig().setSerializerFeatures(SerializerFeature.DisableCircularReferenceDetect,
+                    SerializerFeature.WriteNullStringAsEmpty,
+                    // SerializerFeature.WriteNullListAsEmpty,
+                    SerializerFeature.WriteNullBooleanAsFalse,
+                    SerializerFeature.PrettyFormat
+                );
+                break;
+            case JsonResultTypeConstants.NULL_NOT_OUT:
+                super.getFastJsonConfig().setSerializerFeatures(SerializerFeature.DisableCircularReferenceDetect,
+                    SerializerFeature.PrettyFormat
+                );
+                break;
+            default:
+                super.getFastJsonConfig().setSerializerFeatures(SerializerFeature.DisableCircularReferenceDetect,
+                    SerializerFeature.WriteMapNullValue,
+                    //SerializerFeature.WriteNullStringAsEmpty,  --->注意这个不能开启
+                    //SerializerFeature.WriteNullListAsEmpty,    --->如果开启，json数组这里会自动生成一个空数组，而不是null
+                    SerializerFeature.WriteNullBooleanAsFalse,
+                    SerializerFeature.PrettyFormat
+                    //,
+                    // SerializerFeature.WriteNullNumberAsZero
+                );
+                break;
         }
+
+//        if(jsonResult != null && jsonResult.isJson_null_out() ){
+//            super.getFastJsonConfig().setSerializerFeatures(SerializerFeature.DisableCircularReferenceDetect,
+//                SerializerFeature.WriteNullStringAsEmpty,
+//                //                                                            SerializerFeature.WriteNullListAsEmpty,
+//                SerializerFeature.WriteNullBooleanAsFalse,
+//                SerializerFeature.PrettyFormat
+//            );
+//        } else {
+//            super.getFastJsonConfig().setSerializerFeatures(SerializerFeature.DisableCircularReferenceDetect,
+//                SerializerFeature.WriteMapNullValue,
+//                //                                                            SerializerFeature.WriteNullStringAsEmpty,  --->注意这个不能开启
+//                SerializerFeature.WriteNullListAsEmpty,
+//                SerializerFeature.WriteNullBooleanAsFalse,
+//                SerializerFeature.PrettyFormat
+//                //,
+//                // SerializerFeature.WriteNullNumberAsZero
+//            );
+//        }
         super.write(o, type, contentType, outputMessage);
     }
 

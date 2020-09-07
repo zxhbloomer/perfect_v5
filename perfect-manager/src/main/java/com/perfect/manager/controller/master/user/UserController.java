@@ -8,6 +8,7 @@ import com.perfect.bean.vo.master.user.MUserVo;
 import com.perfect.bean.vo.master.user.UserInfoVo;
 import com.perfect.common.annotations.RepeatSubmitAnnotion;
 import com.perfect.common.annotations.SysLogAnnotion;
+import com.perfect.common.constant.JsonResultTypeConstants;
 import com.perfect.common.constant.PerfectConstant;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.PasswordException;
@@ -53,7 +54,7 @@ public class UserController extends BaseController {
         userInfoVo.setPermission_data(permissionMenuOperationBo);
 
         //        ResponseEntity<OAuth2AccessToken
-        return ResponseEntity.ok().body(ResultUtil.OK(userInfoVo));
+        return ResponseEntity.ok().body(ResultUtil.OK(userInfoVo, JsonResultTypeConstants.NULL_NOT_OUT));
     }
 
     @SysLogAnnotion("登出")

@@ -10,6 +10,7 @@ import com.perfect.bean.vo.sys.config.tenant.STenantTreeVo;
 import com.perfect.bean.vo.sys.config.tenant.STenantVo;
 import com.perfect.common.annotations.RepeatSubmitAnnotion;
 import com.perfect.common.annotations.SysLogAnnotion;
+import com.perfect.common.constant.JsonResultTypeConstants;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
 import com.perfect.core.service.sys.config.tenant.ITenantService;
@@ -59,7 +60,7 @@ public class TenantController extends BaseController implements TenantMqCallback
     public ResponseEntity<JsonResult<List<STenantTreeVo>>> cascaderList(@RequestBody(required = false)SConfigVo searchCondition) {
         List<STenantTreeVo> vo = service.getCascaderList(null,null);
         List<STenantTreeVo> rtnVo = TreeUtil.getTreeList(vo);
-        return ResponseEntity.ok().body(ResultUtil.OK(rtnVo,true));
+        return ResponseEntity.ok().body(ResultUtil.OK(rtnVo, JsonResultTypeConstants.STRING_EMPTY_BOOLEAN_FALSE));
     }
 
     @SysLogAnnotion("根据参数id，获取租户信息")

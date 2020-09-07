@@ -1,5 +1,6 @@
 package com.perfect.bean.vo.master.rbac.permission;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -115,6 +116,11 @@ public class MPermissionMenuVo implements Serializable {
      * 完整地址
      */
     private String full_path;
+
+    /**
+     * 默认打开页面
+     */
+    private Boolean default_open;
 
     /**
      * 路由名，需要唯一，很重要，且需要vue这里手工录入
