@@ -90,6 +90,9 @@ public class MUserPermissionService implements IMUserPermissionService {
 
         /** 设置菜单树bean，并返回 */
         List<PermissionMenuBo> rtnList = TreeUtil.getTreeList(sysMenus, "menu_id");
+
+        /** 递归菜单树，设置默认菜单 */
+
         return rtnList;
     }
 

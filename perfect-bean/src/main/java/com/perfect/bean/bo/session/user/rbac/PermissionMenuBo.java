@@ -50,6 +50,12 @@ public class PermissionMenuBo extends TreeNode implements Serializable {
     private String type;
 
     /**
+     * noRedirect:不跳转
+     * 其他：正常跳转
+     */
+    private String redirect;
+
+    /**
      * page_code
      */
     private String page_code;

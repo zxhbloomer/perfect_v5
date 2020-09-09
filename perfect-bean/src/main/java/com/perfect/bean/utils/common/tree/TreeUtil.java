@@ -117,4 +117,17 @@ public class TreeUtil {
         }
         return null;
     }
+
+
+//    public static <T extends ITreeNode> List<T> getSubNodes(List<T> list, Long pid, List<T> childList) {
+//        for (T sub : list) {
+//            //遍历出父id等于参数的id,add进子节点集合
+//            if (sub.getParent_id().equals(pid)) {
+//                childList.add(sub);
+//                //递归遍历下一级
+//                getSubNodes(list, sub.getParent_id(), childList);
+//            }
+//        }
+//        return childList;
+//    }
 }
