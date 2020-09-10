@@ -313,6 +313,12 @@ public class MMenuServiceImpl extends BaseServiceImpl<MMenuMapper, MMenuEntity> 
         // 设置type
         entity.setType(PerfectDictConstant.DICT_SYS_MENU_TYPE_NODE);
 
+        // 设置meta_titile
+        entity.setMeta_title(entity.getName());
+
+        // 设置component 为null
+        entity.setComponent(null);
+
         // 设置路径
         entity.setParent_path(vo.getParent_path());
         entity.setPath(vo.getPath());
@@ -410,6 +416,10 @@ public class MMenuServiceImpl extends BaseServiceImpl<MMenuMapper, MMenuEntity> 
         // 更新逻辑保存
         entity.setC_id(null);
         entity.setC_time(null);
+        entity.setMeta_title(entity.getName());
+        if(entity.getType().equals(PerfectDictConstant.DICT_SYS_MENU_TYPE_NODE)){
+            entity.setComponent(null);
+        }
         if(mapper.updateById(entity) == 0) {
             throw new UpdateErrorException("保存的数据已经被修改，请查询后重新编辑更新。");
         }
