@@ -65,7 +65,7 @@ public interface MUserPermissionMapper {
         + "                       t2.visible,                                                                        "
         + "                       t2.page_id,                                                                        "
         + "                       t2.page_code,                                                                      "
-        + "                       CONCAT('/',t2.path) as path,                                                                           "
+        + "                       t2.path,                                                                           "
         + "                       t2.full_path,                                                                      "
         + "                       t2.default_open,                                                                   "
         + "                       t2.route_name,                                                                     "
