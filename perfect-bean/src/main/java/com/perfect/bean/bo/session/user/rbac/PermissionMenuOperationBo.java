@@ -40,6 +40,11 @@ public class PermissionMenuOperationBo implements Serializable {
     /**
      * 菜单权限数据
      */
+    private List<PermissionMenuBo> user_permission_top_nav;
+
+    /**
+     * 菜单权限数据
+     */
     private List<PermissionMenuBo> user_permission_menu;
 
     /**

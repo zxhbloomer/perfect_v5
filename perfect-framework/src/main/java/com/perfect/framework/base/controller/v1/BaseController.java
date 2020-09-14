@@ -289,6 +289,8 @@ public class BaseController {
         permissionMenuOperationBo.setStaff_id(userSessionBo.getStaff_Id());
         permissionMenuOperationBo.setTenant_id(userSessionBo.getTenant_Id());
         /** 设置3：菜单权限数据  */
+        List<PermissionMenuBo> user_permission_menu_topNav = imUserPermissionService.getPermissionMenuTopNav(userSessionBo.getTenant_Id());
+        permissionMenuOperationBo.setUser_permission_top_nav(user_permission_menu_topNav);
         List<PermissionMenuBo> user_permission_menu = imUserPermissionService.getPermissionMenu(userSessionBo.getStaff_Id(), userSessionBo.getTenant_Id());
         permissionMenuOperationBo.setUser_permission_menu(user_permission_menu);
         String default_page_path = imUserPermissionService.getPermissionMenuDefaultPage(userSessionBo.getTenant_Id());

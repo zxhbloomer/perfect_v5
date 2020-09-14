@@ -13,6 +13,12 @@ import java.util.List;
  * @Version: 1.0
  */
 public interface IMUserPermissionService  {
+
+    /**
+     * 菜单权限数据，顶部导航栏
+     */
+    List<PermissionMenuBo> getPermissionMenuTopNav(Long tenant_id);
+
     /**
      * 菜单权限数据
      */

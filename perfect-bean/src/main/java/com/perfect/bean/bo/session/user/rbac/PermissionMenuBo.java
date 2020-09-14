@@ -42,6 +42,16 @@ public class PermissionMenuBo extends TreeNode implements Serializable {
     private Long page_id;
 
     /**
+     * 顶部导航栏的code
+     */
+    private String nav_code;
+
+    /**
+     * 顶部导航栏的rownum_char，index
+     */
+    private String index;
+
+    /**
      * 菜单类型
      * T:顶部导航栏
      * R：根节点

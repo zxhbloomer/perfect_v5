@@ -14,9 +14,9 @@ import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.perfect.bean.bo.session.user.rbac.PermissionMenuBo;
 import com.perfect.bean.bo.session.user.rbac.PermissionOperationBo;
-import com.perfect.bean.entity.master.rbac.permission.MPermissionMenuEntity;
+import com.perfect.bean.entity.master.menu.MMenuEntity;
 import com.perfect.bean.utils.common.tree.TreeUtil;
-import com.perfect.core.mapper.master.rbac.permission.MPermissionMenuMapper;
+import com.perfect.core.mapper.master.menu.MMenuMapper;
 import com.perfect.core.mapper.master.rbac.permission.user.MUserPermissionMapper;
 import com.perfect.core.service.master.rbac.permission.user.IMUserPermissionService;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +41,16 @@ public class MUserPermissionService implements IMUserPermissionService {
     private MUserPermissionMapper mapper;
 
     @Autowired
-    private MPermissionMenuMapper mPermissionMenuMapper;
+    private MMenuMapper mMenuMapper;
+
+    /**
+     * 菜单权限数据，顶部导航栏
+     */
+    @Override
+    public List<PermissionMenuBo> getPermissionMenuTopNav(Long tenant_id) {
+        List<PermissionMenuBo> rtn = mapper.getPermissionMenuTopNav(tenant_id);
+        return rtn;
+    }
 
     /**
      * 菜单权限数据
@@ -106,7 +115,7 @@ public class MUserPermissionService implements IMUserPermissionService {
         /** 判断是否有自定义菜单 */
 
         /** 如果没有，获取default */
-        MPermissionMenuEntity mPermissionMenuEntity = mPermissionMenuMapper.selectOne(new QueryWrapper<MPermissionMenuEntity>()
+        MMenuEntity mMenuEntity = mMenuMapper.selectOne(new QueryWrapper<MMenuEntity>()
             .eq("tenant_id", tenant_id)
             .eq("default_open", true)
             .last("LIMIT 1")
@@ -117,7 +126,7 @@ public class MUserPermissionService implements IMUserPermissionService {
          * */
 
 
-        return mPermissionMenuEntity.getFull_path();
+        return mMenuEntity.getFull_path();
     }
 
     /**

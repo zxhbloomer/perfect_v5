@@ -22,6 +22,19 @@ import java.util.List;
 @Repository
 public interface MUserPermissionMapper {
 
+
+    @Select("                                                                                    "
+        + "          select t1.*,                                                                "
+        + "                 right(t1.code,2) nav_code,                                           "
+        + "                 CONCAT(@rownum := @rownum +1,'') AS `index`                          "
+        + "            from m_menu t1,                                                           "
+        + "                 (SELECT @rownum := 0) t2                                             "
+        + "           where t1.type = '"+ PerfectDictConstant.DICT_SYS_MENU_TYPE_TOPNAV +"'      "
+        + "             and (t1.tenant_id = #{p1} or #{p1} is null)                              "
+        + "        order by t1.code                                                              "
+        + "                                                                                      ")
+    List<PermissionMenuBo> getPermissionMenuTopNav(@Param("p1")Long tenant_id);
+
     @Select("                                                                                                            "
         + "                    WITH recursive tab1 AS (                                                              "
         + "                        SELECT                                                                            "
