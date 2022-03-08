@@ -44,7 +44,7 @@
         <project.build.jdk>${java.version}</project.build.jdk>
         <project.build.springbootversion>2.3.2.RELEASE</project.build.springbootversion>
         <spring.social.version>1.1.6.RELEASE</spring.social.version>
-        <poi.version>4.1.0</poi.version>
+        <poi.version>5.2.1</poi.version>
         <fastjson.version>1.2.73</fastjson.version>
         <mybatis-plus.version>3.3.2</mybatis-plus.version>
         <mysql-connector-java.version>8.0.20</mysql-connector-java.version>
